@@ -46,7 +46,7 @@
     <label>REGISTRO DE SALIDAS</label><br><br>
     <label><b>NOMBRE COMPLETO:</b>&nbsp;&nbsp;&nbsp;{{$nombre}}</label><br>
     <label><b>DEPENDENCIA:</b>&nbsp;&nbsp;&nbsp;{{$dependencia}}</label><br>
-    <label><b>FECHA DE INICIO: </b>&nbsp;&nbsp;&nbsp;{{$fecha_inicio}} <b>&nbsp;&nbsp;&nbsp;FECHA DE FINAL: </b>&nbsp;&nbsp;&nbsp;{{$fecha_final}}</label><br><br>
+    <label><b>FECHA DE INICIO: </b>&nbsp;&nbsp;&nbsp;{{$fecha_inicio}} <b>&nbsp;&nbsp;&nbsp;FECHA FINAL: </b>&nbsp;&nbsp;&nbsp;{{$fecha_final}}</label><br><br>
     <table>
         <thead>
             <tr>
