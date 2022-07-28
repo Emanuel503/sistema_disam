@@ -7,6 +7,7 @@
     <title>Sistema administracion</title>
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/estilos.css') }}" rel="stylesheet">
+    <link href="{{env('APP_URL')}}/sistema_disam/public/img/escudo.png" rel="icon" type="image/x-icon"> 
     @yield('css-data-table')
     @yield('css-fullcalendar')
 </head>
