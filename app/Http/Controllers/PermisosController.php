@@ -15,28 +15,35 @@ use Illuminate\Support\Facades\App;
 
 class PermisosController extends Controller
 {
+    public function reporte()
+    {
+        $permisos = Permisos::all();
+        $usuarios = User::all();
+        return view('permisos.reporte', ['permisos' => $permisos, 'usuarios' => $usuarios]);
+    }
+
     public function reportePdf(Request $request)
     {
         $pdf = App::make('dompdf.wrapper');
 
-        $transportes = DB::select("SELECT v.placa, CONCAT(c.nombres,' ',c.apellidos) as 'conductor', t.correlativo, t.fecha,  ld.nombre as 'lugar_d', t.combustible, t.km_salida, t.km_destino, t.distancia_recorrida FROM transportes t INNER JOIN lugares ld ON t.lugar_destino = ld.id INNER JOIN users c ON t.id_conductor = c.id INNER JOIN vehiculos v ON t.id_placa = v.id WHERE t.id_placa = ? AND t.fecha LIKE ?" , [$request->id_vehiculo, $request->fecha.'%']);
+        $permisos = DB::select("SELECT u.id, u.nombres, u.apellidos, d.nombre, tp.tipo_permiso, mp.motivo, c.id_tecnico, p.fecha_entrada, p.hora_entrada, p.fecha_salida, 
+        p.hora_salida, p.fecha_permiso, p.tiempo_dia, p.tiempo_horas, p.tiempo_minutos, p.created_at, p.updated_at, ep.estado FROM permisos p 
+        INNER JOIN users u ON u.id = p.id_usuario
+        INNER JOIN tipos_permisos tp ON tp.id = p.id_licencia 
+        INNER JOIN motivos_permisos mp ON mp.id = p.id_motivo 
+        INNER JOIN coordinadores c ON c.id_tecnico = p.id_usuario_autoriza 
+        INNER JOIN dependencias d ON d.id = u.id_dependencia
+        INNER JOIN estados_permisos ep ON ep.id = p.id_estado 
+        WHERE p.id_usuario = ?  AND (p.fecha_entrada BETWEEN ? AND ? AND p.fecha_salida BETWEEN ? AND ?)", [$request->usuario, $request->fecha_inicio, $request->fecha_finalizacion, $request->fecha_inicio, $request->fecha_finalizacion]);
 
-        if(sizeof($transportes) > 0){
-            $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
-            $mes = $meses[date("n", strtotime($request->fecha)-1)];
-            $year = date("Y", strtotime($request->fecha));
+        $coordinadores = DB::select("SELECT u.nombres, u.apellidos, c.id, c.id_tecnico FROM coordinadores c INNER JOIN users u ON u.id = c.id_tecnico");
 
-            $pdf->loadView('transporte.consumo-combustible-pdf', ['year' => $year, 'mes' => $mes,'transportes' => $transportes])->setPaper('letter', 'landscape');
+        if (sizeof($permisos) > 0) {
+            $pdf->loadView('permisos.reporte-pdf', ['permisos' => $permisos, 'coordinadores' => $coordinadores, 'fecha_inicio' => $request->fecha_inicio, 'fecha_finalizacion' => $request->fecha_finalizacion])->setPaper('letter', 'portrait');
             return $pdf->stream();
-        }else{
-            return redirect()->route('transporte.comsumoCombustible')->with('errorDatos', 'No hay registros disponibles.')->withInput();
+        } else {
+            return redirect()->route('reporte.reporte')->with('errorDatos', 'No hay registros disponibles.')->withInput();
         }
-    }
-
-    public function reporte()
-    {
-        $usuarios = User::all();
-        return view('permisos.index-permisos', ['usuarios' => $usuarios]);
     }
 
     public function index()
@@ -48,7 +55,7 @@ class PermisosController extends Controller
         $motivos = MotivosPermisos::all();
         $tipos = TiposPermisos::all();
 
-        return view('permisos.index-permisos', ['permisos' => $permisos, 'usuarios' => $usuarios,'estados' => $estados, 'motivos' => $motivos, 'tipos' => $tipos, 'coordinadores' => $coordinadores]);
+        return view('permisos.index-permisos', ['permisos' => $permisos, 'usuarios' => $usuarios, 'estados' => $estados, 'motivos' => $motivos, 'tipos' => $tipos, 'coordinadores' => $coordinadores]);
     }
 
     public function show($id)

@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Reporte de bitacora recorridos</title>
     <style>
-        .{
+        *{
             margin-top: 7px;
             margin-left: 7px;
             margin-right: 14px;
