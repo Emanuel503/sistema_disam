@@ -24,7 +24,6 @@
                     @foreach ($vehiculos as $vehiculo )
                         <option @selected( old('id_vehiculo')==$vehiculo->id) value="{{$vehiculo->id}}">{{$vehiculo->placa}}</option>
                     @endforeach
-                        <option value="0">Todos</option>
                 </select>
             </div>
 
