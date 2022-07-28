@@ -17,24 +17,20 @@ class RegistrosSalidasController extends Controller
     {
         $pdf = App::make('dompdf.wrapper');
 
-        $transportes = DB::select("SELECT v.placa, CONCAT(c.nombres,' ',c.apellidos) as 'conductor', t.correlativo, t.fecha,  ld.nombre as 'lugar_d', t.combustible, t.km_salida, t.km_destino, t.distancia_recorrida FROM transportes t INNER JOIN lugares ld ON t.lugar_destino = ld.id INNER JOIN users c ON t.id_conductor = c.id INNER JOIN vehiculos v ON t.id_placa = v.id WHERE t.id_placa = ? AND t.fecha LIKE ?" , [$request->id_vehiculo, $request->fecha.'%']);
+        $salidas = DB::select("SELECT CONCAT(u.nombres,' ',u.apellidos) as 'tecnico', l.nombre as 'lugar', d.nombre as 'dependencia', l.nombre , r.fecha, r.hora_inicio, r.hora_final, r.objetivo, e.estado FROM registros_salidas r INNER JOIN users u ON r.id_usuario = u.id INNER JOIN lugares l ON r.id_lugar = l.id INNER JOIN dependencias d ON d.id = u.id_dependencia INNER JOIN estados_salidas e ON r.id_estado = e.id WHERE r.id_usuario = ? AND r.fecha BETWEEN ? AND ?", [$request->id_usuario ,$request->fecha_inicio, $request->fecha_final]);
 
-        if(sizeof($transportes) > 0){
-            $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
-            $mes = $meses[date("n", strtotime($request->fecha)-1)];
-            $year = date("Y", strtotime($request->fecha));
-
-            $pdf->loadView('transporte.consumo-combustible-pdf', ['year' => $year, 'mes' => $mes,'transportes' => $transportes])->setPaper('letter', 'landscape');
+        if(sizeof($salidas) > 0){
+            $pdf->loadView('registros-salidas.reportePdf', ['fecha_inicio' => $request->fecha_inicio, 'fecha_final' => $request->fecha_final,'salidas' => $salidas])->setPaper('letter');
             return $pdf->stream();
         }else{
-            return redirect()->route('transporte.comsumoCombustible')->with('errorDatos', 'No hay registros disponibles.')->withInput();
+            return redirect()->route('registros-salida.reporte')->with('errorDatos', 'No hay registros disponibles.')->withInput();
         }
     }
 
     public function reporte()
     {
         $usuarios = User::all();
-        return view('permisos.index-permisos', ['usuarios' => $usuarios]);
+        return view('registros-salidas.reporte', ['usuarios' => $usuarios]);
     }
 
     public function comprobarHoras($hora_salida, $hora_fin)
