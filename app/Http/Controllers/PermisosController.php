@@ -42,7 +42,7 @@ class PermisosController extends Controller
             $pdf->loadView('permisos.reporte-pdf', ['permisos' => $permisos, 'coordinadores' => $coordinadores, 'fecha_inicio' => $request->fecha_inicio, 'fecha_finalizacion' => $request->fecha_finalizacion])->setPaper('letter', 'portrait');
             return $pdf->stream();
         } else {
-            return redirect()->route('reporte.reporte')->with('errorDatos', 'No hay registros disponibles.')->withInput();
+            return redirect()->route('permisos.reporte')->with('errorDatos', 'No hay registros disponibles.')->withInput();
         }
     }
 
