@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\App;
 
 class PermisosController extends Controller
 {
-
     public function reportePdf(Request $request)
     {
         $pdf = App::make('dompdf.wrapper');
