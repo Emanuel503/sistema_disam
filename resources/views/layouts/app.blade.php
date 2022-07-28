@@ -68,6 +68,8 @@
                                     <li><a class="dropdown-item" href="{{route('transporte.comsumoCombustible')}}">Consumo de combustible</a></li>
                                 </ul>
                             </li>
+                            <li><a class="dropdown-item" href="{{route('permisos.reporte')}}">Permisos</a></li>
+                            <li><a class="dropdown-item" href="{{route('registros-salida.reporte')}}">Registros de salidas</a></li>
                         </ul>
                     </li>
                 </ul>

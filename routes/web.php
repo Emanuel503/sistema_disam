@@ -27,6 +27,8 @@ Route::resource('/solicitudes-transporte', SolicitudesTransporteController::clas
 Route::resource('/dependencias', DependenciasController::class)->middleware('auth');
 Route::resource('/vehiculos', VehiculosController::class)->middleware('auth');
 Route::resource('/lugares', LugaresController::class)->middleware('auth');
+Route::get('/permisos/reporte/', [App\Http\Controllers\PermisosController::class, 'reporte'])->name('permisos.reporte')->middleware('auth');
+Route::post('/permisos/reporte/', [App\Http\Controllers\PermisosController::class, 'reportePdf'])->name('permisos.reportePdf')->middleware('auth');
 Route::resource('/permisos', PermisosController::class)->middleware('auth');
 Route::resource('/coordinadores', CoordinadoresController::class)->middleware('auth');
 Route::get('/transporte/comsumo-combustible/', [App\Http\Controllers\TransporteController::class, 'comsumoCombustible'])->name('transporte.comsumoCombustible')->middleware('auth');
@@ -36,11 +38,10 @@ Route::post('/transporte/bitacora-recorridos/', [App\Http\Controllers\Transporte
 Route::get('/transporte/pdf/{id}', [App\Http\Controllers\TransporteController::class, 'pdf'])->name('transporte.pdf')->middleware('auth');
 Route::resource('/transporte', TransporteController::class)->middleware('auth');
 Route::resource('/solicitud-combustible', SolicitudCombustibleController::class)->middleware('auth');
+Route::get('/registros-salida/reporte/', [App\Http\Controllers\RegistrosSalidasController::class, 'reporte'])->name('registros-salida.reporte')->middleware('auth');
+Route::post('/registros-salida/reporte/', [App\Http\Controllers\RegistrosSalidasController::class, 'reportePdf'])->name('registros-salida.reportePdf')->middleware('auth');
 Route::resource('/registros-salida', RegistrosSalidasController::class)->middleware('auth');
 Route::get('/calendario', [App\Http\Controllers\CalendarioController::class, 'calendar'])->middleware('auth');
 Route::post('/calendario/actividad/{id}', [App\Http\Controllers\CalendarioController::class, 'actividad'])->middleware('auth');
 Route::post('/calendario/salida/{id}', [App\Http\Controllers\CalendarioController::class, 'salida'])->middleware('auth');
-Route::post('/calendario/solicitud-sala/{id}', [App\Http\Controllers\CalendarioController::class, 'solicitudSala'])->middleware('auth');;
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::post('/calendario/solicitud-sala/{id}', [App\Http\Controllers\CalendarioController::class, 'solicitudSala'])->middleware('auth');
