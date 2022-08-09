@@ -6,6 +6,8 @@ use App\Http\Controllers\SolicitudesSalasController;
 use App\Http\Controllers\ActividadesController;
 use App\Http\Controllers\CoordinadoresController;
 use App\Http\Controllers\DependenciasController;
+use App\Http\Controllers\DescripcionEquiposController;
+use App\Http\Controllers\FuenteEquiposController;
 use App\Http\Controllers\LugaresController;
 use App\Http\Controllers\PermisosController;
 use App\Http\Controllers\VehiculosController;
@@ -14,11 +16,14 @@ use App\Http\Controllers\RegistrosSalidasController;
 use App\Http\Controllers\SolicitudesTransporteController;
 use App\Http\Controllers\TransporteController;
 use App\Http\Controllers\SolicitudCombustibleController;
+use App\Http\Controllers\UbicacionEquiposController;
 use Illuminate\Support\Facades\Auth;
 
 Auth::routes();
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// Rutas
 Route::resource('/users', UsersController::class)->middleware('auth');
 Route::resource('/salas', SalasController::class)->middleware('auth');
 Route::resource('/solicitudes-sala', SolicitudesSalasController::class)->middleware('auth');
@@ -27,20 +32,27 @@ Route::resource('/solicitudes-transporte', SolicitudesTransporteController::clas
 Route::resource('/dependencias', DependenciasController::class)->middleware('auth');
 Route::resource('/vehiculos', VehiculosController::class)->middleware('auth');
 Route::resource('/lugares', LugaresController::class)->middleware('auth');
-Route::get('/permisos/reporte/', [App\Http\Controllers\PermisosController::class, 'reporte'])->name('permisos.reporte')->middleware('auth');
-Route::post('/permisos/reporte/', [App\Http\Controllers\PermisosController::class, 'reportePdf'])->name('permisos.reportePdf')->middleware('auth');
 Route::resource('/permisos', PermisosController::class)->middleware('auth');
 Route::resource('/coordinadores', CoordinadoresController::class)->middleware('auth');
+Route::resource('/transporte', TransporteController::class)->middleware('auth');
+Route::resource('/solicitud-combustible', SolicitudCombustibleController::class)->middleware('auth');
+Route::resource('/registros-salida', RegistrosSalidasController::class)->middleware('auth');
+Route::resource('/descripcion-equipo', DescripcionEquiposController::class)->middleware('auth');
+Route::resource('/ubicacion-equipo', UbicacionEquiposController::class)->middleware('auth');
+Route::resource('/fuente-equipo', FuenteEquiposController::class)->middleware('auth');
+
+// PDF
+Route::get('/permisos/reporte/', [App\Http\Controllers\PermisosController::class, 'reporte'])->name('permisos.reporte')->middleware('auth');
+Route::post('/permisos/reporte/', [App\Http\Controllers\PermisosController::class, 'reportePdf'])->name('permisos.reportePdf')->middleware('auth');
 Route::get('/transporte/comsumo-combustible/', [App\Http\Controllers\TransporteController::class, 'comsumoCombustible'])->name('transporte.comsumoCombustible')->middleware('auth');
 Route::post('/transporte/comsumo-combustible/', [App\Http\Controllers\TransporteController::class, 'comsumoCombustiblePdf'])->name('transporte.comsumoCombustiblePdf')->middleware('auth');
 Route::get('/transporte/bitacora-recorridos/', [App\Http\Controllers\TransporteController::class, 'bitacoraRecorridos'])->name('transporte.bitacoraRecorridos')->middleware('auth');
 Route::post('/transporte/bitacora-recorridos/', [App\Http\Controllers\TransporteController::class, 'bitacoraRecorridosPdf'])->name('transporte.bitacoraRecorridosPdf')->middleware('auth');
 Route::get('/transporte/pdf/{id}', [App\Http\Controllers\TransporteController::class, 'pdf'])->name('transporte.pdf')->middleware('auth');
-Route::resource('/transporte', TransporteController::class)->middleware('auth');
-Route::resource('/solicitud-combustible', SolicitudCombustibleController::class)->middleware('auth');
 Route::get('/registros-salida/reporte/', [App\Http\Controllers\RegistrosSalidasController::class, 'reporte'])->name('registros-salida.reporte')->middleware('auth');
 Route::post('/registros-salida/reporte/', [App\Http\Controllers\RegistrosSalidasController::class, 'reportePdf'])->name('registros-salida.reportePdf')->middleware('auth');
-Route::resource('/registros-salida', RegistrosSalidasController::class)->middleware('auth');
+
+// Calendario
 Route::get('/calendario', [App\Http\Controllers\CalendarioController::class, 'calendar'])->middleware('auth');
 Route::post('/calendario/actividad/{id}', [App\Http\Controllers\CalendarioController::class, 'actividad'])->middleware('auth');
 Route::post('/calendario/salida/{id}', [App\Http\Controllers\CalendarioController::class, 'salida'])->middleware('auth');

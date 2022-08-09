@@ -7,7 +7,7 @@
     <title>Sistema administracion</title>
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/estilos.css') }}" rel="stylesheet">
-    <link href="{{env('APP_URL')}}/sistema_disam/public/img/escudo.png" rel="icon" type="image/x-icon"> 
+    <link href="{{env('APP_URL')}}/sistema_disam/public/img/escudo.png" rel="icon" type="image/x-icon">
     @yield('css-data-table')
     @yield('css-fullcalendar')
 </head>
@@ -40,6 +40,13 @@
                             <li><a class="dropdown-item" href="{{route('lugares.index')}}">Lugares</a></li>
                             <li><a class="dropdown-item" href="{{route('vehiculos.index')}}">Vehiculos</a></li>
                             <li><a class="dropdown-item" href="{{route('dependencias.index')}}">Dependencias</a></li>
+                            <li><a class="dropdown-item" href="#">Equipos &raquo;</a>
+                                <ul class="submenu dropdown-menu dropdown-menu-dark">
+                                    <li><a class="dropdown-item" href="{{route('descripcion-equipo.index')}}">Descripciones</a></li>
+                                    <li><a class="dropdown-item" href="{{route('ubicacion-equipo.index')}}">Ubicación</a></li>
+                                    <li><a class="dropdown-item" href="{{route('fuente-equipo.index')}}">Fuentes</a></li>
+                                </ul>
+                            </li>
                         </ul>
                     </li>
                     @endif
@@ -99,7 +106,7 @@
     <div class="container my-4">
         @yield('content')
     </div>
-    
+
     <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/funciones.js') }}"></script>
