@@ -64,6 +64,13 @@
                             <li><a class="dropdown-item" href="{{route('solicitudes-sala.index')}}">Solicitudes de sala</a></li>
                             <li><a class="dropdown-item" href="{{route('registros-salida.index')}}">Registros de salida</a></li>
                             <li><a class="dropdown-item" href="{{route('permisos.index')}}">Permisos</a></li>
+                            <li><a class="dropdown-item" href="#">Activo Fijo &raquo;</a>
+                                <ul class="submenu dropdown-menu dropdown-menu-dark">
+                                    <li><a class="dropdown-item" href="{{route('equipos.index')}}">Equipo y Mobiliario</a></li>
+                                    <li><a class="dropdown-item" href="#">Ubicación</a></li>
+                                    <li><a class="dropdown-item" href="#">Fuentes</a></li>
+                                </ul>
+                            </li>
                         </ul>
                     </li>
 

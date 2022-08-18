@@ -7,6 +7,7 @@ use App\Http\Controllers\ActividadesController;
 use App\Http\Controllers\CoordinadoresController;
 use App\Http\Controllers\DependenciasController;
 use App\Http\Controllers\DescripcionEquiposController;
+use App\Http\Controllers\EquiposController;
 use App\Http\Controllers\FuenteEquiposController;
 use App\Http\Controllers\LugaresController;
 use App\Http\Controllers\PermisosController;
@@ -40,6 +41,7 @@ Route::resource('/registros-salida', RegistrosSalidasController::class)->middlew
 Route::resource('/descripcion-equipo', DescripcionEquiposController::class)->middleware('auth');
 Route::resource('/ubicacion-equipo', UbicacionEquiposController::class)->middleware('auth');
 Route::resource('/fuente-equipo', FuenteEquiposController::class)->middleware('auth');
+Route::resource('/equipos', EquiposController::class)->middleware('auth');
 
 // PDF
 Route::get('/permisos/reporte/', [App\Http\Controllers\PermisosController::class, 'reporte'])->name('permisos.reporte')->middleware('auth');
