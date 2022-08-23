@@ -16,7 +16,7 @@ class AsignacionEquiposController extends Controller
         $asignaciones = DB::select("SELECT ae.id_usuario, ae.id, ae.id_equipo, ae.fecha_asignacion, ae.observacion, ae.estado, 
         u.nombres, u.apellidos, d.nombre, u.cargo  FROM asignacion_equipos ae
         INNER JOIN users u ON u.id = ae.id_usuario
-        INNER JOIN dependencias d ON d.id = u.id_dependencia");
+        INNER JOIN dependencias d ON d.id = u.id_dependencia GROUP BY ae.id_usuario");
         $usuarios = User::all();
         $equipos = DB::select("SELECT * FROM equipos Where id NOT IN (SELECT id_equipo FROM asignacion_equipos)");
 
