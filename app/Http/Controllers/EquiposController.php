@@ -47,6 +47,13 @@ class EquiposController extends Controller
         return view('equipos.edit-equipos', ['equipos' => $equipos, 'ubicaciones' => $ubicaciones, 'fuentes' => $fuentes, 'unidades' => $unidades, 'estados' => $estados, 'descripciones' => $descripciones]);
     }
 
+    public function isImage($file){
+        $extension = $file->extension();
+        if($extension == "png" || $extension == "jpg" || $extension == "jpeg" || $extension == "webp"){
+            return true;
+        }
+    }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -86,6 +93,13 @@ class EquiposController extends Controller
         $file = $request->file('image');
         
         if(isset($file)){
+
+            $guardar = $this->isImage($file);
+
+            if($guardar == false){
+                return redirect()->route('equipos.index')->with('errorFormato', 'Formato de imagen no valido.')->withInput();
+            }
+
             $filename = date('YmdHi') . '-' . $file->getClientOriginalName();
             $file->move(public_path('images'), $filename);
             $equipos->imagen = $filename;
@@ -133,11 +147,18 @@ class EquiposController extends Controller
         $file = $request->file('image');
         
         if(isset($file)){
+            
+            $guardar = $this->isImage($file);
+
+            if($guardar == false){
+                return redirect()->route('equipos.edit', ['equipo' => $id])->with('errorFormato', 'Formato de imagen no valido.')->withInput();
+            }
+
             if($equipos->imagen != null){
                 unlink(public_path('images') ."\\". $equipos->imagen);
             }
 
-            $filename = date('YmdHi') . '-' . $file->getClientOriginalName();
+            $filename = date('YmdHis') . '-' . $file->getClientOriginalName();
             $file->move(public_path('images'), $filename);
             $equipos->imagen = $filename;
         }
