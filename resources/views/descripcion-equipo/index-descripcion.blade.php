@@ -1,12 +1,12 @@
 @php
-if (Auth::user()->rol->rol != "Administrador"){
-header("Location: home");
-die();
-}
+    if (Auth::user()->rol->rol != "Administrador"){
+        header("Location: home");
+        die();
+    }
 @endphp
 
 @section('css-data-table')
-<link href="{{ asset('css/DataTables.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/DataTables.css') }}" rel="stylesheet">
 @endsection
 
 @extends('layouts.app')
@@ -21,7 +21,7 @@ die();
 
 @if (sizeof($descripciones) > 0)
 <div class="table-responsive">
-    <table id="descripcion" class="table table-striped table-hover table-bordered table-sm shadow">
+    <table id="descripcionEquipos" class="table table-striped table-hover table-bordered table-sm shadow">
         <thead>
             <tr class="table-dark">
                 <th>#</th>
@@ -85,11 +85,11 @@ die();
 <script src="{{ asset('js/dataTables.bootstrap5.min.js') }}"></script>
 <script>
     $(document).ready(function() {
-        $('#descripcion tbody').on('click', 'tr', function() {
+        $('#descripcionEquipos tbody').on('click', 'tr', function() {
             $(this).toggleClass('selected');
         });
 
-        $('#descripcion').DataTable({
+        $('#descripcionEquipos').DataTable({
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
             }

@@ -30,7 +30,7 @@ class DescripcionEquiposController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'descripcion' => 'required',
+            'descripcion' => 'required|min:3',
         ]);
 
         $descripciones = new DescripcionEquipos;
@@ -43,7 +43,7 @@ class DescripcionEquiposController extends Controller
     public function update($id, Request $request)
     {
         $request->validate([
-            'descripcion' => 'required',
+            'descripcion' => 'required|min:3',
         ]);
 
         $descripciones = DescripcionEquipos::find($id);

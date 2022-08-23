@@ -30,7 +30,7 @@ class FuenteEquiposController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'fuente' => 'required',
+            'fuente' => 'required|min:3',
         ]);
 
         $fuentes = new FuenteEquipos;
@@ -43,7 +43,7 @@ class FuenteEquiposController extends Controller
     public function update($id, Request $request)
     {
         $request->validate([
-            'fuente' => 'required',
+            'fuente' => 'required|min:3',
         ]);
 
         $fuentes = FuenteEquipos::find($id);

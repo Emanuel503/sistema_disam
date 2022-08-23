@@ -17,6 +17,16 @@ die();
     <input class="form-control" name="ubicacion" id="ubicacion" value="{{$ubicaciones->ubicacion}}" readonly>
 </div>
 
+<div class="mb-3">
+    <label for="fecha_registro" class="col-form-label">Fecha de registro:</label>
+    <input type="text" class="form-control" name="fecha_registro" id="fecha_registro" value="{{$ubicaciones->created_at}}" readonly>
+</div>
+
+<div class="mb-3">
+    <label for="fecha_modificacion" class="col-form-label">Ultima fecha de modificacion:</label>
+    <input type="text" class="form-control" name="fecha_modificacion" id="fecha_modificacion" value="{{$ubicaciones->updated_at}}" readonly>
+</div>
+
 <form action="{{ route('ubicacion-equipo.destroy' , ['ubicacion_equipo' => $ubicaciones->id]) }}" method="POST">
     @method('DELETE')
     @csrf

@@ -14,6 +14,7 @@ die();
 <a class="btn btn-outline-secondary mb-4" href="{{ route('ubicacion-equipo.index')}}">Regresar</a>
 
 @include('layouts.alerts')
+@include('ubicacion-equipo.alerts')
 
 <form action="{{ route('ubicacion-equipo.update', ['ubicacion_equipo' => $ubicaciones->id]) }}" method="POST">
     @csrf
