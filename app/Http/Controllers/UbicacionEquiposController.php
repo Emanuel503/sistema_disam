@@ -29,7 +29,7 @@ class UbicacionEquiposController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'ubicacion' => 'required',
+            'ubicacion' => 'required|min:3',
         ]);
 
         $ubicaciones = new UbicacionEquipos;
@@ -42,7 +42,7 @@ class UbicacionEquiposController extends Controller
     public function update($id, Request $request)
     {
         $request->validate([
-            'ubicacion' => 'required',
+            'ubicacion' => 'required|min:3',
         ]);
 
         $ubicaciones = UbicacionEquipos::find($id);

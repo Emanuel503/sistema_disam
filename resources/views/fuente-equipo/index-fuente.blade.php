@@ -14,14 +14,14 @@ die();
 @section('content')
 <h3 class="mb-4">Fuente del equipo</h3>
 
-<button type="button" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#modalRegistrar">Registrar nueva fuente de un equipo</button>
+<button type="button" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#modalRegistrar">Registrar nueva fuente</button>
 
 @include('layouts.alerts')
-@include('descripcion-equipo.alerts')
+@include('fuente-equipo.alerts')
 
 @if (sizeof($fuentes) > 0)
 <div class="table-responsive">
-    <table id="descripcion" class="table table-striped table-hover table-bordered table-sm shadow">
+    <table id="fuenteEquipo" class="table table-striped table-hover table-bordered table-sm shadow">
         <thead>
             <tr class="table-dark">
                 <th>#</th>
@@ -85,11 +85,11 @@ die();
 <script src="{{ asset('js/dataTables.bootstrap5.min.js') }}"></script>
 <script>
     $(document).ready(function() {
-        $('#descripcion tbody').on('click', 'tr', function() {
+        $('#fuenteEquipo tbody').on('click', 'tr', function() {
             $(this).toggleClass('selected');
         });
 
-        $('#descripcion').DataTable({
+        $('#fuenteEquipo').DataTable({
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
             }

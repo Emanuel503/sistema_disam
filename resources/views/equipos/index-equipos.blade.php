@@ -5,6 +5,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 <style>
     #Bueno {
         color: #198754;
@@ -21,6 +22,7 @@
         font-weight: bold;
     }
 </style>
+
 <h3 class="mb-4">Equipos y Mobiliarios</h3>
 
 <button type="button" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#modalRegistrar">Registrar nuevo equipo</button>
@@ -50,9 +52,7 @@
                 <td>{{$equipo->marca}}</td>
                 <td>{{$equipo->modelo}}</td>
                 <td id="{{$equipo->estados->estado}}">{{$equipo->estados->estado}}</td>
-                <td>
-                    <img src="{{ url('images/'.$equipo->imagen) }}" style="height: 200px; width: 250px;">
-                </td>
+                <td class="text-center"> @if ($equipo->imagen == null) __ @else <img class="img-fluid" src="{{ url('images/'.$equipo->imagen) }}" width="100px">@endif </td>
                 <td>
                     <form action="{{ route('equipos.destroy' , ['equipo' => $equipo->id]) }}" method="POST">
                         @method('DELETE')
@@ -176,10 +176,8 @@
 
                     <div class="mb-3">
                         <label for="image" class="col-form-label">Imagen (Opcional):</label>
-                        <input type="file" class="form-control" name="image" id="image">
+                        <input type="file" class="form-control" name="image" id="image" accept="image/*">
                     </div>
-
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -196,11 +194,11 @@
 <script src="{{ asset('js/dataTables.bootstrap5.min.js') }}"></script>
 <script>
     $(document).ready(function() {
-        $('#dependencia tbody').on('click', 'tr', function() {
+        $('#equipos tbody').on('click', 'tr', function() {
             $(this).toggleClass('selected');
         });
 
-        $('#dependencia').DataTable({
+        $('#equipos').DataTable({
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
             }

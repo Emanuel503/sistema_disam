@@ -17,10 +17,11 @@ die();
 <button type="button" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#modalRegistrar">Registrar nueva ubicación</button>
 
 @include('layouts.alerts')
+@include('ubicacion-equipo.alerts')
 
 @if (sizeof($ubicaciones) > 0)
 <div class="table-responsive">
-    <table id="ubicacion" class="table table-striped table-hover table-bordered table-sm shadow">
+    <table id="ubicacionEquipo" class="table table-striped table-hover table-bordered table-sm shadow">
         <thead>
             <tr class="table-dark">
                 <th>#</th>
@@ -84,11 +85,11 @@ die();
 <script src="{{ asset('js/dataTables.bootstrap5.min.js') }}"></script>
 <script>
     $(document).ready(function() {
-        $('#ubicacion tbody').on('click', 'tr', function() {
+        $('#ubicacionEquipo tbody').on('click', 'tr', function() {
             $(this).toggleClass('selected');
         });
 
-        $('#ubicacion').DataTable({
+        $('#ubicacionEquipo').DataTable({
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
             }
