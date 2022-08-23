@@ -38,4 +38,9 @@ class Permisos extends Model
     {
         return $this->belongsTo(EstadosPermisos::class, 'id_estado');
     }
+
+    public function unidad()
+    {
+        return $this->belongsTo(Dependencias::class, 'id_dependencia');
+    }
 }

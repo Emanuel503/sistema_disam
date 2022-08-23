@@ -4,6 +4,7 @@
 <h3 class="my-4">Detalles del permiso</h3>
 
 <a class="btn btn-outline-secondary mb-4" href="{{ route('permisos.index')}}">Regresar</a>
+<a target="_blank" class="btn btn-danger float-end" href="{{route('permisos.pdf', ['id' => $permisos->id])}}">PDF</a>
 
 <div class="mb-3">
     <label for="usuario" class="col-form-label">Usuario:</label>

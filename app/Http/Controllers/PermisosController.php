@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Coordinadores;
+use App\Models\Dependencias;
 use App\Models\EstadosPermisos;
 use App\Models\MotivosPermisos;
 use App\Models\Permisos;
@@ -15,6 +16,38 @@ use Illuminate\Support\Facades\App;
 
 class PermisosController extends Controller
 {
+    public function pdf($id)
+    {
+        $pdf = App::make('dompdf.wrapper');
+        //$permisos = Permisos::all();
+        $usuarios = User::all();
+        //$coordinadores = Coordinadores::all();
+        $estados = EstadosPermisos::all();
+        $motivos = MotivosPermisos::all();
+        $tipos = TiposPermisos::all();
+        $dependencias = Dependencias::all();
+        $permisos = Permisos::find($id);
+
+        $reporte = DB::select("SELECT u.id, u.nombres, u.apellidos, d.nombre, tp.tipo_permiso, mp.motivo, c.id_tecnico, p.fecha_entrada, p.hora_entrada, p.fecha_salida, 
+        p.hora_salida, p.fecha_permiso, p.tiempo_dia, p.tiempo_horas, p.tiempo_minutos, p.created_at, p.updated_at, ep.estado FROM permisos p 
+        INNER JOIN users u ON u.id = p.id_usuario
+        INNER JOIN tipos_permisos tp ON tp.id = p.id_licencia 
+        INNER JOIN motivos_permisos mp ON mp.id = p.id_motivo 
+        INNER JOIN coordinadores c ON c.id_tecnico = p.id_usuario_autoriza 
+        INNER JOIN dependencias d ON d.id = u.id_dependencia
+        INNER JOIN estados_permisos ep ON ep.id = p.id_estado 
+        WHERE p.id = ?",  [$id]);
+
+        $cargo = DB::select("SELECT tc.tipo_coordinacion FROM permisos p 
+        INNER JOIN users u ON u.id = p.id_usuario_autoriza
+        INNER JOIN coordinadores c ON c.id_tecnico = u.id
+        INNER JOIN tipos_coordinaciones tc ON tc.id = c.id_coordinacion
+        WHERE p.id = ?", [$id]);
+
+        $pdf->loadView('permisos.registro-pdf', ['permisos' => $permisos,  'reporte' => $reporte, 'dependencias' => $dependencias, 'usuarios' => $usuarios, 'estados' => $estados, 'motivos' => $motivos, 'tipos' => $tipos, 'cargo' => $cargo]);
+        return $pdf->stream();
+    }
+
     public function reporte()
     {
         $permisos = Permisos::all();

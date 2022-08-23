@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>MEMORANDUM</title>
     <style>
-        .{
+        *{
             margin-top: 7px;
             margin-left: 25px;
             margin-right: 25px;
