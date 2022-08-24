@@ -30,5 +30,6 @@ class DatabaseSeeder extends Seeder
         $this->call(MotivosPermisosSeeder::class);
         $this->call(EstadosPermisosSeeder::class);
         $this->call(EstadosEquiposSeeder::class);
+        $this->call(MotivosMovimientosEquiposSeedeer::class);
     }
 }
