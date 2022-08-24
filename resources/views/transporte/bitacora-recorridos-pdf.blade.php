@@ -1,21 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Reporte de bitacora recorridos</title>
     <style>
-        *{
+        * {
             margin-top: 7px;
             margin-left: 7px;
             margin-right: 14px;
             font-size: 12px;
         }
-        img{
+
+        img {
             width: 120px;
         }
-        table, th, td{
+
+        table,
+        th,
+        td {
             border: 1px solid black;
         }
 
@@ -23,48 +28,52 @@
             border-collapse: collapse;
             width: 100%;
         }
-        
-        label{
+
+        label {
             font-style: bold;
         }
-        
-        .leyenda-vobo{
+
+        .leyenda-vobo {
             font-size: 8px;
             margin-left: 7px;
         }
-        .leyenda{
+
+        .leyenda {
             font-size: 8px;
             position: absolute;
             float: right;
             margin-top: 0;
             margin-right: 0px;
         }
-        .text-center{
+
+        .text-center {
             text-align: center;
         }
-        .leyenda-jefe{
+
+        .leyenda-jefe {
             margin-left: 370px;
         }
     </style>
 </head>
+
 <body>
     @php
-        $total_galones = 0;
-        $total_kilometraje = 0;
-        $dependencia = "";
-        $placa = "";
+    $total_galones = 0;
+    $total_kilometraje = 0;
+    $dependencia = "";
+    $placa = "";
 
-        foreach ($transportes as $transporte) {
-            $total_galones = $total_galones + $transporte->combustible;
-            $total_kilometraje = $total_kilometraje + $transporte->distancia_recorrida;
-            $dependencia = $transporte->dependencia;
-            $placa = $transporte->placa;
-        }
+    foreach ($transportes as $transporte) {
+    $total_galones = $total_galones + $transporte->combustible;
+    $total_kilometraje = $total_kilometraje + $transporte->distancia_recorrida;
+    $dependencia = $transporte->dependencia;
+    $placa = $transporte->placa;
+    }
     @endphp
 
     <img src="{{env('APP_URL')}}/sistema_disam/public/img/logo.jpg"><br><br>
     <label>BITACORA RECORRIDOS Y CONSUMO DE COMBUSTIBLE</label><br>
-    <label>DEPENDENCIA:</label>{{$dependencia}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label> PLACA DE VEHICULO:</label>{{$placa}}<br>
+    <label> PLACA DE VEHICULO:</label>{{$placa}}<br>
     <label>MES:</label>{{$mes}} <label>AÑO:</label>{{$year}}
 
     <table>
@@ -95,7 +104,7 @@
             @foreach ($transportes as $transporte)
             <tr>
                 @php
-                    $dia = strtotime($transporte->fecha);
+                $dia = strtotime($transporte->fecha);
                 @endphp
                 <td>{{date("d", $dia)}}</td>
                 <td>{{$transporte->hora_salida}}</td>
@@ -125,4 +134,5 @@
     <label>Total de kilometraje: </label>{{$total_kilometraje}}km<br>
     <span class="leyenda-jefe">Jefe dependencia</span>
 </body>
+
 </html>

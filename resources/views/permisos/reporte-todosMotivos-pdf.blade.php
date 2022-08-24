@@ -66,7 +66,7 @@ var_dump($permisos)
 
 <body>
     <img src="{{env('APP_URL')}}/sistema_disam/public/img/logo.jpg"><br><br>
-    <label>REPORTE DE PERMISOS</label><br>
+    <label>REPORTE DE PERMISOS</label><br><br>
 
     @php
     $nombre = "";

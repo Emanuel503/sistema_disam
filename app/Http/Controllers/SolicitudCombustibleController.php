@@ -14,9 +14,9 @@ class SolicitudCombustibleController extends Controller
     public function index()
     {
         $solicitudes = SolicitudCombustible::all();
-        $usuarios = User::all();
+        $usuarios = User::orderBy('nombres')->get();
         $vehiculos = Vehiculos::all();
-        $lugares = Lugares::all();
+        $lugares = Lugares::orderBy('nombre')->get();
 
         return view('solicitud-combustible.index-solicitud-combustible', ['solicitudes' => $solicitudes, 'usuarios' => $usuarios, 'vehiculos' => $vehiculos, 'lugares' => $lugares]);
     }
@@ -34,9 +34,9 @@ class SolicitudCombustibleController extends Controller
     public function edit($id)
     {
         $solicitudes = SolicitudCombustible::find($id);
-        $usuarios = User::all();
+        $usuarios = User::orderBy('nombres')->get();
         $vehiculos = Vehiculos::all();
-        $lugares = Lugares::all();
+        $lugares = Lugares::orderBy('nombre')->get();
 
         return view('solicitud-combustible.edit-solicitud-combustible', ['solicitudes' => $solicitudes, 'usuarios' => $usuarios, 'vehiculos' => $vehiculos, 'lugares' => $lugares]);
     }

@@ -25,9 +25,9 @@ class ActividadesController extends Controller
     public function index()
     {
         $actividades = Actividades::all();
-        $usuarios = User::all();
-        $lugares = Lugares::all();
-        $organizadores = Lugares::all();
+        $usuarios = User::orderBy('nombres')->get();
+        $lugares = Lugares::orderBy('nombre')->get();
+        $organizadores = Lugares::orderBy('nombre')->get();
         $estados = EstadosActividades::all();
 
         return view('actividades.index-actividades', ['actividades' => $actividades, 'usuarios' => $usuarios, 'lugares' => $lugares, 'organizadores' => $organizadores, 'estados' => $estados]);
@@ -48,9 +48,9 @@ class ActividadesController extends Controller
     public function edit($id)
     {
         $actividades = Actividades::find($id);
-        $coordinadores = User::all();
-        $lugares = Lugares::all();
-        $organizadores = Lugares::all();
+        $coordinadores = User::orderBy('nombres')->get();
+        $lugares = Lugares::orderBy('nombre')->get();
+        $organizadores = Lugares::orderBy('nombre')->get();
         $estados = EstadosActividades::all();
 
         return view('actividades.edit-actividad', ['actividades' => $actividades, 'coordinadores' => $coordinadores, 'lugares' => $lugares, 'organizadores' => $organizadores, 'estados' => $estados]);

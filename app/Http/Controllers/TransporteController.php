@@ -9,56 +9,67 @@ use App\Models\User;
 use App\Models\Vehiculos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\App;    
+use Illuminate\Support\Facades\App;
 
 class TransporteController extends Controller
 {
-    public function comsumoCombustible(){
+    public function comsumoCombustible()
+    {
         $vehiculos = Vehiculos::all();
-        return view('transporte.consumo-combustible', ['vehiculos' => $vehiculos]); 
+        return view('transporte.consumo-combustible', ['vehiculos' => $vehiculos]);
     }
 
-    public function comsumoCombustiblePdf(Request $request){
+    public function comsumoCombustiblePdf(Request $request)
+    {
         $pdf = App::make('dompdf.wrapper');
 
-        $transportes = DB::select("SELECT v.placa, CONCAT(c.nombres,' ',c.apellidos) as 'conductor', t.correlativo, t.fecha,  ld.nombre as 'lugar_d', t.combustible, t.km_salida, t.km_destino, t.distancia_recorrida FROM transportes t INNER JOIN lugares ld ON t.lugar_destino = ld.id INNER JOIN users c ON t.id_conductor = c.id INNER JOIN vehiculos v ON t.id_placa = v.id WHERE t.id_placa = ? AND t.fecha LIKE ?" , [$request->id_vehiculo, $request->fecha.'%']);
+        $transportes = DB::select("SELECT v.placa, CONCAT(c.nombres,' ',c.apellidos) as 'conductor', t.correlativo, t.fecha,  ld.nombre as 'lugar_d', t.combustible, t.km_salida, t.km_destino, t.distancia_recorrida FROM transportes t INNER JOIN lugares ld ON t.lugar_destino = ld.id INNER JOIN users c ON t.id_conductor = c.id INNER JOIN vehiculos v ON t.id_placa = v.id WHERE t.id_placa = ? AND t.fecha LIKE ?", [$request->id_vehiculo, $request->fecha . '%']);
 
-        if(sizeof($transportes) > 0){
-            $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
-            $mes = $meses[date("n", strtotime($request->fecha)-1)];
+        if (sizeof($transportes) > 0) {
+            $meses = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
+            $mes = $meses[date("n", strtotime($request->fecha) - 1)];
             $year = date("Y", strtotime($request->fecha));
 
-            $pdf->loadView('transporte.consumo-combustible-pdf', ['year' => $year, 'mes' => $mes,'transportes' => $transportes])->setPaper('letter', 'landscape');
+            $pdf->loadView('transporte.consumo-combustible-pdf', ['year' => $year, 'mes' => $mes, 'transportes' => $transportes])->setPaper('letter', 'landscape');
             return $pdf->stream();
-        }else{
+        } else {
             return redirect()->route('transporte.comsumoCombustible')->with('errorDatos', 'No hay registros disponibles.')->withInput();
         }
     }
 
-    public function bitacoraRecorridos(){
+    public function bitacoraRecorridos()
+    {
         $dependencias = Dependencias::all();
         $vehiculos = Vehiculos::all();
-        return view('transporte.bitacora-recorridos', ['dependencias' => $dependencias, 'vehiculos' => $vehiculos]); 
+        return view('transporte.bitacora-recorridos', ['dependencias' => $dependencias, 'vehiculos' => $vehiculos]);
     }
 
-    public function bitacoraRecorridosPdf(Request $request){
+    public function bitacoraRecorridosPdf(Request $request)
+    {
         $pdf = App::make('dompdf.wrapper');
-        $transportes = DB::select("SELECT d.nombre AS 'dependencia', v.placa, t.fecha, t.hora_salida, t.km_salida, ls.nombre as 'lugar_s', t.hora_destino, t.km_destino, ld.nombre as 'lugar_d', t.distancia_recorrida, CONCAT(c.nombres,' ',c.apellidos) as 'conductor', CONCAT(p.nombres,' ',p.apellidos) as 'pasajero' , t.tipo_combustible, t.combustible, t.nivel_tanque FROM transportes t INNER JOIN lugares ls ON t.lugar_salida = ls.id INNER JOIN lugares ld ON t.lugar_destino = ld.id INNER JOIN users c ON t.id_conductor = c.id INNER JOIN users p ON t.pasajero = p.id INNER JOIN Dependencias d ON t.id_dependencia = d.id INNER JOIN vehiculos v ON t.id_placa = v.id WHERE t.id_placa = ? AND t.id_dependencia = ? AND t.fecha LIKE ?" , [$request->id_vehiculo, $request->id_dependencia, $request->fecha.'%']);
+        $transportes = DB::select("SELECT d.nombre AS 'dependencia', v.placa, t.fecha, t.hora_salida, t.km_salida, ls.nombre 
+        as 'lugar_s', t.hora_destino, t.km_destino, ld.nombre as 'lugar_d', t.distancia_recorrida, CONCAT(c.nombres,' ',c.apellidos)
+        as 'conductor', CONCAT(p.nombres,' ',p.apellidos) as 'pasajero' , t.tipo_combustible, t.combustible, t.nivel_tanque 
+        FROM transportes t INNER JOIN lugares ls ON t.lugar_salida = ls.id INNER JOIN lugares ld ON t.lugar_destino = ld.id 
+        INNER JOIN users c ON t.id_conductor = c.id INNER JOIN users p ON t.pasajero = p.id INNER JOIN Dependencias d 
+        ON t.id_dependencia = d.id INNER JOIN vehiculos v ON t.id_placa = v.id WHERE t.id_placa = ? 
+        AND t.fecha LIKE ?", [$request->id_vehiculo, $request->fecha . '%']);
 
-        if(sizeof($transportes) > 0){
-            $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
-            $mes = $meses[date("n", strtotime($request->fecha)-1)];
+        if (sizeof($transportes) > 0) {
+            $meses = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
+            $mes = $meses[date("n", strtotime($request->fecha) - 1)];
             $year = date("Y", strtotime($request->fecha));
 
-            $pdf->loadView('transporte.bitacora-recorridos-pdf', ['year' => $year, 'mes' => $mes,'transportes' => $transportes])->setPaper('letter', 'landscape');
-            
+            $pdf->loadView('transporte.bitacora-recorridos-pdf', ['year' => $year, 'mes' => $mes, 'transportes' => $transportes])->setPaper('letter', 'landscape');
+
             return $pdf->stream();
-        }else{
+        } else {
             return redirect()->route('transporte.bitacoraRecorridos')->with('errorDatos', 'No hay registros disponibles.')->withInput();
         }
     }
 
-    public function pdf($id){
+    public function pdf($id)
+    {
 
         $pdf = App::make('dompdf.wrapper');
         $dependencias = Dependencias::all();
@@ -68,7 +79,7 @@ class TransporteController extends Controller
 
         $transportes = Transporte::find($id);
         $pdf->loadView('transporte.registro-pdf', ['dependencias' => $dependencias, 'usuarios' => $usuarios, 'vehiculos' => $vehiculos, 'transportes' => $transportes, 'lugares' => $lugares]);
-        
+
         return $pdf->stream();
     }
 
@@ -82,8 +93,8 @@ class TransporteController extends Controller
     public function index()
     {
         $transportes = Transporte::all();
-        $dependencias = Dependencias::all();
-        $usuarios = User::all();
+        $dependencias = Dependencias::orderBy('nombre')->get();
+        $usuarios = User::orderBy('nombres')->get();
         $vehiculos = Vehiculos::all();
         $lugares = Lugares::all();
 
@@ -103,8 +114,8 @@ class TransporteController extends Controller
     public function edit($id)
     {
         $transportes = Transporte::find($id);
-        $dependencias = Dependencias::all();
-        $usuarios = User::all();
+        $dependencias = Dependencias::orderBy('nombre')->get();
+        $usuarios = User::orderBy('nombres')->get();
         $vehiculos = Vehiculos::all();
         $lugares = Lugares::all();
 
@@ -177,23 +188,23 @@ class TransporteController extends Controller
         $transporte->pasajero = $request->pasajero;
         $transporte->objetivo = $request->objetivo;
         $transporte->nivel_tanque = $request->nivel_tanque;
-       
+
         $yearActual = date('Y');
         $registros =  DB::select("SELECT correlativo FROM transportes");
         $contador = 0;
 
-        foreach($registros as $registro){
+        foreach ($registros as $registro) {
             list($yearRegistro, $numero, $admon) = explode("-", $registro->correlativo);
-            if($yearActual == $yearRegistro){
+            if ($yearActual == $yearRegistro) {
 
-                if($numero > $contador){
+                if ($numero > $contador) {
                     $contador = $numero;
                 }
             }
         }
 
         $contador++;
-        $transporte->correlativo = $yearActual . "-".$contador."-ADMON";
+        $transporte->correlativo = $yearActual . "-" . $contador . "-ADMON";
 
         $transporte->save();
 

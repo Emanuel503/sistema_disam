@@ -51,41 +51,101 @@ class PermisosController extends Controller
     public function reporte()
     {
         $permisos = Permisos::all();
-        $usuarios = User::all();
-        return view('permisos.reporte', ['permisos' => $permisos, 'usuarios' => $usuarios]);
+        $usuarios = DB::select("SELECT * FROM users ORDER BY nombres");
+        $motivos = DB::select("SELECT * FROM motivos_permisos ORDER BY motivo");
+        return view('permisos.reporte', ['permisos' => $permisos, 'usuarios' => $usuarios, 'motivos' => $motivos]);
     }
 
     public function reportePdf(Request $request)
     {
         $pdf = App::make('dompdf.wrapper');
 
-        $permisos = DB::select("SELECT u.id, u.nombres, u.apellidos, d.nombre, tp.tipo_permiso, mp.motivo, c.id_tecnico, p.fecha_entrada, p.hora_entrada, p.fecha_salida, 
-        p.hora_salida, p.fecha_permiso, p.tiempo_dia, p.tiempo_horas, p.tiempo_minutos, p.created_at, p.updated_at, ep.estado FROM permisos p 
-        INNER JOIN users u ON u.id = p.id_usuario
-        INNER JOIN tipos_permisos tp ON tp.id = p.id_licencia 
-        INNER JOIN motivos_permisos mp ON mp.id = p.id_motivo 
-        INNER JOIN coordinadores c ON c.id_tecnico = p.id_usuario_autoriza 
-        INNER JOIN dependencias d ON d.id = u.id_dependencia
-        INNER JOIN estados_permisos ep ON ep.id = p.id_estado 
-        WHERE p.id_usuario = ?  AND (p.fecha_entrada BETWEEN ? AND ? AND p.fecha_salida BETWEEN ? AND ?)", [$request->usuario, $request->fecha_inicio, $request->fecha_finalizacion, $request->fecha_inicio, $request->fecha_finalizacion]);
+        if ($request->usuario == "todos" && $request->motivo == "todos") {
+            $permisos = DB::select("SELECT u.id, u.nombres, u.apellidos, d.nombre, tp.tipo_permiso, mp.motivo, c.id_tecnico, p.fecha_entrada, p.hora_entrada, p.fecha_salida, 
+            p.hora_salida, p.fecha_permiso, p.tiempo_dia, p.tiempo_horas, p.tiempo_minutos, p.created_at, p.updated_at, ep.estado FROM permisos p 
+            INNER JOIN users u ON u.id = p.id_usuario
+            INNER JOIN tipos_permisos tp ON tp.id = p.id_licencia 
+            INNER JOIN motivos_permisos mp ON mp.id = p.id_motivo 
+            INNER JOIN coordinadores c ON c.id_tecnico = p.id_usuario_autoriza 
+            INNER JOIN dependencias d ON d.id = u.id_dependencia
+            INNER JOIN estados_permisos ep ON ep.id = p.id_estado 
+            WHERE p.fecha_entrada BETWEEN ? AND ? AND p.fecha_salida BETWEEN ? AND ? ORDER BY u.nombres", [$request->fecha_inicio, $request->fecha_finalizacion, $request->fecha_inicio, $request->fecha_finalizacion]);
 
-        $coordinadores = DB::select("SELECT u.nombres, u.apellidos, c.id, c.id_tecnico FROM coordinadores c INNER JOIN users u ON u.id = c.id_tecnico");
+            $coordinadores = DB::select("SELECT u.nombres, u.apellidos, c.id, c.id_tecnico FROM coordinadores c INNER JOIN users u ON u.id = c.id_tecnico");
 
-        if (sizeof($permisos) > 0) {
-            $pdf->loadView('permisos.reporte-pdf', ['permisos' => $permisos, 'coordinadores' => $coordinadores, 'fecha_inicio' => $request->fecha_inicio, 'fecha_finalizacion' => $request->fecha_finalizacion])->setPaper('letter', 'portrait');
-            return $pdf->stream();
+            if (sizeof($permisos) > 0) {
+                $pdf->loadView('permisos.reporte-todos-pdf', ['permisos' => $permisos, 'coordinadores' => $coordinadores, 'fecha_inicio' => $request->fecha_inicio, 'fecha_finalizacion' => $request->fecha_finalizacion])->setPaper('letter', 'landscape');
+                return $pdf->stream();
+            } else {
+                return redirect()->route('permisos.reporte')->with('errorDatos', 'No hay registros disponibles.')->withInput();
+            }
+        } elseif ($request->usuario == "todos" && $request->motivo != "todos") {
+            $permisos = DB::select("SELECT u.id, u.nombres, u.apellidos, d.nombre, tp.tipo_permiso, mp.motivo, c.id_tecnico, p.fecha_entrada, p.hora_entrada, p.fecha_salida, 
+            p.hora_salida, p.fecha_permiso, p.tiempo_dia, p.tiempo_horas, p.tiempo_minutos, p.created_at, p.updated_at, ep.estado FROM permisos p 
+            INNER JOIN users u ON u.id = p.id_usuario
+            INNER JOIN tipos_permisos tp ON tp.id = p.id_licencia 
+            INNER JOIN motivos_permisos mp ON mp.id = p.id_motivo 
+            INNER JOIN coordinadores c ON c.id_tecnico = p.id_usuario_autoriza 
+            INNER JOIN dependencias d ON d.id = u.id_dependencia
+            INNER JOIN estados_permisos ep ON ep.id = p.id_estado 
+            WHERE p.fecha_entrada BETWEEN ? AND ? AND p.fecha_salida BETWEEN ? AND ? AND p.id_motivo = ?", [$request->fecha_inicio, $request->fecha_finalizacion, $request->fecha_inicio, $request->fecha_finalizacion, $request->motivo]);
+
+            $coordinadores = DB::select("SELECT u.nombres, u.apellidos, c.id, c.id_tecnico FROM coordinadores c INNER JOIN users u ON u.id = c.id_tecnico");
+
+            if (sizeof($permisos) > 0) {
+                $pdf->loadView('permisos.reporte-todosUsuarios-pdf', ['permisos' => $permisos, 'coordinadores' => $coordinadores, 'fecha_inicio' => $request->fecha_inicio, 'fecha_finalizacion' => $request->fecha_finalizacion])->setPaper('letter', 'landscape');
+                return $pdf->stream();
+            } else {
+                return redirect()->route('permisos.reporte')->with('errorDatos', 'No hay registros disponibles.')->withInput();
+            }
+        } elseif ($request->usuario != "todos" && $request->motivo == "todos") {
+            $permisos = DB::select("SELECT u.id, u.nombres, u.apellidos, d.nombre, tp.tipo_permiso, mp.motivo, c.id_tecnico, p.fecha_entrada, p.hora_entrada, p.fecha_salida, 
+            p.hora_salida, p.fecha_permiso, p.tiempo_dia, p.tiempo_horas, p.tiempo_minutos, p.created_at, p.updated_at, ep.estado FROM permisos p 
+            INNER JOIN users u ON u.id = p.id_usuario
+            INNER JOIN tipos_permisos tp ON tp.id = p.id_licencia 
+            INNER JOIN motivos_permisos mp ON mp.id = p.id_motivo 
+            INNER JOIN coordinadores c ON c.id_tecnico = p.id_usuario_autoriza 
+            INNER JOIN dependencias d ON d.id = u.id_dependencia
+            INNER JOIN estados_permisos ep ON ep.id = p.id_estado 
+            WHERE p.fecha_entrada BETWEEN ? AND ? AND p.fecha_salida BETWEEN ? AND ? AND p.id_usuario = ?", [$request->fecha_inicio, $request->fecha_finalizacion, $request->fecha_inicio, $request->fecha_finalizacion, $request->usuario]);
+
+            $coordinadores = DB::select("SELECT u.nombres, u.apellidos, c.id, c.id_tecnico FROM coordinadores c INNER JOIN users u ON u.id = c.id_tecnico");
+
+            if (sizeof($permisos) > 0) {
+                $pdf->loadView('permisos.reporte-todosMotivos-pdf', ['permisos' => $permisos, 'coordinadores' => $coordinadores, 'fecha_inicio' => $request->fecha_inicio, 'fecha_finalizacion' => $request->fecha_finalizacion])->setPaper('letter', 'portrait');
+                return $pdf->stream();
+            } else {
+                return redirect()->route('permisos.reporte')->with('errorDatos', 'No hay registros disponibles.')->withInput();
+            }
         } else {
-            return redirect()->route('permisos.reporte')->with('errorDatos', 'No hay registros disponibles.')->withInput();
+            $permisos = DB::select("SELECT u.id, u.nombres, u.apellidos, d.nombre, tp.tipo_permiso, mp.motivo, c.id_tecnico, p.fecha_entrada, p.hora_entrada, p.fecha_salida, 
+            p.hora_salida, p.fecha_permiso, p.tiempo_dia, p.tiempo_horas, p.tiempo_minutos, p.created_at, p.updated_at, ep.estado FROM permisos p 
+            INNER JOIN users u ON u.id = p.id_usuario
+            INNER JOIN tipos_permisos tp ON tp.id = p.id_licencia 
+            INNER JOIN motivos_permisos mp ON mp.id = p.id_motivo 
+            INNER JOIN coordinadores c ON c.id_tecnico = p.id_usuario_autoriza 
+            INNER JOIN dependencias d ON d.id = u.id_dependencia
+            INNER JOIN estados_permisos ep ON ep.id = p.id_estado 
+            WHERE p.id_usuario = ?  AND (p.fecha_entrada BETWEEN ? AND ? AND p.fecha_salida BETWEEN ? AND ?) AND p.id_motivo = ?", [$request->usuario, $request->fecha_inicio, $request->fecha_finalizacion, $request->fecha_inicio, $request->fecha_finalizacion, $request->motivo]);
+
+            $coordinadores = DB::select("SELECT u.nombres, u.apellidos, c.id, c.id_tecnico FROM coordinadores c INNER JOIN users u ON u.id = c.id_tecnico");
+
+            if (sizeof($permisos) > 0) {
+                $pdf->loadView('permisos.reporte-pdf', ['permisos' => $permisos, 'coordinadores' => $coordinadores, 'fecha_inicio' => $request->fecha_inicio, 'fecha_finalizacion' => $request->fecha_finalizacion])->setPaper('letter', 'portrait');
+                return $pdf->stream();
+            } else {
+                return redirect()->route('permisos.reporte')->with('errorDatos', 'No hay registros disponibles.')->withInput();
+            }
         }
     }
 
     public function index()
     {
         $permisos = Permisos::all();
-        $usuarios = User::all();
+        $usuarios = User::orderBy('nombres')->get();
         $coordinadores = Coordinadores::all();
         $estados = EstadosPermisos::all();
-        $motivos = MotivosPermisos::all();
+        $motivos = MotivosPermisos::orderBy('motivo')->get();
         $tipos = TiposPermisos::all();
 
         return view('permisos.index-permisos', ['permisos' => $permisos, 'usuarios' => $usuarios, 'estados' => $estados, 'motivos' => $motivos, 'tipos' => $tipos, 'coordinadores' => $coordinadores]);
@@ -100,10 +160,10 @@ class PermisosController extends Controller
     public function edit($id)
     {
         $permisos = Permisos::find($id);
-        $usuarios = User::all();
+        $usuarios = User::orderBy('nombres')->get();
         $coordinadores = DB::select("SELECT u.nombres, u.apellidos, c.id, c.id_tecnico FROM coordinadores c INNER JOIN users u ON u.id = c.id_tecnico");
         $estados = EstadosPermisos::all();
-        $motivos = MotivosPermisos::all();
+        $motivos = MotivosPermisos::orderBy('motivo')->get();
         $tipos = TiposPermisos::all();
 
         return view('permisos.edit-permiso', ['permisos' => $permisos, 'usuarios' => $usuarios, 'coordinadores' => $coordinadores, 'estados' => $estados, 'motivos' => $motivos, 'tipos' => $tipos]);

@@ -15,9 +15,9 @@ class UsersController extends Controller
     public function index()
     {
         $usuarios = User::all();
-        $roles = Roles::all();
+        $roles = Roles::orderBy('rol')->get();
         $estadosUsuarios = EstadosUsuarios::all();
-        $dependencias = Dependencias::all();
+        $dependencias = Dependencias::orderBy('nombre')->get();
         return view('users.index-users', ['usuarios' => $usuarios, 'roles' => $roles, 'estadosUsuarios' => $estadosUsuarios, 'dependencias' => $dependencias]);
     }
 
@@ -33,9 +33,9 @@ class UsersController extends Controller
     public function edit($id)
     {
         $usuario = User::find($id);
-        $roles = Roles::all();
+        $roles = Roles::orderBy('rol')->get();
         $estadosUsuarios = EstadosUsuarios::all();
-        $dependencias = Dependencias::all();
+        $dependencias = Dependencias::orderBy('nombre')->get();
         return view('users.edit-user', ['usuario' => $usuario, 'roles' => $roles, 'estadosUsuarios' => $estadosUsuarios, 'dependencias' => $dependencias]);
     }
 

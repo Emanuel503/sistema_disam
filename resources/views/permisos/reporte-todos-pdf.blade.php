@@ -78,8 +78,6 @@ var_dump($permisos)
     }
     @endphp
 
-    <label>NOMBRE COMPLETO:</label>{{$nombre}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
-    <label>DEPENDENCIA:</label>{{$dependencia}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
     <label>FECHA INICIO:</label>{{$fecha_inicio}} <label>FECHA FINALIZACIÓN:</label>{{$fecha_finalizacion}}<br><br>
 
 
@@ -87,6 +85,8 @@ var_dump($permisos)
         <thead>
             <tr>
                 <th>#</th>
+                <th>Usuario</th>
+                <th>Dependencia</th>
                 <th>Tipo permiso</th>
                 <th>Motivo</th>
                 <th>Usuario autoriza</th>
@@ -105,6 +105,8 @@ var_dump($permisos)
             @foreach ($permisos as $permiso)
             <tr>
                 <td>{{$loop->iteration}}</td>
+                <td>{{$permiso->nombres}} {{$permiso->apellidos}}</td>
+                <td>{{$permiso->nombre}}</td>
                 <td>{{$permiso->tipo_permiso}}</td>
                 <td>{{$permiso->motivo}}</td>
                 @foreach ($coordinadores as $coordinador)

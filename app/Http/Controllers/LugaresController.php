@@ -13,8 +13,8 @@ class LugaresController extends Controller
     public function index()
     {
         $lugares = Lugares::all();
-        $departamentos = Departamentos::all();
-        $municipios = Municipios::all();
+        $departamentos = Departamentos::orderBy('departamento')->get();
+        $municipios = Municipios::orderBy('municipio')->get();
         return view('lugares.index-lugares', ['lugares' => $lugares, 'departamentos' => $departamentos, 'municipios' => $municipios]);
     }
 

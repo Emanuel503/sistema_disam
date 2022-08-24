@@ -21,8 +21,19 @@
                 <div class="mb-3">
                     <label for="usuario" class="col-form-label">Usuario:</label>
                     <select id="usuario" class="form-select" name="usuario">
+                        <option value="todos" selected>Todos</option>
                         @foreach ($usuarios as $usuario)
                         <option @selected( old('usuario')==$usuario->id) value="{{$usuario->id}}">{{$usuario->nombres}} {{$usuario->apellidos}}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="motivo" class="col-form-label">Motivo:</label>
+                    <select id="motivo" class="form-select" name="motivo">
+                        <option value="todos" selected>Todos</option>
+                        @foreach ($motivos as $motivo)
+                        <option @selected( old('motivo')==$motivo->id) value="{{$motivo->id}}">{{$motivo->motivo}}</option>
                         @endforeach
                     </select>
                 </div>

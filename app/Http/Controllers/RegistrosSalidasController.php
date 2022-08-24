@@ -42,7 +42,7 @@ class RegistrosSalidasController extends Controller
 
     public function index(){
         $salidas = RegistrosSalidas::all();
-        $lugares = Lugares::all();
+        $lugares = Lugares::orderBy('nombre')->get();
         $estados = EstadosSalidas::all();
         $usuarios = User::all();
         return view('registros-salidas.index-registros-salidas', ['salidas'=> $salidas, 'lugares' => $lugares, 'estados' => $estados, 'usuarios' => $usuarios]);
@@ -60,7 +60,7 @@ class RegistrosSalidasController extends Controller
     public function edit($id)
     {
         $salidas = RegistrosSalidas::find($id);
-        $lugares = Lugares::all();
+        $lugares = Lugares::orderBy('nombre')->get();
         $estados = EstadosSalidas::all();
         $usuarios = User::all();
         return view('registros-salidas.edit-registros-salidas', ['salidas'=> $salidas, 'lugares' => $lugares, 'estados' => $estados, 'usuarios' => $usuarios]);

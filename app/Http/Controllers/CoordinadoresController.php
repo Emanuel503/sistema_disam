@@ -13,7 +13,7 @@ class CoordinadoresController extends Controller
     public function index()
     {
         $coordinadores = Coordinadores::all();
-        $usuarios = User::all();
+        $usuarios = User::orderBy('nombres')->get();
         $coordinaciones = TiposCoordinaciones::all();
 
         return view('coordinadores.index-coordinadores', ['coordinadores' => $coordinadores, 'usuarios' => $usuarios, 'coordinaciones' => $coordinaciones]);
@@ -47,7 +47,7 @@ class CoordinadoresController extends Controller
     public function edit($id)
     {
         $coordinadores = Coordinadores::find($id);
-        $usuarios = User::all();
+        $usuarios = User::orderBy('nombres')->get();
         $coordinaciones = TiposCoordinaciones::all();
 
         return view('coordinadores.edit-coordinadores', ['coordinadores' => $coordinadores, 'usuarios' => $usuarios, 'coordinaciones' => $coordinaciones]);

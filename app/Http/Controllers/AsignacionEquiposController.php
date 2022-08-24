@@ -17,7 +17,7 @@ class AsignacionEquiposController extends Controller
         u.nombres, u.apellidos, d.nombre, u.cargo  FROM asignacion_equipos ae
         INNER JOIN users u ON u.id = ae.id_usuario
         INNER JOIN dependencias d ON d.id = u.id_dependencia GROUP BY ae.id_usuario");
-        $usuarios = User::all();
+        $usuarios = User::orderBy('nombres')->get();
         $equipos = DB::select("SELECT * FROM equipos Where id NOT IN (SELECT id_equipo FROM asignacion_equipos)");
 
         return view('asignaciones-equipos.index-asignaciones', ['asignaciones' => $asignaciones, 'usuarios' => $usuarios, 'equipos' => $equipos]);
@@ -61,7 +61,7 @@ class AsignacionEquiposController extends Controller
     public function edit($id)
     {
         $asignaciones = AsignacionEquipos::find($id);
-        $usuarios = User::all();
+        $usuarios = User::orderBy('nombres')->get();
         $equipos = Equipos::all();
 
         return view('asignaciones-equipos.edit-asignaciones', ['asignaciones' => $asignaciones, 'usuarios' => $usuarios, 'equipos' => $equipos]);

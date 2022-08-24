@@ -17,10 +17,10 @@ class SolicitudesTransporteController extends Controller
     public function index()
     {
         $solicitudesTransportes = SolicitudesTransportes::all();
-        $dependencias = Dependencias::all();
-        $lugares = Lugares::all();
+        $dependencias = Dependencias::orderBy('nombre')->get();
+        $lugares = Lugares::orderBy('nombre')->get();
         $autorizaciones = Autorizaciones::all();
-        $usuarios = User::all();
+        $usuarios = User::orderBy('nombres')->get();
         $vehiculos = Vehiculos::all();
         return view('solicitud-transporte.index-solicitudes-transportes', ['solicitudesTransportes' => $solicitudesTransportes, 'dependencias' => $dependencias, 'lugares' => $lugares, 'autorizaciones' => $autorizaciones, 'usuarios' => $usuarios, 'vehiculos' => $vehiculos]);
     }
