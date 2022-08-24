@@ -68,7 +68,7 @@
                                 <ul class="submenu dropdown-menu dropdown-menu-dark">
                                     <li><a class="dropdown-item" href="{{route('equipos.index')}}">Equipo y Mobiliario</a></li>
                                     <li><a class="dropdown-item" href="{{route('asignaciones-equipos.index')}}">Asignación de equipo</a></li>
-                                    <li><a class="dropdown-item" href="#">Fuentes</a></li>
+                                    <li><a class="dropdown-item" href="{{route('movimiento-equipos.index')}}">Movimiento de Activo Fijo</a></li>
                                 </ul>
                             </li>
                         </ul>
