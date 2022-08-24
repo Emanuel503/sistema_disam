@@ -14,8 +14,8 @@ class MovimientoEquiposController extends Controller
     public function index()
     {
         $movimientos = MovimientoEquipos::all();
-        $usuarios = User::all();
-        $motivos = MotivosMovimientosEquipos::all();
+        $usuarios = User::orderBy('nombres')->get();
+        $motivos = MotivosMovimientosEquipos::orderBy('motivo')->get();
         return view('movimientos-equipos.index-movimientos-equipos', ['movimientos' => $movimientos, 'usuarios' => $usuarios, 'motivos' => $motivos]);
     }
 
@@ -29,8 +29,8 @@ class MovimientoEquiposController extends Controller
     public function edit($id)
     {
         $movimientos = MovimientoEquipos::find($id);
-        $usuarios = User::all();
-        $motivos = MotivosMovimientosEquipos::all();
+        $usuarios = User::orderBy('nombres')->get();
+        $motivos = MotivosMovimientosEquipos::orderBy('motivo')->get();
         return view('movimientos-equipos.edit-movimientos-equipos', ['movimientos' => $movimientos, 'usuarios' => $usuarios, 'motivos' => $motivos]);
     }
 
