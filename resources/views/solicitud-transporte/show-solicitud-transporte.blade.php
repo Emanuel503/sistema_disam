@@ -61,6 +61,11 @@
     </div>
 
     <div class="mb-3">
+        <label for="lugar_solicitud" class="col-form-label">Lugar de la solicitud:</label>
+        <input class="form-control" name="lugar_solicitud" id="lugar_solicitud" value="{{$solicitudesTransportes->lugar_solicitud}}" readonly>
+    </div>
+
+    <div class="mb-3">
         <label for="fecha_solicitud" class="col-form-label">Fecha de la solicitud:</label>
         <input class="form-control" name="fecha_solicitud" id="fecha_solicitud" value="{{$solicitudesTransportes->created_at}}" readonly>
     </div>
@@ -68,11 +73,6 @@
     <div class="mb-3">
         <label for="fecha_registro" class="col-form-label">Ultima fecha de modificacion:</label>
         <input type="text" class="form-control" name="fecha_registro" id="fecha_registro" value="{{$solicitudesTransportes->updated_at}}" readonly>
-    </div>
-
-    <div class="mb-3">
-        <label for="fecha_modificacion" class="col-form-label">Lugar de la solicitud:</label>
-        <input class="form-control" name="fecha_modificacion" id="fecha_modificacion" value="{{$solicitudesTransportes->lugar_solicitud}}" readonly>
     </div>
 
     @if(Auth::user()->id_rol == 1 || (Auth::user()->rol->id == $solicitudesTransportes->usuario->id && $solicitudesTransportes->autorizacion->id == 3 ))

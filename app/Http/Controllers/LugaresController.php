@@ -21,9 +21,7 @@ class LugaresController extends Controller
     public function show($id)
     {
         $lugares = Lugares::find($id);
-        $departamentos = Departamentos::all();
-        $municipios = Municipios::all();
-        return view('lugares.show-lugar', ['lugares' => $lugares, 'departamentos' => $departamentos, 'municipios' => $municipios]);
+        return view('lugares.show-lugar', ['lugares' => $lugares]);
     }
 
     public function edit($id)

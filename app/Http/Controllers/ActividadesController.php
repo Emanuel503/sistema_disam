@@ -36,13 +36,7 @@ class ActividadesController extends Controller
     public function show($id)
     {
         $actividades = Actividades::find($id);
-        $coordinadores = User::all();
-        $usuarios = User::all();
-        $lugares = Lugares::all();
-        $organizadores = Lugares::all();
-        $estados = EstadosActividades::all();
-
-        return view('actividades.show-actividad', ['actividades' => $actividades, 'usuarios' => $usuarios, 'coordinadores' => $coordinadores, 'lugares' => $lugares, 'organizadores' => $organizadores, 'estados' => $estados]);
+        return view('actividades.show-actividad', ['actividades' => $actividades]);
     }
 
     public function edit($id)
@@ -97,7 +91,6 @@ class ActividadesController extends Controller
         $actividad->color = "#4087c5";
         $actividad->start = $request->fecha_inicio . ' ' . $request->hora_inicio;;
         $actividad->end = $request->fecha_finalizacion . ' ' . $request->hora_finalizacion;
-
         $actividad->save();
 
         return redirect()->route('actividades.index')->with('success', 'Actividad guardada correctamente.');
@@ -144,7 +137,6 @@ class ActividadesController extends Controller
         $actividad->title = $request->title;
         $actividad->start = $request->fecha_inicio . ' ' . $request->hora_inicio;
         $actividad->end = $request->fecha_finalizacion . ' ' . $request->hora_finalizacion;
-
         $actividad->save();
 
         return redirect()->route('actividades.index')->with('success', 'Actividad actualizada correctamente');

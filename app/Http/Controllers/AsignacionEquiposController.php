@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\AsignacionEquipos;
-use App\Models\Dependencias;
 use App\Models\Equipos;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -25,19 +24,13 @@ class AsignacionEquiposController extends Controller
 
     public function show($id)
     {
-        $asignaciones = DB::select("SELECT ae.id, e.codigo, de.descripcion, u.nombres, ae.fecha_asignacion, ae.observacion, 
-        ae.estado FROM asignacion_equipos ae 
+        $asignaciones = DB::select("SELECT ae.id, e.codigo, de.descripcion, u.nombres, ae.fecha_asignacion, ae.observacion, ae.estado FROM asignacion_equipos ae 
         INNER JOIN users u ON u.id = ae.id_usuario
         INNER JOIN equipos e ON e.id = ae.id_equipo
         INNER JOIN descripcion_equipos de ON de.id = e.id_descripcion
         WHERE u.id = ?", [$id]);
-        $usuarios = User::all();
-        $equipos = DB::select("SELECT * FROM equipos Where id NOT IN (SELECT id_equipo FROM asignacion_equipos)");
 
-        return view('asignaciones-equipos.show-asignaciones', [
-            'asignaciones' => $asignaciones, 'usuarios' => $usuarios,
-            'equipos' => $equipos
-        ]);
+        return view('asignaciones-equipos.show-asignaciones', ['asignaciones' => $asignaciones]);
     }
 
     public function store(Request $request)
@@ -75,12 +68,10 @@ class AsignacionEquiposController extends Controller
         ]);
 
         $asignaciones = AsignacionEquipos::find($id);
-
         $asignaciones->id_equipo = $request->equipo;
         $asignaciones->fecha_asignacion = $request->fecha_asignacion;
         $asignaciones->observacion = $request->observaciones;
         $asignaciones->estado = $request->estado;
-
         $asignaciones->save();
 
         return redirect()->route('asignaciones-equipos.index')->with('success', 'Asignación de equipo actualizada correctamente');

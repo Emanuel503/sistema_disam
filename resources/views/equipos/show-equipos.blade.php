@@ -41,29 +41,24 @@
 
 <div class="mb-3">
     <label for="descripcion" class="col-form-label">Descripción del equipo:</label>
-    <select id="descripcion" class="form-select" name="descripcion" disabled>
-        @foreach ($descripciones as $descripcion)
-            <option @selected($equipos->id_descripcion==$descripcion->id) value="{{$descripcion->id}}">{{$descripcion->descripcion}}</option>
-        @endforeach
-    </select>
+    <input type="text" class="form-control" name="descripcion" id="descripcion" value="{{ $equipos->descripciones->descripcion }}" readonly>
 </div>
 
 <div class="mb-3">
+    
     <label for="unidad" class="col-form-label">Unidad del equipo:</label>
-    <select id="unidad" class="form-select" name="unidad" disabled>
-        @foreach ($unidades as $unidad)
-        <option @selected($equipos->id_unidad==$unidad->id) value="{{$unidad->id}}">{{$unidad->nombre}}</option>
-        @endforeach
-    </select>
+    <input type="text" class="form-control" name="unidad" id="unidad" value="{{ $equipos->unidades->nombre}}" readonly>
 </div>
 
 <div class="mb-3">
+    
     <label for="ubicacion" class="col-form-label">Ubicación del equipo:</label>
-    <select id="ubicacion" class="form-select" name="ubicacion" disabled>
-        @foreach ($ubicaciones as $ubicacion)
-        <option @selected($equipos->id_ubicacion==$ubicacion->id) value="{{$ubicacion->id}}">{{$ubicacion->ubicacion}}</option>
-        @endforeach
-    </select>
+    <input type="text" class="form-control" name="ubicacion" id="ubicacion" value="{{ $equipos->ubicaciones->ubicacion}}" readonly>
+</div>
+
+<div class="mb-3">
+    <label for="fuente" class="col-form-label">Fuente del equipo:</label>
+    <input type="text" class="form-control" name="fuente" id="fuente" value="{{ $equipos->fuentes->fuente}}" readonly>
 </div>
 
 <div class="mb-3">
@@ -89,15 +84,6 @@
 <div class="mb-3">
     <label for="estado" class="col-form-label">Estado del equipo:</label>
     <input id="{{$equipos->estados->estado}}" type="text" class="form-control" name="estado" value="{{ $equipos->estados->estado}}" readonly>
-</div>
-
-<div class="mb-3">
-    <label for="fuente" class="col-form-label">Fuente del equipo:</label>
-    <select id="fuente" class="form-select" name="fuente" disabled>
-        @foreach ($fuentes as $fuente)
-        <option @selected($equipos->id_fuente==$fuente->id) value="{{$fuente->id}}">{{$fuente->fuente}}</option>
-        @endforeach
-    </select>
 </div>
 
 <div class="mb-3">

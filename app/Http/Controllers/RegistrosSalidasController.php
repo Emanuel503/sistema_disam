@@ -51,10 +51,7 @@ class RegistrosSalidasController extends Controller
     public function show($id)
     {
         $salidas = RegistrosSalidas::find($id);
-        $lugares = Lugares::all();
-        $estados = EstadosSalidas::all();
-        $usuarios = User::all();
-        return view('registros-salidas.show-registros-salidas', ['salidas'=> $salidas, 'lugares' => $lugares, 'estados' => $estados, 'usuarios' => $usuarios]);
+        return view('registros-salidas.show-registros-salidas', ['salidas'=> $salidas]);
     }
 
     public function edit($id)

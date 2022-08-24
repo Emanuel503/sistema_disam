@@ -18,4 +18,19 @@ class Equipos extends Model
     {
         return $this->belongsTo(EstadosEquipos::class, 'id_estado');
     }
+
+    public function fuentes()
+    {
+        return $this->belongsTo(FuenteEquipos::class, 'id_fuente');
+    }
+
+    public function ubicaciones()
+    {
+        return $this->belongsTo(UbicacionEquipos::class, 'id_ubicacion');
+    }
+
+    public function unidades()
+    {
+        return $this->belongsTo(Dependencias::class, 'id_unidad');
+    }
 }

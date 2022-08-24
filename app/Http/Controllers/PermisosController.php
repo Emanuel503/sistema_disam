@@ -19,9 +19,7 @@ class PermisosController extends Controller
     public function pdf($id)
     {
         $pdf = App::make('dompdf.wrapper');
-        //$permisos = Permisos::all();
         $usuarios = User::all();
-        //$coordinadores = Coordinadores::all();
         $estados = EstadosPermisos::all();
         $motivos = MotivosPermisos::all();
         $tipos = TiposPermisos::all();
@@ -160,13 +158,7 @@ class PermisosController extends Controller
     public function edit($id)
     {
         $permisos = Permisos::find($id);
-        $usuarios = User::orderBy('nombres')->get();
-        $coordinadores = DB::select("SELECT u.nombres, u.apellidos, c.id, c.id_tecnico FROM coordinadores c INNER JOIN users u ON u.id = c.id_tecnico");
-        $estados = EstadosPermisos::all();
-        $motivos = MotivosPermisos::orderBy('motivo')->get();
-        $tipos = TiposPermisos::all();
-
-        return view('permisos.edit-permiso', ['permisos' => $permisos, 'usuarios' => $usuarios, 'coordinadores' => $coordinadores, 'estados' => $estados, 'motivos' => $motivos, 'tipos' => $tipos]);
+        return view('permisos.edit-permiso', ['permisos' => $permisos]);
     }
 
     public function store(Request $request)

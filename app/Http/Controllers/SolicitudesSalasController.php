@@ -25,10 +25,7 @@ class SolicitudesSalasController extends Controller
     public function show($id)
     {
         $solicitudesSala = SolicitudesSalas::find($id);
-        $salas = Salas::all();
-        $autorizaciones = Autorizaciones::all();
-        $usuarios = User::all();
-        return view('solicitud-sala.show-solicitud-sala', ['solicitudesSala' => $solicitudesSala, 'salas' => $salas, 'autorizaciones' => $autorizaciones, 'usuarios' => $usuarios]);
+        return view('solicitud-sala.show-solicitud-sala', ['solicitudesSala' => $solicitudesSala]);
     }
 
     public function edit($id)

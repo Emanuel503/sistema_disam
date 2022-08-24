@@ -24,11 +24,7 @@ class SolicitudCombustibleController extends Controller
     public function show($id)
     {
         $solicitudes = SolicitudCombustible::find($id);
-        $usuarios = User::all();
-        $vehiculos = Vehiculos::all();
-        $lugares = Lugares::all();
-
-        return view('solicitud-combustible.show-solicitud-combustible', ['solicitudes' => $solicitudes, 'usuarios' => $usuarios, 'vehiculos' => $vehiculos, 'lugares' => $lugares]);
+        return view('solicitud-combustible.show-solicitud-combustible', ['solicitudes' => $solicitudes]);
     }
 
     public function edit($id)

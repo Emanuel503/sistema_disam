@@ -24,10 +24,7 @@ class UsersController extends Controller
     public function show($id)
     {
         $usuario = User::find($id);
-        $roles = Roles::all();
-        $estadosUsuarios = EstadosUsuarios::all();
-        $dependencias = Dependencias::all();
-        return view('users.show-user', ['usuario' => $usuario, 'roles' => $roles, 'estadosUsuarios' => $estadosUsuarios, 'dependencias' => $dependencias]);
+        return view('users.show-user', ['usuario' => $usuario]);
     }
 
     public function edit($id)
@@ -69,7 +66,6 @@ class UsersController extends Controller
         $usuario->ubicacion = $request->ubicacion;
         $usuario->telefono = $request->telefono;
         $usuario->motorista = $request->motorista;
-
         $usuario->save();
         return redirect()->route('users.index')->with('success', 'Usuario registrado correctamente');
     }

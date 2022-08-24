@@ -28,12 +28,7 @@ class SolicitudesTransporteController extends Controller
     public function show($id)
     {
         $solicitudesTransportes = SolicitudesTransportes::find($id);
-        $dependencias = Dependencias::all();
-        $lugares = Lugares::all();
-        $autorizaciones = Autorizaciones::all();
-        $usuarios = User::all();
-        $vehiculos = Vehiculos::all();
-        return view('solicitud-transporte.show-solicitud-transporte', ['solicitudesTransportes' => $solicitudesTransportes, 'dependencias' => $dependencias, 'lugares' => $lugares, 'autorizaciones' => $autorizaciones, 'usuarios' => $usuarios, 'vehiculos' => $vehiculos]);
+        return view('solicitud-transporte.show-solicitud-transporte', ['solicitudesTransportes' => $solicitudesTransportes]);
     }
 
     public function edit($id)

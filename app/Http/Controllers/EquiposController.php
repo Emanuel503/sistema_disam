@@ -28,12 +28,7 @@ class EquiposController extends Controller
     public function show($id)
     {
         $equipos = Equipos::find($id);
-        $ubicaciones = UbicacionEquipos::all();
-        $fuentes = FuenteEquipos::all();
-        $unidades = Dependencias::all();
-        $estados = EstadosEquipos::all();
-        $descripciones = DescripcionEquipos::all();
-        return view('equipos.show-equipos', ['equipos' => $equipos, 'ubicaciones' => $ubicaciones, 'fuentes' => $fuentes, 'unidades' => $unidades, 'estados' => $estados, 'descripciones' => $descripciones]);
+        return view('equipos.show-equipos', ['equipos' => $equipos]);
     }
 
     public function edit($id)

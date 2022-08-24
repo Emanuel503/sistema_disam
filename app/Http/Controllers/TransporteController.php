@@ -104,11 +104,7 @@ class TransporteController extends Controller
     public function show($id)
     {
         $transportes = Transporte::find($id);
-        $dependencia = Dependencias::all();
-        $conductor = User::all();
-        $vehiculos = Vehiculos::all();
-
-        return view('transporte.show-transporte', ['dependencia' => $dependencia, 'conductor' => $conductor, 'vehiculos' => $vehiculos, 'transportes' => $transportes]);
+        return view('transporte.show-transporte', ['transportes' => $transportes]);
     }
 
     public function edit($id)
