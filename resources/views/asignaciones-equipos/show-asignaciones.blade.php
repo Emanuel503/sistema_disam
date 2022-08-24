@@ -22,6 +22,7 @@ die();
                 <th>Fecha de asignación</th>
                 <th>Observación</th>
                 <th>Utilizado por el usuario</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -32,6 +33,17 @@ die();
                 <td>{{$asignacion->fecha_asignacion}}</td>
                 <td>{{$asignacion->observacion}}</td>
                 <td>{{$asignacion->estado}}</td>
+                <td>
+                    <div>
+                        <form action="{{ route('asignaciones-equipos.destroy' , ['asignaciones_equipo' => $asignacion->id]) }}" method="POST">
+                            @method('DELETE')
+                            @csrf
+                            <a class="btn btn-success btn-sm mb-1" href="{{ route('asignaciones-equipos.edit' , ['asignaciones_equipo' => $asignacion->id])}}">Modificar</a>
+                            <input name="_method" type="hidden" value="DELETE"><input name="_method" type="hidden" value="DELETE">
+                            <button type="submit" class="btn btn-sm btn-danger btn-flat show_confirm" data-toggle="tooltip" title='Delete'>Eliminar</button>
+                        </form>
+                    </div>
+                </td>
             </tr>
             @endforeach
         </tbody>

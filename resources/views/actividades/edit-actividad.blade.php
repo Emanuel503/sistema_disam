@@ -15,7 +15,7 @@
             <label for="id_organizador" class="col-form-label">Organizador del evento:</label>
             <select id="id_organizador" class="form-select" name="id_organizador">
                 @foreach ($organizadores as $organizador )
-                    <option @selected($actividades->id_organizador == $organizador->id ) value="{{$organizador->id}}">{{$organizador->nombre}}</option>
+                    <option @selected($actividades->id_organizador == $organizador->id) value="{{$organizador->id}}">{{$organizador->nombre}}</option>
                 @endforeach
             </select>
         </div>

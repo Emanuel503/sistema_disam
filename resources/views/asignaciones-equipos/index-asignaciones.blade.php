@@ -101,10 +101,10 @@
                     </div>
                     <label for="serie" class="col-form-label">Estado del equipo:</label>
                     <div class="mb-3">
-                        <input class="form-check-input" type="radio" name="estado" id="si" value="Si" checked @checked(old('estado')=='si' )>
+                        <input class="form-check-input" type="radio" name="estado" id="si" value="Si" checked @checked(old('estado')=='Si' )>
                         <label class="form-check-label" for="si">Utilizado</label>
 
-                        <input class="form-check-input" type="radio" name="estado" id="no" value="No" @checked(old('estado')=='no' ))>
+                        <input class="form-check-input" type="radio" name="estado" id="no" value="No" @checked(old('estado')=='No' ))>
                         <label class="form-check-label" for="no">No utilizado</label>
                     </div>
             </div>

@@ -25,7 +25,6 @@ class AsignacionEquiposController extends Controller
 
     public function show($id)
     {
-        //$asignacion = AsignacionEquipos::find();
         $asignaciones = DB::select("SELECT ae.id, e.codigo, de.descripcion, u.nombres, ae.fecha_asignacion, ae.observacion, 
         ae.estado FROM asignacion_equipos ae 
         INNER JOIN users u ON u.id = ae.id_usuario
@@ -40,7 +39,6 @@ class AsignacionEquiposController extends Controller
             'equipos' => $equipos
         ]);
     }
-
 
     public function store(Request $request)
     {
@@ -58,5 +56,39 @@ class AsignacionEquiposController extends Controller
         $asignaciones->save();
 
         return redirect()->route('asignaciones-equipos.index')->with('success', 'Asignación realizada correctamente.');
+    }
+
+    public function edit($id)
+    {
+        $asignaciones = AsignacionEquipos::find($id);
+        $usuarios = User::all();
+        $equipos = Equipos::all();
+
+        return view('asignaciones-equipos.edit-asignaciones', ['asignaciones' => $asignaciones, 'usuarios' => $usuarios, 'equipos' => $equipos]);
+    }
+
+    public function update($id, Request $request)
+    {
+        $request->validate([
+            'fecha_asignacion' => 'required',
+            'observaciones' => 'required',
+        ]);
+
+        $asignaciones = AsignacionEquipos::find($id);
+
+        $asignaciones->id_equipo = $request->equipo;
+        $asignaciones->fecha_asignacion = $request->fecha_asignacion;
+        $asignaciones->observacion = $request->observaciones;
+        $asignaciones->estado = $request->estado;
+
+        $asignaciones->save();
+
+        return redirect()->route('asignaciones-equipos.index')->with('success', 'Asignación de equipo actualizada correctamente');
+    }
+
+    public function destroy($id)
+    {
+        AsignacionEquipos::destroy($id);
+        return redirect()->route('asignaciones-equipos.index')->with('success', 'Asignación de equipo eliminada correctamente');
     }
 }
