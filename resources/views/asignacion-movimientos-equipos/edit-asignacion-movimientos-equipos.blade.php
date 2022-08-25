@@ -1,12 +1,12 @@
 @php
-    if (Auth::user()->rol->rol != "Administrador"){
-        header("Location: home");
-        die();
-    }
+if (Auth::user()->rol->rol != "Administrador"){
+header("Location: home");
+die();
+}
 @endphp
 
 @section('css-data-table')
-    <link href="{{ asset('css/DataTables.css') }}" rel="stylesheet">
+<link href="{{ asset('css/DataTables.css') }}" rel="stylesheet">
 @endsection
 
 @extends('layouts.app')
@@ -15,6 +15,7 @@
 <h3 class="my-4">Asignar equipos</h3>
 
 <a class="btn btn-outline-secondary mb-4" href="{{ route('movimiento-equipos.index')}}">Regresar</a>
+@include('layouts.alerts')
 <fieldset class="form-control p-3">
     <h6 class="text-center">ORDEN DE SALIDA DE MOBILARIO Y/O EQUIPO</h6>
     <div class="row">
@@ -86,7 +87,7 @@
                             <button type="submit" class="btn btn-sm btn-danger btn-flat show_confirm" data-toggle="tooltip" title='Delete'>Eliminar</button>
                         </div>
                     </form>
-                </td> 
+                </td>
             </tr>
             @endforeach
         </tbody>
@@ -108,7 +109,7 @@
                         <label for="id_equipo" class="col-form-label">Equipo:</label>
                         <select id="id_equipo" class="form-select" name="id_equipo">
                             @foreach ($equipos as $equipo)
-                                <option @selected(old('id_equipo')==$equipo->id) value="{{$equipo->id}}">{{$equipo->codigo}}</option>
+                            <option @selected(old('id_equipo')==$equipo->id) value="{{$equipo->id}}">{{$equipo->codigo}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -129,42 +130,42 @@
 @endsection
 
 @section('js-data-table')
-    <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('js/dataTables.bootstrap5.min.js') }}"></script>
-    <script>
-        $(document).ready(function() {
-            $('#asignacion_equipos tbody').on('click', 'tr', function() {
-                $(this).toggleClass('selected');
-            });
-
-            $('#asignacion_equipos').DataTable({
-                "language": {
-                    "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-                }
-            });
+<script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('js/dataTables.bootstrap5.min.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        $('#asignacion_equipos tbody').on('click', 'tr', function() {
+            $(this).toggleClass('selected');
         });
-    </script>
+
+        $('#asignacion_equipos').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+            }
+        });
+    });
+</script>
 @endsection
 
 @section('js-alert-delete')
-    <script src="{{ asset('js/alert-delete.js') }}"></script>
-    <script type="text/javascript">
-        $('.show_confirm').click(function(event) {
-            var form = $(this).closest("form");
-            var name = $(this).data("name");
-            event.preventDefault();
-            swal({
-                    title: `¿Seguro que desea borrar este registro?`,
-                    text: "Si elimina este registro no se podra recuperar.",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        form.submit();
-                    }
-                });
-        });
-    </script>
+<script src="{{ asset('js/alert-delete.js') }}"></script>
+<script type="text/javascript">
+    $('.show_confirm').click(function(event) {
+        var form = $(this).closest("form");
+        var name = $(this).data("name");
+        event.preventDefault();
+        swal({
+                title: `¿Seguro que desea borrar este registro?`,
+                text: "Si elimina este registro no se podra recuperar.",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    form.submit();
+                }
+            });
+    });
+</script>
 @endsection

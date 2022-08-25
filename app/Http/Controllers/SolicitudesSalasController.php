@@ -64,8 +64,8 @@ class SolicitudesSalasController extends Controller
         }
 
         $solicitudesSalas = DB::select("SELECT * FROM solicitudes_salas WHERE id_sala= ? and fecha = ?", [$request->id_sala, $request->fecha]);
-        foreach ($solicitudesSalas as $solicitud) {
 
+        foreach ($solicitudesSalas as $solicitud) {
             if (
                 strtotime($request->hora_inicio) >= strtotime($solicitud->hora_inicio) &&
                 strtotime($request->hora_inicio) <= strtotime($solicitud->hora_finalizacion)
@@ -143,7 +143,7 @@ class SolicitudesSalasController extends Controller
 
         $solicitudesSalas->save();
 
-        return redirect()->route('solicitudes-sala.edit', ['solicitudes_sala' => $id])->with('success', 'Solicitud de sala actualizada correctamente');
+        return redirect()->route('solicitudes-sala.index', ['solicitudes_sala' => $id])->with('success', 'Solicitud de sala actualizada correctamente');
     }
 
     public function destroy($id)

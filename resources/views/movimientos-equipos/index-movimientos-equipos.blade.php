@@ -1,12 +1,12 @@
 @php
-    if (Auth::user()->rol->rol != "Administrador"){
-        header("Location: home");
-    die();
+if (Auth::user()->rol->rol != "Administrador"){
+header("Location: home");
+die();
 }
 @endphp
 
 @section('css-data-table')
-    <link href="{{ asset('css/DataTables.css') }}" rel="stylesheet">
+<link href="{{ asset('css/DataTables.css') }}" rel="stylesheet">
 @endsection
 
 @extends('layouts.app')
@@ -61,7 +61,7 @@
     </table>
 </div>
 @else
-    <br><span class="badge bg-secondary">No hay movimientos de activos fijos registrados</span>
+<br><span class="badge bg-secondary">No hay movimientos de activos fijos registrados</span>
 @endif
 
 <div class="modal fade" id="modalRegistrar" tabindex="-1" aria-labelledby="modalRegistrar" aria-hidden="true">
@@ -78,7 +78,7 @@
                         <label for="id_usuario" class="col-form-label">Tenico autorizado:</label>
                         <select id="id_usuario" class="form-select" name="id_usuario">
                             @foreach ($usuarios as $usuario)
-                                <option @selected(old('id_usuario')==$usuario->id) value="{{$usuario->id}}">{{$usuario->nombres}} {{$usuario->apellidos}}</option>
+                            <option @selected(old('id_usuario')==$usuario->id) value="{{$usuario->id}}">{{$usuario->nombres}} {{$usuario->apellidos}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -87,7 +87,7 @@
                         <label for="id_motivo" class="col-form-label">Motivo de salida:</label>
                         <select id="id_motivo" class="form-select" name="id_motivo">
                             @foreach ($motivos as $motivo)
-                                <option @selected(old('id_motivo')==$motivo->id) value="{{$motivo->id}}">{{$motivo->motivo}}</option>
+                            <option @selected(old('id_motivo')==$motivo->id) value="{{$motivo->id}}">{{$motivo->motivo}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -123,42 +123,42 @@
 @endsection
 
 @section('js-data-table')
-    <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('js/dataTables.bootstrap5.min.js') }}"></script>
-    <script>
-        $(document).ready(function() {
-            $('#movimientos tbody').on('click', 'tr', function() {
-                $(this).toggleClass('selected');
-            });
-
-            $('#movimientos').DataTable({
-                "language": {
-                    "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-                }
-            });
+<script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('js/dataTables.bootstrap5.min.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        $('#movimientos tbody').on('click', 'tr', function() {
+            $(this).toggleClass('selected');
         });
-    </script>
+
+        $('#movimientos').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+            }
+        });
+    });
+</script>
 @endsection
 
 @section('js-alert-delete')
-    <script src="{{ asset('js/alert-delete.js') }}"></script>
-    <script type="text/javascript">
-        $('.show_confirm').click(function(event) {
-            var form = $(this).closest("form");
-            var name = $(this).data("name");
-            event.preventDefault();
-            swal({
-                    title: `¿Seguro que desea borrar este registro?`,
-                    text: "Si elimina este registro no se podra recuperar.",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        form.submit();
-                    }
-                });
-        });
-    </script>
+<script src="{{ asset('js/alert-delete.js') }}"></script>
+<script type="text/javascript">
+    $('.show_confirm').click(function(event) {
+        var form = $(this).closest("form");
+        var name = $(this).data("name");
+        event.preventDefault();
+        swal({
+                title: `¿Seguro que desea borrar este registro?`,
+                text: "Si elimina este registro no se podra recuperar.",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    form.submit();
+                }
+            });
+    });
+</script>
 @endsection
