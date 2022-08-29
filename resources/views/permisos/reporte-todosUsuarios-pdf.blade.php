@@ -1,6 +1,3 @@
-@php
-var_dump($permisos)
-@endphp
 
 <!DOCTYPE html>
 <html lang="en">

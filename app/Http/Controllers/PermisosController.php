@@ -75,7 +75,7 @@ class PermisosController extends Controller
                 $pdf->loadView('permisos.reporte-todos-pdf', ['permisos' => $permisos, 'coordinadores' => $coordinadores, 'fecha_inicio' => $request->fecha_inicio, 'fecha_finalizacion' => $request->fecha_finalizacion])->setPaper('letter', 'landscape');
                 return $pdf->stream();
             } else {
-                return redirect()->route('permisos.reporte')->with('errorDatos', 'No hay registros disponibles.')->withInput();
+                return redirect()->route('permisos.reporte')->withErrors( 'No hay registros disponibles.')->withInput();
             }
         } elseif ($request->usuario == "todos" && $request->motivo != "todos") {
             $permisos = DB::select("SELECT u.id, u.nombres, u.apellidos, d.nombre, tp.tipo_permiso, mp.motivo, c.id_tecnico, p.fecha_entrada, p.hora_entrada, p.fecha_salida, 
@@ -94,7 +94,7 @@ class PermisosController extends Controller
                 $pdf->loadView('permisos.reporte-todosUsuarios-pdf', ['permisos' => $permisos, 'coordinadores' => $coordinadores, 'fecha_inicio' => $request->fecha_inicio, 'fecha_finalizacion' => $request->fecha_finalizacion])->setPaper('letter', 'landscape');
                 return $pdf->stream();
             } else {
-                return redirect()->route('permisos.reporte')->with('errorDatos', 'No hay registros disponibles.')->withInput();
+                return redirect()->route('permisos.reporte')->withErrors('No hay registros disponibles.')->withInput();
             }
         } elseif ($request->usuario != "todos" && $request->motivo == "todos") {
             $permisos = DB::select("SELECT u.id, u.nombres, u.apellidos, d.nombre, tp.tipo_permiso, mp.motivo, c.id_tecnico, p.fecha_entrada, p.hora_entrada, p.fecha_salida, 
@@ -113,7 +113,7 @@ class PermisosController extends Controller
                 $pdf->loadView('permisos.reporte-todosMotivos-pdf', ['permisos' => $permisos, 'coordinadores' => $coordinadores, 'fecha_inicio' => $request->fecha_inicio, 'fecha_finalizacion' => $request->fecha_finalizacion])->setPaper('letter', 'portrait');
                 return $pdf->stream();
             } else {
-                return redirect()->route('permisos.reporte')->with('errorDatos', 'No hay registros disponibles.')->withInput();
+                return redirect()->route('permisos.reporte')->withErrors('No hay registros disponibles.')->withInput();
             }
         } else {
             $permisos = DB::select("SELECT u.id, u.nombres, u.apellidos, d.nombre, tp.tipo_permiso, mp.motivo, c.id_tecnico, p.fecha_entrada, p.hora_entrada, p.fecha_salida, 
@@ -132,7 +132,7 @@ class PermisosController extends Controller
                 $pdf->loadView('permisos.reporte-pdf', ['permisos' => $permisos, 'coordinadores' => $coordinadores, 'fecha_inicio' => $request->fecha_inicio, 'fecha_finalizacion' => $request->fecha_finalizacion])->setPaper('letter', 'portrait');
                 return $pdf->stream();
             } else {
-                return redirect()->route('permisos.reporte')->with('errorDatos', 'No hay registros disponibles.')->withInput();
+                return redirect()->route('permisos.reporte')->withErrors('No hay registros disponibles.')->withInput();
             }
         }
     }

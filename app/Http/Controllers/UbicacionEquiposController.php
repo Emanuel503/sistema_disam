@@ -58,7 +58,7 @@ class UbicacionEquiposController extends Controller
             UbicacionEquipos::destroy($id);
             return redirect()->route('ubicacion-equipo.index')->with('success', 'Ubicación eliminada correctamente');
         } catch (Exception $e) {
-            return redirect()->route('ubicacion-equipo.index')->with('success', 'No se puede eliminar la ubicación, ya contiene registros');
+            return redirect()->route('ubicacion-equipo.index')->withErrors('No se puede eliminar la ubicación, ya contiene registros');
         }
     }
 }

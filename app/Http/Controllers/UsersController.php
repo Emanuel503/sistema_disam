@@ -67,6 +67,7 @@ class UsersController extends Controller
         $usuario->telefono = $request->telefono;
         $usuario->motorista = $request->motorista;
         $usuario->save();
+
         return redirect()->route('users.index')->with('success', 'Usuario registrado correctamente');
     }
 
@@ -117,7 +118,7 @@ class UsersController extends Controller
             User::destroy($id);
             return redirect()->route('users.index')->with('success', 'Usuario eliminado correctamente');
         } catch (Exception $e) {
-            return redirect()->route('users.index')->with('errorEliminar', 'No se puede eliminar el usuario, ya contiene registros');
+            return redirect()->route('users.index')->withErrors(['No se puede eliminar el usuario, ya contiene registros']);
         }
     }
 }

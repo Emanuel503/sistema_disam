@@ -59,7 +59,7 @@ class DescripcionEquiposController extends Controller
             DescripcionEquipos::destroy($id);
             return redirect()->route('descripcion-equipo.index')->with('success', 'Descripción eliminada correctamente');
         } catch (Exception $e) {
-            return redirect()->route('descripcion-equipo.index')->with('success', 'No se puede eliminar la descripción, ya contiene registros');
+            return redirect()->route('descripcion-equipo.index')->withErrors('No se puede eliminar la descripción, ya contiene registros');
         }
     }
 }

@@ -6,7 +6,6 @@
 <a class="btn btn-outline-secondary mb-4" href="{{ route('solicitud-combustible.index')}}">Regresar</a>
 
 @include('layouts.alerts')
-@include('solicitud-combustible.alerts')
 
 <form action="{{ route('solicitud-combustible.update', ['solicitud_combustible' => $solicitudes->id]) }}" method="POST">
     @csrf

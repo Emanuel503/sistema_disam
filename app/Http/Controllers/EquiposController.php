@@ -92,7 +92,7 @@ class EquiposController extends Controller
             $guardar = $this->isImage($file);
 
             if($guardar == false){
-                return redirect()->route('equipos.index')->with('errorFormato', 'Formato de imagen no valido.')->withInput();
+                return redirect()->route('equipos.index')->withErrors('Formato de imagen no valido.')->withInput();
             }
 
             $filename = date('YmdHi') . '-' . $file->getClientOriginalName();
@@ -146,7 +146,7 @@ class EquiposController extends Controller
             $guardar = $this->isImage($file);
 
             if($guardar == false){
-                return redirect()->route('equipos.edit', ['equipo' => $id])->with('errorFormato', 'Formato de imagen no valido.')->withInput();
+                return redirect()->route('equipos.edit', ['equipo' => $id])->withErrors('Formato de imagen no valido.')->withInput();
             }
 
             if($equipos->imagen != null){
@@ -171,10 +171,9 @@ class EquiposController extends Controller
                 unlink(public_path('images') ."\\". $equipo->imagen);
             }
             Equipos::destroy($id);
-
             return redirect()->route('equipos.index')->with('success', 'Equipo eliminado correctamente');
         } catch (Exception $e) {
-            return redirect()->route('equipos.index')->with('errorEliminar', 'No se puede eliminar el equipo, ya contiene registros');
+            return redirect()->route('equipos.index')->withErrors('No se puede eliminar el equipo, ya contiene registros');
         }
     }
 }

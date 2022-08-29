@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('css-data-table')
-<link href="{{ asset('css/DataTables.css') }}" rel="stylesheet">
+@section('css')
+    <link href="{{ asset('css/DataTables.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -10,11 +10,10 @@
 <button type="button" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#modalRegistrar">Registrar nueva solicitud combustible</button>
 
 @include('layouts.alerts')
-@include('solicitud-combustible.alerts')
 
 @if (sizeof($solicitudes) > 0)
 <div class="table-responsive">
-    <table id="solicitudCombustible" class="table table-striped table-hover table-bordered table-sm shadow">
+    <table id="tabla" class="table table-striped table-hover table-bordered table-sm shadow">
         <thead>
             <tr class="table-dark">
                 <th>Fecha</th>
@@ -38,8 +37,7 @@
                             @method('DELETE')
                             @csrf
                             <a class="btn btn-success btn-sm mb-1" href="{{ route('solicitud-combustible.edit' , ['solicitud_combustible' => $solicitud->id])}}">Modificar</a>
-                            <input name="_method" type="hidden" value="DELETE"><input name="_method" type="hidden" value="DELETE">
-                            <button type="submit" class="btn btn-sm btn-danger btn-flat show_confirm" data-toggle="tooltip" title='Delete'>Eliminar</button>
+                            <button type="submit" class="btn btn-sm btn-danger show_confirm" data-toggle="tooltip" title='Delete'>Eliminar</button>
                         </form>
                     </div>
                 </td>
@@ -149,46 +147,25 @@
 </div>
 @endsection
 
-@section('js-data-table')
-<script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('js/dataTables.bootstrap5.min.js') }}"></script>
-<script>
-    $(document).ready(function() {
-        $('#solicitudCombustible tbody').on('click', 'tr', function() {
-            $(this).toggleClass('selected');
-        });
-
-        $('#solicitudCombustible').DataTable({
-            language: {
-                "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-            },
-            order: [
-                [0, 'desc']
-            ],
-        });
-    });
-</script>
-@endsection
-
-@section('js-alert-delete')
-<script src="{{ asset('js/alert-delete.js') }}"></script>
-<script type="text/javascript">
-    $('.show_confirm').click(function(event) {
-        var form = $(this).closest("form");
-        var name = $(this).data("name");
-        event.preventDefault();
-        swal({
-                title: `¿Seguro que desea borrar este registro?`,
-                text: "Si elimina este registro no se podra recuperar.",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-            .then((willDelete) => {
-                if (willDelete) {
-                    form.submit();
-                }
+@section('js')
+    <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('js/dataTables.bootstrap5.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#tabla tbody').on('click', 'tr', function() {
+                $(this).toggleClass('selected');
             });
-    });
-</script>
+
+            $('#tabla').DataTable({
+                language: {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+                },
+                order: [
+                    [0, 'desc']
+                ],
+            });
+        });
+    </script>
+
+    @include('layouts.confirmar-eliminar')
 @endsection

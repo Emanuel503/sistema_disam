@@ -8,8 +8,7 @@
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/estilos.css') }}" rel="stylesheet">
     <link href="{{env('APP_URL')}}/sistema_disam/public/img/escudo.png" rel="icon" type="image/x-icon">
-    @yield('css-data-table')
-    @yield('css-fullcalendar')
+    @yield('css')
 </head>
 
 <body>
@@ -71,6 +70,7 @@
                                     <li><a class="dropdown-item" href="{{route('movimiento-equipos.index')}}">Movimiento de Activo Fijo</a></li>
                                 </ul>
                             </li>
+                            <li><a class="dropdown-item" href="{{route('pao.index')}}">PAO</a></li>
                         </ul>
                     </li>
 
@@ -117,11 +117,7 @@
     <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/funciones.js') }}"></script>
-    @yield('js-fullcalendar')
-    @yield('js-data-table')
-    @yield('js-solicitud-transporte')
-    @yield('js-lugares')
-    @yield('js-alert-delete')
+    @yield('js')
 </body>
 
 </html>

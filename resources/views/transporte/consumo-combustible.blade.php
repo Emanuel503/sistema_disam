@@ -3,12 +3,7 @@
 @section('content')
     <h3 class="mb-4">Consumo de combustible</h3>
 
-    @if (session('errorDatos'))
-        <div id="alert" class="alert alert-warning alert-dismissible fade show" role="alert">
-            {{session('errorDatos')}}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
+    @include('layouts.alerts')
 
     <div class="modal-dialog modal-lg">
         <div class="modal-content bg-secondary bg-opacity-25 shadow">

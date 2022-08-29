@@ -56,7 +56,7 @@ class SolicitudesTransporteController extends Controller
 
         //Comprueba que la hora de incio sea menor a la hora de finalizacion
         if (strtotime($request->hora_salida) >= strtotime($request->hora_regreso)) {
-            return redirect()->route('solicitudes-transporte.index')->with('errorHora', 'La hora de salida no puede ser mayor o igual a la hora de regreso')->withInput();
+            return redirect()->route('solicitudes-transporte.index')->withErrors('La hora de salida no puede ser mayor o igual a la hora de regreso')->withInput();
         }
 
         $solicitudesTransporte = new SolicitudesTransportes();
@@ -90,7 +90,7 @@ class SolicitudesTransporteController extends Controller
 
         //Comprueba que la hora de incio sea menor a la hora de finalizacion
         if (strtotime($request->hora_salida) >= strtotime($request->hora_regreso)) {
-            return redirect()->route('solicitudes-transporte.edit', ['solicitudes_transporte' => $id])->with('errorHora', 'La hora de salida no puede ser mayor o igual a la hora de regreso')->withInput();
+            return redirect()->route('solicitudes-transporte.edit', ['solicitudes_transporte' => $id])->withErrors('La hora de salida no puede ser mayor o igual a la hora de regreso')->withInput();
         }
 
         $solicitudesTransporte = SolicitudesTransportes::find($id);
@@ -108,7 +108,7 @@ class SolicitudesTransporteController extends Controller
             );
 
             if (sizeof($solicitudes) > 0) {
-                return redirect()->route('solicitudes-transporte.edit', ['solicitudes_transporte' => $id])->with('errorVehiculo', 'El vehiculo seleccionado ya se encuentra reservado para ese horario');
+                return redirect()->route('solicitudes-transporte.edit', ['solicitudes_transporte' => $id])->withErrors('El vehiculo seleccionado ya se encuentra reservado para ese horario');
             }
 
             $solicitudes = DB::select("SELECT * FROM solicitudes_transportes WHERE id_vehiculo= ? and fecha = ? and id != ?", [$request->id_vehiculo, $request->fecha, $id]);
@@ -117,7 +117,7 @@ class SolicitudesTransporteController extends Controller
                     strtotime($request->hora_salida) >= strtotime($solicitud->hora_salida) &&
                     strtotime($request->hora_salida) <= strtotime($solicitud->hora_regreso)
                 ) {
-                    return redirect()->route('solicitudes-transporte.edit', ['solicitudes_transporte' => $id])->with('errorVehiculo', 'El vehiculo seleccionado ya se encuentra reservado para ese horario');
+                    return redirect()->route('solicitudes-transporte.edit', ['solicitudes_transporte' => $id])->withErrors('El vehiculo seleccionado ya se encuentra reservado para ese horario');
                 }
             }
 
@@ -128,7 +128,7 @@ class SolicitudesTransporteController extends Controller
             );
 
             if (sizeof($solicitudes) > 0) {
-                return redirect()->route('solicitudes-transporte.edit', ['solicitudes_transporte' => $id])->with('errorMotorista', 'El motorista seleccionado ya se encuentra reservado para ese horario');
+                return redirect()->route('solicitudes-transporte.edit', ['solicitudes_transporte' => $id])->withErrors('El motorista seleccionado ya se encuentra reservado para ese horario');
             }
 
             $solicitudes = DB::select("SELECT * FROM solicitudes_transportes WHERE id_motorista= ? and fecha = ? and id != ?", [$request->id_motorista, $request->fecha, $id]);
@@ -137,7 +137,7 @@ class SolicitudesTransporteController extends Controller
                     strtotime($request->hora_salida) >= strtotime($solicitud->hora_salida) &&
                     strtotime($request->hora_salida) <= strtotime($solicitud->hora_regreso)
                 ) {
-                    return redirect()->route('solicitudes-transporte.edit', ['solicitudes_transporte' => $id])->with('errorMotorista', 'El motorista seleccionado ya se encuentra reservado para ese horario');
+                    return redirect()->route('solicitudes-transporte.edit', ['solicitudes_transporte' => $id])->withErrors('El motorista seleccionado ya se encuentra reservado para ese horario');
                 }
             }
 

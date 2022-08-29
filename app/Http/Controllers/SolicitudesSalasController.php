@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-
 class SolicitudesSalasController extends Controller
 {
     public function index()
@@ -50,7 +49,7 @@ class SolicitudesSalasController extends Controller
 
         //Comprueba que la hora de incio sea menor a la hora de finalizacion
         if (strtotime($request->hora_inicio) >= strtotime($request->hora_finalizacion)) {
-            return redirect()->route('solicitudes-sala.index')->with('errorHora', 'La hora de incio no puede ser mayor o igual a la hora de finalizacion')->withInput();;
+            return redirect()->route('solicitudes-sala.index')->withErrors('La hora de incio no puede ser mayor o igual a la hora de finalizacion')->withInput();;
         }
 
         //Obtiene todos lo registro de coicidan con la hora ingresada, la sala y el dia
@@ -60,7 +59,7 @@ class SolicitudesSalasController extends Controller
         );
 
         if (sizeof($solicitudesSalas) > 0) {
-            return redirect()->route('solicitudes-sala.index')->with('errorHora', 'La sala selecciona ya se encuentra reservada para ese horario')->withInput();;
+            return redirect()->route('solicitudes-sala.index')->withErrors('La sala selecciona ya se encuentra reservada para ese horario')->withInput();;
         }
 
         $solicitudesSalas = DB::select("SELECT * FROM solicitudes_salas WHERE id_sala= ? and fecha = ?", [$request->id_sala, $request->fecha]);
@@ -70,7 +69,7 @@ class SolicitudesSalasController extends Controller
                 strtotime($request->hora_inicio) >= strtotime($solicitud->hora_inicio) &&
                 strtotime($request->hora_inicio) <= strtotime($solicitud->hora_finalizacion)
             ) {
-                return redirect()->route('solicitudes-sala.index')->with('errorHora', 'La sala selecciona ya se encuentra reservada para ese horario')->withInput();;
+                return redirect()->route('solicitudes-sala.index')->withErrors('La sala selecciona ya se encuentra reservada para ese horario')->withInput();;
             }
         }
 
@@ -106,7 +105,7 @@ class SolicitudesSalasController extends Controller
 
         //Comprueba que la hora de incio sea menor a la hora de finalizacion
         if (strtotime($request->hora_inicio) >= strtotime($request->hora_finalizacion)) {
-            return redirect()->route('solicitudes-sala.edit', ['solicitudes_sala' => $id])->with('errorHora', 'La hora de incio no puede ser mayor o igual a la hora de finalizacion')->withInput();;
+            return redirect()->route('solicitudes-sala.edit', ['solicitudes_sala' => $id])->withErrors('La hora de incio no puede ser mayor o igual a la hora de finalizacion')->withInput();;
         }
 
         //Obtiene todos lo registro de cocidan con la hora ingresada, la sala y el dia
@@ -116,7 +115,7 @@ class SolicitudesSalasController extends Controller
         );
 
         if (sizeof($solicitudesSalas) > 0) {
-            return redirect()->route('solicitudes-sala.edit', ['solicitudes_sala' => $id])->with('errorHora', 'La sala selecciona ya se encuentra reservada para ese horario')->withInput();;
+            return redirect()->route('solicitudes-sala.edit', ['solicitudes_sala' => $id])->withErrors('La sala selecciona ya se encuentra reservada para ese horario')->withInput();;
         }
 
         $solicitudesSalas = DB::select("SELECT * FROM solicitudes_salas WHERE id_sala= ? and fecha = ? and id != ?", [$request->id_sala, $request->fecha, $id]);
@@ -126,7 +125,7 @@ class SolicitudesSalasController extends Controller
                 strtotime($request->hora_inicio) >= strtotime($solicitud->hora_inicio) &&
                 strtotime($request->hora_inicio) <= strtotime($solicitud->hora_finalizacion)
             ) {
-                return redirect()->route('solicitudes-sala.edit', ['solicitudes_sala' => $id])->with('errorHora', 'La sala selecciona ya se encuentra reservada para ese horario')->withInput();;
+                return redirect()->route('solicitudes-sala.edit', ['solicitudes_sala' => $id])->withErrors('La sala selecciona ya se encuentra reservada para ese horario')->withInput();;
             }
         }
 

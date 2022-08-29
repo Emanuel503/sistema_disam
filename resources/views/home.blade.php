@@ -1,5 +1,5 @@
-@section('css-fullcalendar')
-<link href="{{ asset('css/main.css') }}" rel="stylesheet">
+@section('css')
+    <link href="{{ asset('css/main.css') }}" rel="stylesheet">
 @endsection
 
 @extends('layouts.app')
@@ -141,7 +141,7 @@
 </div>
 @endsection
 
-@section('js-fullcalendar')
+@section('js')
     <script src="{{ asset('js/agenda.js') }}" defer></script>
     <script src="{{ asset('js/main.min.js') }}"></script>
     <script src="{{ asset('js/locales-all.js') }}"></script>

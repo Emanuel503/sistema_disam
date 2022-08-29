@@ -1,12 +1,12 @@
 @php
-if (Auth::user()->rol->rol != "Administrador"){
-header("Location: home");
-die();
+    if (Auth::user()->rol->rol != "Administrador"){
+        header("Location: home");
+        die();
 }
 @endphp
 
-@section('css-data-table')
-<link href="{{ asset('css/DataTables.css') }}" rel="stylesheet">
+@section('css')
+    <link href="{{ asset('css/DataTables.css') }}" rel="stylesheet">
 @endsection
 
 @extends('layouts.app')
@@ -42,8 +42,7 @@ die();
                         <div>
                             <a class="btn btn-info btn-sm mb-1" href="{{ route('coordinadores.show' , ['coordinadore' => $coordinador->id])}}">Ver</a>
                             <a class="btn btn-success btn-sm mb-1" href="{{ route('coordinadores.edit' , ['coordinadore' => $coordinador->id])}}">Modificar</a>
-                            <input name="_method" type="hidden" value="DELETE"><input name="_method" type="hidden" value="DELETE">
-                            <button type="submit" class="btn btn-sm btn-danger btn-flat show_confirm" data-toggle="tooltip" title='Delete'>Eliminar</button>
+                            <button type="submit" class="btn btn-sm btn-danger show_confirm" data-toggle="tooltip" title='Delete'>Eliminar</button>
                         </div>
                     </form>
                 </td>
@@ -93,43 +92,21 @@ die();
 </div>
 @endsection
 
-@section('js-data-table')
-<script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('js/dataTables.bootstrap5.min.js') }}"></script>
-<script>
-    $(document).ready(function() {
-        $('#coordinador tbody').on('click', 'tr', function() {
-            $(this).toggleClass('selected');
-        });
+@section('js')
+    <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('js/dataTables.bootstrap5.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#coordinador tbody').on('click', 'tr', function() {
+                $(this).toggleClass('selected');
+            });
 
-        $('#coordinador').DataTable({
-            "language": {
-                "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-            }
-        });
-    });
-</script>
-@endsection
-
-@section('js-alert-delete')
-<script src="{{ asset('js/alert-delete.js') }}"></script>
-<script type="text/javascript">
-    $('.show_confirm').click(function(event) {
-        var form = $(this).closest("form");
-        var name = $(this).data("name");
-        event.preventDefault();
-        swal({
-                title: `¿Seguro que desea borrar este registro?`,
-                text: "Si elimina este registro no se podra recuperar.",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-            .then((willDelete) => {
-                if (willDelete) {
-                    form.submit();
+            $('#coordinador').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
                 }
             });
-    });
-</script>
+        });
+    </script>
+    @include('layouts.confirmar-eliminar')
 @endsection

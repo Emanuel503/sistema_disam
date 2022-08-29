@@ -33,7 +33,7 @@ class TransporteController extends Controller
             $pdf->loadView('transporte.consumo-combustible-pdf', ['year' => $year, 'mes' => $mes, 'transportes' => $transportes])->setPaper('letter', 'landscape');
             return $pdf->stream();
         } else {
-            return redirect()->route('transporte.comsumoCombustible')->with('errorDatos', 'No hay registros disponibles.')->withInput();
+            return redirect()->route('transporte.comsumoCombustible')->withErrors('No hay registros disponibles.')->withInput();
         }
     }
 
@@ -64,7 +64,7 @@ class TransporteController extends Controller
 
             return $pdf->stream();
         } else {
-            return redirect()->route('transporte.bitacoraRecorridos')->with('errorDatos', 'No hay registros disponibles.')->withInput();
+            return redirect()->route('transporte.bitacoraRecorridos')->withErrors('No hay registros disponibles.')->withInput();
         }
     }
 
@@ -125,15 +125,12 @@ class TransporteController extends Controller
             'id_conductor' => 'required',
             'id_placa' => 'required',
             'fecha' => 'required|date',
-            //Salida
             'hora_salida' => 'required',
             'km_salida' => 'required|numeric|min:0',
             'lugar_salida' => 'required',
-            //Destino
             'hora_destino' => 'required',
             'km_destino' => 'required|numeric|min:0',
             'lugar_destino' => 'required',
-            //Otros            
             'combustible' => 'required|numeric|min:0',
             'tipo_combustible' => 'required',
             'pasajero' => 'required',
@@ -148,18 +145,18 @@ class TransporteController extends Controller
 
         foreach ($validacionKm as $val) {
             if ($request->km_salida < $val->kilometraje) {
-                return redirect()->route('transporte.index')->with('errorHora', 'El kilometraje ingresado es menor al ultimo registrado.')->withInput();
+                return redirect()->route('transporte.index')->withErrors('El kilometraje ingresado es menor al ultimo registrado.')->withInput();
             }
         }
 
         if ($request->km_destino < $request->km_salida) {
-            return redirect()->route('transporte.index')->with('errorHora', 'El kilometraje de destino no puede ser menor al kilometraje de salida.')->withInput();
+            return redirect()->route('transporte.index')->withErrors('El kilometraje de destino no puede ser menor al kilometraje de salida.')->withInput();
         }
 
         $comprobar = $this->comprobarHoras($request->hora_salida, $request->hora_destino);
 
         if ($comprobar == "errorHora") {
-            return redirect()->route('transporte.index')->with('errorHora', 'La hora de destino no puede ser menor que la hora de salida.')->withInput();
+            return redirect()->route('transporte.index')->withErrors('La hora de destino no puede ser menor que la hora de salida.')->withInput();
         }
 
         $transporte = new Transporte();
@@ -241,18 +238,18 @@ class TransporteController extends Controller
 
         foreach ($validacionKm as $val) {
             if ($request->km_salida < $val->kilometraje) {
-                return redirect()->route('transporte.index')->with('errorHora', 'El kilometraje ingresado es menor al ultimo registrado.')->withInput();
+                return redirect()->route('transporte.index')->withErrors('El kilometraje ingresado es menor al ultimo registrado.')->withInput();
             }
         }
 
         if ($request->km_destino < $request->km_salida) {
-            return redirect()->route('transporte.index')->with('errorHora', 'El kilometraje de destino no puede ser menor al kilometraje de salida.')->withInput();
+            return redirect()->route('transporte.index')->withErrors('El kilometraje de destino no puede ser menor al kilometraje de salida.')->withInput();
         }
 
         $comprobar = $this->comprobarHoras($request->hora_salida, $request->hora_destino);
 
         if ($comprobar == "errorHora") {
-            return redirect()->route('transporte.index')->with('errorHora', 'La hora de destino no puede ser menor que la hora de salida.')->withInput();
+            return redirect()->route('transporte.index')->withErrors('La hora de destino no puede ser menor que la hora de salida.')->withInput();
         }
 
         $transporte = Transporte::find($id);

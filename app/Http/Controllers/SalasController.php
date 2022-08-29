@@ -59,7 +59,7 @@ class SalasController extends Controller
             Salas::destroy($id);
             return redirect()->route('salas.index')->with('success', 'Sala eliminada correctamente');
         } catch (Exception $e) {
-            return redirect()->route('salas.index')->with('errorEliminar', 'No se puede eliminar la sala, ya contiene registros');
+            return redirect()->route('salas.index')->withErrors(['No se puede eliminar la sala, ya contiene registros']);
         }
     }
 }

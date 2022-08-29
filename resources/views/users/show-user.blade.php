@@ -78,12 +78,11 @@
         @method('DELETE')
         @csrf
         <a class="btn btn-success" href="{{ route('users.edit' , ['user' => $usuario->id])}}">Modificar</a>
-        <input name="_method" type="hidden" value="DELETE"><input name="_method" type="hidden" value="DELETE">
-        <button type="submit" class="btn btn-danger btn-flat show_confirm" data-toggle="tooltip" title='Delete'>Eliminar</button>
+        <button type="submit" class="btn btn-danger show_confirm" data-toggle="tooltip" title='Delete'>Eliminar</button>
     </form>
 @endsection
 
-@section('js-alert-delete')
+@section('js')
     <script src="{{ asset('js/alert-delete.js') }}"></script>
     <script type="text/javascript">
         $('.show_confirm').click(function(event) {
@@ -104,4 +103,5 @@
                 });
         });
     </script>
+    @include('layouts.confirmar-eliminar')
 @endsection

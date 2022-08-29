@@ -58,7 +58,7 @@ class DependenciasController extends Controller
             Dependencias::destroy($id);
             return redirect()->route('dependencias.index')->with('success', 'Dependencia eliminada correctamente');
         } catch (Exception $e) {
-            return redirect()->route('dependencias.index')->with('errorEliminar', 'No se puede eliminar la dependencia, ya contiene registros');
+            return redirect()->route('dependencias.index')->withErrors('No se puede eliminar la dependencia, ya contiene registros');
         }
     }
 }

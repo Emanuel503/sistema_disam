@@ -1,8 +1,8 @@
 @php
-if (Auth::user()->rol->rol != "Administrador"){
-header("Location: home");
-die();
-}
+    if (Auth::user()->rol->rol != "Administrador"){
+        header("Location: home");
+        die();
+    }
 @endphp
 
 @extends('layouts.app')
@@ -14,7 +14,6 @@ die();
 <a class="btn btn-outline-secondary mb-4" href="{{ route('lugares.index')}}">Regresar</a>
 
 @include('layouts.alerts')
-@include('lugares.alerts')
 
 <form action="{{ route('lugares.update', ['lugare' => $lugares->id]) }}" method="POST">
     @csrf
@@ -26,7 +25,7 @@ die();
 
     <div class="mb-3">
         <label for="codigo" class="col-form-label">Codigo:</label>
-        <input class="form-control" name="codigo" id="codigo" value="{{$lugares->codigo}}" required>
+        <input type="number" class="form-control" name="codigo" id="codigo" value="{{$lugares->codigo}}" required>
     </div>
 
     <div class="mb-3">
@@ -50,26 +49,27 @@ die();
     <button type="submit" class="btn btn-success mt-4">Modificar</button>
     <a href="{{route('lugares.index')}}" class="btn btn-secondary mt-4">Cancelar</a>
 </form>
+@endsection
 
-<script>
-    document.getElementById("id_departamento").onchange = function() {
+@section('js')
+    <script>
+        document.getElementById("id_departamento").onchange = function() {
 
-        let selector = document.getElementById('id_departamento');
-        let value = selector[selector.selectedIndex].value;
+            let selector = document.getElementById('id_departamento');
+            let value = selector[selector.selectedIndex].value;
 
-        let nodeList = document.getElementById("id_municipio").querySelectorAll("option");
+            let nodeList = document.getElementById("id_municipio").querySelectorAll("option");
 
-        nodeList.forEach(function(option) {
+            nodeList.forEach(function(option) {
 
-            if (option.classList.contains(value)) {
-                option.style.display = "block";
-            } else {
-                option.style.display = "none";
-                document.getElementById('id_municipio').selectedIndex = -1;
-            }
+                if (option.classList.contains(value)) {
+                    option.style.display = "block";
+                } else {
+                    option.style.display = "none";
+                    document.getElementById('id_municipio').selectedIndex = -1;
+                }
 
-        });
-    }
-</script>
-
+            });
+        }
+    </script>
 @endsection

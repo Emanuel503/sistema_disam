@@ -59,7 +59,7 @@ class FuenteEquiposController extends Controller
             FuenteEquipos::destroy($id);
             return redirect()->route('fuente-equipo.index')->with('success', 'Fuente del equipo eliminada correctamente');
         } catch (Exception $e) {
-            return redirect()->route('fuente-equipo.index')->with('success', 'No se puede eliminar la fuente del equipo, ya contiene registros');
+            return redirect()->route('fuente-equipo.index')->withErrors('No se puede eliminar la fuente del equipo, ya contiene registros');
         }
     }
 }

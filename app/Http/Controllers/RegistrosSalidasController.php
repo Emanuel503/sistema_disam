@@ -23,7 +23,7 @@ class RegistrosSalidasController extends Controller
             $pdf->loadView('registros-salidas.reportePdf', ['fecha_inicio' => $request->fecha_inicio, 'fecha_final' => $request->fecha_final,'salidas' => $salidas])->setPaper('letter');
             return $pdf->stream();
         }else{
-            return redirect()->route('registros-salida.reporte')->with('errorDatos', 'No hay registros disponibles.')->withInput();
+            return redirect()->route('registros-salida.reporte')->withErrors('No hay registros disponibles.')->withInput();
         }
     }
 
@@ -76,7 +76,7 @@ class RegistrosSalidasController extends Controller
         $comprobar = $this->comprobarHoras($request->hora_inicio, $request->hora_final);
 
         if ($comprobar == "errorHora") {
-            return redirect()->route('registros-salida.index')->with('errorHora', 'La hora de inicio no puede ser mayor que la hora de fin.')->withInput();
+            return redirect()->route('registros-salida.index')->withErrors('La hora de inicio no puede ser mayor que la hora de fin.')->withInput();
         }
 
         $salidas = new RegistrosSalidas();
@@ -111,7 +111,7 @@ class RegistrosSalidasController extends Controller
         $comprobar = $this->comprobarHoras($request->hora_inicio, $request->hora_final);
 
         if ($comprobar == "errorHora") {
-            return redirect()->route('registros-salida.edit' , ['registros_salida' => $id])->with('errorHora', 'La hora de inicio no puede ser mayor que la hora de fin.')->withInput();
+            return redirect()->route('registros-salida.edit' , ['registros_salida' => $id])->withErrors('La hora de inicio no puede ser mayor que la hora de fin.')->withInput();
         }
 
         $salidas = RegistrosSalidas::find($id);

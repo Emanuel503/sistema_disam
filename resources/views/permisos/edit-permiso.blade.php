@@ -7,12 +7,10 @@
 <a class="btn btn-outline-secondary mb-4" href="{{ route('permisos.index')}}">Regresar</a>
 
 @include('layouts.alerts')
-@include('permisos.alerts')
 
 <form action="{{ route('permisos.update', ['permiso' => $permisos->id]) }}" method="POST">
     @csrf
     @method('PATCH')
-
     <div class="mb-3">
         <label for="usuario" class="col-form-label">Usuario:</label>
         <select id="usuario" class="form-select" name="usuario">
@@ -91,7 +89,6 @@
         <input type="date" class="form-control" name="fecha_permiso" id="fecha_permiso" value="{{$permisos->fecha_permiso}}" required>
     </div>
 
-
     <div class="mb-3">
         <label for="estado" class="col-form-label">Estado:</label>
         <select id="estado" class="form-select" name="estado">
@@ -105,30 +102,7 @@
         </select>
     </div>
 
-
     <button type="submit" class="btn btn-success mt-4">Modificar</button>
     <a href="{{route('permisos.index')}}" class="btn btn-secondary mt-4">Cancelar</a>
 </form>
-
-<script>
-    document.getElementById("id_departamento").onchange = function() {
-
-        let selector = document.getElementById('id_departamento');
-        let value = selector[selector.selectedIndex].value;
-
-        let nodeList = document.getElementById("id_municipio").querySelectorAll("option");
-
-        nodeList.forEach(function(option) {
-
-            if (option.classList.contains(value)) {
-                option.style.display = "block";
-            } else {
-                option.style.display = "none";
-                document.getElementById('id_municipio').selectedIndex = -1;
-            }
-
-        });
-    }
-</script>
-
 @endsection

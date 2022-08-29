@@ -1,7 +1,7 @@
 @php
-if (Auth::user()->rol->rol != "Administrador"){
-header("Location: home");
-die();
+    if (Auth::user()->rol->rol != "Administrador"){
+        header("Location: home");
+    die();
 }
 @endphp
 
@@ -14,7 +14,6 @@ die();
 <a class="btn btn-outline-secondary mb-4" href="{{ route('descripcion-equipo.index')}}">Regresar</a>
 
 @include('layouts.alerts')
-@include('descripcion-equipo.alerts')
 
 <form action="{{ route('descripcion-equipo.update', ['descripcion_equipo' => $descripciones->id]) }}" method="POST">
     @csrf

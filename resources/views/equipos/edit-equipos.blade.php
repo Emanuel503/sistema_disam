@@ -7,7 +7,6 @@
 <a class="btn btn-outline-secondary mb-4" href="{{ route('equipos.index')}}">Regresar</a>
 
 @include('layouts.alerts')
-@include('equipos.alerts')
 
 <form action="{{ route('equipos.update', ['equipo' => $equipos->id]) }}" method="POST" enctype="multipart/form-data">
     @csrf

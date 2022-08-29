@@ -78,7 +78,7 @@ class LugaresController extends Controller
             Lugares::destroy($id);
             return redirect()->route('lugares.index')->with('success', 'Lugar eliminado correctamente');
         } catch (Exception $e) {
-            return redirect()->route('lugares.index')->with('errorEliminar', 'No se puede eliminar el lugar, ya contiene registros');
+            return redirect()->route('lugares.index')->withErrors('No se puede eliminar el lugar, ya contiene registros');
         }
     }
 }

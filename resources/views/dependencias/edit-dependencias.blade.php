@@ -1,8 +1,8 @@
 @php
-if (Auth::user()->rol->rol != "Administrador"){
-header("Location: home");
-die();
-}
+    if (Auth::user()->rol->rol != "Administrador"){
+        header("Location: home");
+        die();
+    }
 @endphp
 
 @extends('layouts.app')
@@ -14,7 +14,6 @@ die();
 <a class="btn btn-outline-secondary mb-4" href="{{ route('dependencias.index')}}">Regresar</a>
 
 @include('layouts.alerts')
-@include('dependencias.alerts')
 
 <form action="{{ route('dependencias.update', ['dependencia' => $dependencias->id]) }}" method="POST">
     @csrf

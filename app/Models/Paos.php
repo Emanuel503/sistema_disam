@@ -1,0 +1,16 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Paos extends Model
+{
+    use HasFactory;
+
+    public function estados()
+    {
+        return $this->belongsTo(EstadosPaos::class, 'id_estado');
+    }
+}

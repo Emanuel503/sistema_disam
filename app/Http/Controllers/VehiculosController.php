@@ -84,7 +84,7 @@ class VehiculosController extends Controller
             Vehiculos::destroy($id);
             return redirect()->route('vehiculos.index')->with('success', 'Vehiculo eliminado correctamente');
         } catch (Exception $e) {
-            return redirect()->route('vehiculos.index')->with('errorEliminar', 'No se puede eliminar el vehiculo, ya contiene registros');
+            return redirect()->route('vehiculos.index')->withErrors('No se puede eliminar el vehiculo, ya contiene registros');
         }
     }
 }

@@ -6,7 +6,6 @@
     <a class="btn btn-outline-secondary mb-4" href="{{ route('registros-salida.index')}}">Regresar</a>
 
     @include('layouts.alerts')
-    @include('registros-salidas.alerts')
 
     <form action="{{ route('registros-salida.update' , ['registros_salida' => $salidas->id]) }}" method="POST">
         @csrf
