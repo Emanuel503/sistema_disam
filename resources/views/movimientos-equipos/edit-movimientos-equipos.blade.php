@@ -14,7 +14,6 @@
 <a class="btn btn-outline-secondary mb-4" href="{{ route('movimiento-equipos.index')}}">Regresar</a>
 
 @include('layouts.alerts')
-@include('movimientos-equipos.alerts')
 
 <form action="{{ route('movimiento-equipos.update', ['movimiento_equipo' => $movimientos->id]) }}" method="POST">
     @csrf

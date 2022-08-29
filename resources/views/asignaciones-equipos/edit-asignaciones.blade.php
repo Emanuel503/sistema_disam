@@ -6,7 +6,6 @@
 <a class="btn btn-outline-secondary mb-4" href="{{ route('asignaciones-equipos.index')}}">Regresar</a>
 
 @include('layouts.alerts')
-@include('actividades.alerts')
 
 <form action="{{ route('asignaciones-equipos.update', ['asignaciones_equipo' => $asignaciones->id]) }}" method="POST">
     @csrf

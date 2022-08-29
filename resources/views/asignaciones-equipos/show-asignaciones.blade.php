@@ -1,8 +1,8 @@
 @php
-if (Auth::user()->rol->rol != "Administrador"){
-header("Location: home");
-die();
-}
+    if (Auth::user()->rol->rol != "Administrador"){
+        header("Location: home");
+        die();
+    }
 @endphp
 
 @extends('layouts.app')
@@ -14,7 +14,7 @@ die();
 
 @if (sizeof($asignaciones) > 0)
 <div class="table-responsive">
-    <table id="asignaciones" class="table table-striped table-hover table-bordered table-sm shadow">
+    <table id="tabla" class="table table-striped table-hover table-bordered table-sm shadow">
         <thead>
             <tr class="table-dark">
                 <th>Código</th>
@@ -39,8 +39,7 @@ die();
                             @method('DELETE')
                             @csrf
                             <a class="btn btn-success btn-sm mb-1" href="{{ route('asignaciones-equipos.edit' , ['asignaciones_equipo' => $asignacion->id])}}">Modificar</a>
-                            <input name="_method" type="hidden" value="DELETE"><input name="_method" type="hidden" value="DELETE">
-                            <button type="submit" class="btn btn-sm btn-danger btn-flat show_confirm" data-toggle="tooltip" title='Delete'>Eliminar</button>
+                            <button type="submit" class="btn btn-sm btn-danger show_confirm" data-toggle="tooltip" title='Delete'>Eliminar</button>
                         </form>
                     </div>
                 </td>
@@ -54,25 +53,7 @@ die();
 @endif
 @endsection
 
-@section('js-alert-delete')
-<script src="{{ asset('js/alert-delete.js') }}"></script>
-<script type="text/javascript">
-    $('.show_confirm').click(function(event) {
-        var form = $(this).closest("form");
-        var name = $(this).data("name");
-        event.preventDefault();
-        swal({
-                title: `¿Seguro que desea borrar este registro?`,
-                text: "Si elimina este registro no se podra recuperar.",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-            .then((willDelete) => {
-                if (willDelete) {
-                    form.submit();
-                }
-            });
-    });
-</script>
+@section('js')
+   @include('layouts.confirmar-eliminar')
+   @include('layouts.data-table-js')
 @endsection

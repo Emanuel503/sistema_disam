@@ -5,7 +5,7 @@
     }
 @endphp
 
-@section('css-data-table')
+@section('css')
     <link href="{{ asset('css/DataTables.css') }}" rel="stylesheet">
 @endsection
 
@@ -55,7 +55,7 @@
 <h6 class="text-center mt-4">LISTADO DE EQUIPO Y MOBILIARIO</h6>
 
 <div class="table-responsive">
-    <table id="asignacion_equipos" class="table table-striped table-hover table-bordered table-sm shadow">
+    <table id="tabla" class="table table-striped table-hover table-bordered table-sm shadow">
         <thead>
             <tr class="table-dark">
                 <th>#</th>
@@ -86,43 +86,6 @@
 </div>
 @endsection
 
-@section('js-data-table')
-    <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('js/dataTables.bootstrap5.min.js') }}"></script>
-    <script>
-        $(document).ready(function() {
-            $('#asignacion_equipos tbody').on('click', 'tr', function() {
-                $(this).toggleClass('selected');
-            });
-
-            $('#asignacion_equipos').DataTable({
-                "language": {
-                    "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-                }
-            });
-        });
-    </script>
-@endsection
-
-@section('js-alert-delete')
-    <script src="{{ asset('js/alert-delete.js') }}"></script>
-    <script type="text/javascript">
-        $('.show_confirm').click(function(event) {
-            var form = $(this).closest("form");
-            var name = $(this).data("name");
-            event.preventDefault();
-            swal({
-                    title: `¿Seguro que desea borrar este registro?`,
-                    text: "Si elimina este registro no se podra recuperar.",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        form.submit();
-                    }
-                });
-        });
-    </script>
+@section('js')
+   @include('layouts.data-table-js')
 @endsection

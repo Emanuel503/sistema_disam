@@ -89,7 +89,7 @@ class MovimientoEquiposController extends Controller
             MovimientoEquipos::destroy($id);
             return redirect()->route('movimiento-equipos.index')->with('success', 'Registro de salida eliminado correctamente');
         } catch (Exception $e) {
-            return redirect()->route('movimiento-equipos.index')->with('errorEliminar', 'No se puede eliminar el registro de salida de equipos, ya contiene registros');
+            return redirect()->route('movimiento-equipos.index')->withErrors('No se puede eliminar el registro de salida de equipos, ya contiene registros');
         }
     }
 }

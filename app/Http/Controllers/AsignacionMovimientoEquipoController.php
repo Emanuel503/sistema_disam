@@ -48,7 +48,7 @@ class AsignacionMovimientoEquipoController extends Controller
         );
 
         if (sizeof($validacionDisponibilidad) > 0) {
-            return redirect()->route('asignacion-movimiento-equipo.edit', ['asignacion_movimiento_equipo' => $request->id_movimiento])->with('success', 'Ya existe un equipo asignado para un movimiento en esa fecha.');
+            return redirect()->route('asignacion-movimiento-equipo.edit', ['asignacion_movimiento_equipo' => $request->id_movimiento])->withErrors('Ya existe un equipo asignado para un movimiento en esa fecha.');
         }
 
         $asignacion_equipos = new AsignacionMovimientoEquipo();
@@ -66,7 +66,7 @@ class AsignacionMovimientoEquipoController extends Controller
             AsignacionMovimientoEquipo::destroy($id);
             return redirect()->route('asignacion-movimiento-equipo.edit', ['asignacion_movimiento_equipo' => $registro])->with('success', 'Equipo asignado eliminado correctamente');
         } catch (Exception $e) {
-            return redirect()->route('movimiento-equipos.index')->with('errorEliminar', 'No se puede eliminar el equipo, ya contiene registros');
+            return redirect()->route('movimiento-equipos.index')->withErrors('No se puede eliminar el equipo, ya contiene registros');
         }
     }
 }

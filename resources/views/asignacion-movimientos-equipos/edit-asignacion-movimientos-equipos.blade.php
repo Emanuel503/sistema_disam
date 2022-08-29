@@ -1,12 +1,12 @@
 @php
-if (Auth::user()->rol->rol != "Administrador"){
-header("Location: home");
-die();
-}
+    if (Auth::user()->rol->rol != "Administrador"){
+        header("Location: home");
+        die();
+    }
 @endphp
 
-@section('css-data-table')
-<link href="{{ asset('css/DataTables.css') }}" rel="stylesheet">
+@section('css')
+    <link href="{{ asset('css/DataTables.css') }}" rel="stylesheet">
 @endsection
 
 @extends('layouts.app')
@@ -15,7 +15,9 @@ die();
 <h3 class="my-4">Asignar equipos</h3>
 
 <a class="btn btn-outline-secondary mb-4" href="{{ route('movimiento-equipos.index')}}">Regresar</a>
+
 @include('layouts.alerts')
+
 <fieldset class="form-control p-3">
     <h6 class="text-center">ORDEN DE SALIDA DE MOBILARIO Y/O EQUIPO</h6>
     <div class="row">
@@ -56,7 +58,7 @@ die();
 <h6 class="text-center">LISTADO DE EQUIPO Y MOBILIARIO</h6>
 
 <div class="table-responsive">
-    <table id="asignacion_equipos" class="table table-striped table-hover table-bordered table-sm shadow">
+    <table id="tabla" class="table table-striped table-hover table-bordered table-sm shadow">
         <thead>
             <tr class="table-dark">
                 <th>#</th>
@@ -83,8 +85,7 @@ die();
                         @csrf
                         <div>
                             <a class="btn btn-sm btn-info" href="{{route('equipos.show', ['equipo' => $asignacion_equipo->id_equipo])}}">Ver</a>
-                            <input name="_method" type="hidden" value="DELETE">
-                            <button type="submit" class="btn btn-sm btn-danger btn-flat show_confirm" data-toggle="tooltip" title='Delete'>Eliminar</button>
+                            <button type="submit" class="btn btn-sm btn-danger show_confirm" data-toggle="tooltip" title='Delete'>Eliminar</button>
                         </div>
                     </form>
                 </td>
@@ -129,43 +130,7 @@ die();
 </div>
 @endsection
 
-@section('js-data-table')
-<script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('js/dataTables.bootstrap5.min.js') }}"></script>
-<script>
-    $(document).ready(function() {
-        $('#asignacion_equipos tbody').on('click', 'tr', function() {
-            $(this).toggleClass('selected');
-        });
-
-        $('#asignacion_equipos').DataTable({
-            "language": {
-                "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-            }
-        });
-    });
-</script>
-@endsection
-
-@section('js-alert-delete')
-<script src="{{ asset('js/alert-delete.js') }}"></script>
-<script type="text/javascript">
-    $('.show_confirm').click(function(event) {
-        var form = $(this).closest("form");
-        var name = $(this).data("name");
-        event.preventDefault();
-        swal({
-                title: `¿Seguro que desea borrar este registro?`,
-                text: "Si elimina este registro no se podra recuperar.",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-            .then((willDelete) => {
-                if (willDelete) {
-                    form.submit();
-                }
-            });
-    });
-</script>
+@section('js')
+   @include('layouts.confirmar-eliminar')
+   @include('layouts.data-table-js')
 @endsection
