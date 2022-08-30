@@ -29,7 +29,6 @@
             <label for="fecha_inicio" class="col-form-label">Fecha de inicio:</label>
             <input type="date" class="form-control" name="fecha_inicio" id="fecha_inicio" value="{{ $movimientos->fecha_inicio }}" readonly>
         </div>
-
         <div class="col-sm-4">
             <label for="fecha_fin" class="col-form-label">Fecha final:</label>
             <input type="date" class="form-control" name="fecha_fin" id="fecha_fin" value="{{ $movimientos->fecha_fin }}" readonly>
@@ -45,7 +44,6 @@
             <label for="id_usuario" class="col-form-label">Motivo de salida:</label>
             <input type="text" class="form-control" name="id_usuario" id="id_usuario" value="{{$movimientos->motivos->motivo}}" readonly>
         </div>
-
         <div class="col-sm-4">
             <label for="hora_salida" class="col-form-label">Hora de salida:</label>
             <input type="time" class="form-control" name="hora_salida" id="hora_salida" value="{{$movimientos->hora_salida}}" readonly>
@@ -83,10 +81,8 @@
                     <form action="{{ route('asignacion-movimiento-equipo.destroy' , ['asignacion_movimiento_equipo' => $asignacion_equipo->id, 'registro' => $movimientos->id ]) }}" method="POST">
                         @method('DELETE')
                         @csrf
-                        <div>
-                            <a class="btn btn-sm btn-info" href="{{route('equipos.show', ['equipo' => $asignacion_equipo->id_equipo])}}">Ver</a>
-                            <button type="submit" class="btn btn-sm btn-danger show_confirm" data-toggle="tooltip" title='Delete'>Eliminar</button>
-                        </div>
+                        <a class="btn btn-sm btn-info" href="{{route('equipos.show', ['equipo' => $asignacion_equipo->id_equipo])}}">Ver</a>
+                        <button type="submit" class="btn btn-sm btn-danger show_confirm" data-toggle="tooltip" title='Delete'>Eliminar</button>
                     </form>
                 </td>
             </tr>

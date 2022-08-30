@@ -5,6 +5,10 @@
     }
 @endphp
 
+@section('css')
+    <link href="{{ asset('css/DataTables.css') }}" rel="stylesheet">
+@endsection
+
 @extends('layouts.app')
 
 @section('content')

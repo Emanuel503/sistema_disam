@@ -34,7 +34,7 @@ class PaoController extends Controller
             Paos::destroy($id);
             return redirect()->route('pao.index')->with('success', 'PAO eliminada correctamente');
         } catch (Exception $e) {
-            return redirect()->route('pao.index')->with('errorEliminar', 'No se puede eliminar la PAO, ya contiene registros');
+            return redirect()->route('pao.index')->withErrors('No se puede eliminar la PAO, ya contiene registros');
         }
     }
 }

@@ -48,9 +48,8 @@
                 <td>{{$asignacion->apellidos}}</td>
                 <td>{{$asignacion->nombre}}</td>
                 <td>{{$asignacion->cargo}}</td>
-                <td>
-                    <a class="btn btn-primary btn-sm mb-1" href="{{ route('asignaciones-equipos.show' , 
-                        ['asignaciones_equipo' => $asignacion->id_usuario])}}">Ver equipo asignado</a>
+                <td class="text-center">
+                    <a class="btn btn-primary btn-sm mb-1" href="{{ route('asignaciones-equipos.show' , ['asignaciones_equipo' => $asignacion->id_usuario])}}">Ver equipo asignado</a>
                 </td>
             </tr>
             @endforeach
