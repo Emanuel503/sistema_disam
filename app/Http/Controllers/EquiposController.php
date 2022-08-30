@@ -167,10 +167,10 @@ class EquiposController extends Controller
     {
         try {
             $equipo = Equipos::find($id);
+            Equipos::destroy($id);
             if($equipo->imagen != null){
                 unlink(public_path('images') ."\\". $equipo->imagen);
             }
-            Equipos::destroy($id);
             return redirect()->route('equipos.index')->with('success', 'Equipo eliminado correctamente');
         } catch (Exception $e) {
             return redirect()->route('equipos.index')->withErrors('No se puede eliminar el equipo, ya contiene registros');

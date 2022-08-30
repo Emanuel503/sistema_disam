@@ -61,7 +61,7 @@
                 <form action="{{ route('pao.store') }}" method="POST">
                     @csrf
                     <div class="mb-3">
-                        <label for="id_estado" class="col-form-label">Usuario:</label>
+                        <label for="id_estado" class="col-form-label">Estado:</label>
                         <select id="id_estado" class="form-select" name="id_estado">
                             @foreach ($estados as $estado)
                                 <option value="{{$estado->id}}">{{$estado->estado}}</option>

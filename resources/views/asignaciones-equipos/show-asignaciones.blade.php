@@ -32,7 +32,7 @@
         <tbody>
             @foreach ($asignaciones as $asignacion)
             <tr>
-                <td>{{$asignacion->codigo}}</td>
+                <td><a href="{{route('equipos.show', ['equipo' => $asignacion->id])}}">{{ $asignacion->codigo}}</a></td>
                 <td>{{$asignacion->descripcion}}</td>
                 <td>{{$asignacion->fecha_asignacion}}</td>
                 <td>{{$asignacion->observacion}}</td>
