@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('id_objetivo')->constrained('objetivos_paos', 'id');
             $table->foreignId('id_estado')->constrained('estados_paos', 'id');
-            $table->string('resultado');
+            $table->string('resultado', '500');
             $table->timestamps();
         });
     }

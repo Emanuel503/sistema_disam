@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('id_seguimiento')->constrained('seguimientos_paos', 'id');
             $table->foreignId('id_dependencia')->constrained('dependencias', 'id');
             $table->foreignId('id_estado')->constrained('estados_paos', 'id');
-            $table->string('actividad');
+            $table->string('actividad', '500');
             $table->string('indicador');
             $table->string('verificacion');
             $table->string('meta');

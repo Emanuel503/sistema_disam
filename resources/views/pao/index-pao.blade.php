@@ -31,7 +31,7 @@
                 <td>{{$pao->dependencia}}</td>
                 <td>{{$pao->estados->estado}}</td>
                 <td class="text-center"><a class="btn btn-outline-primary" href="{{route('funciones-pao.index', ['pao' => $pao->id])}}">Ver</a></td>
-                <td class="text-center"><a class="btn btn-outline-primary" href="">Ver</a></td>
+                <td class="text-center"><a class="btn btn-outline-primary" href="{{route('objetivos-pao.index', ['pao' => $pao->id])}}">Ver</a></td>
                 <td class="text-center">
                     @if (Auth::user()->id_rol == 1)
                         <form action="{{ route('pao.destroy' , ['pao' => $pao->id]) }}" method="POST">
@@ -64,7 +64,7 @@
                         <label for="id_estado" class="col-form-label">Estado:</label>
                         <select id="id_estado" class="form-select" name="id_estado">
                             @foreach ($estados as $estado)
-                                <option value="{{$estado->id}}">{{$estado->estado}}</option>
+                                <option @selected($estado->id == old('id_estado')) value="{{$estado->id}}">{{$estado->estado}}</option>
                             @endforeach
                         </select>
                     </div>

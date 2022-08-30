@@ -14,8 +14,8 @@
         <label for="funcion" class="col-form-label">Funcion:</label>
         <textarea class="form-control"name="funcion" id="funcion" required>{{ $funciones->funcion}}</textarea>
     </div>
-    <button type="submit" class="btn btn-success">Modificar</button>
     <a class="btn btn-secondary" href="{{route('funciones-pao.index', ['pao' => $pao->id])}}">Cancelar</a>
+    <button type="submit" class="btn btn-success">Modificar</button>
 </form>
 
 @endsection

@@ -15,13 +15,13 @@ return new class extends Migration
     {
         Schema::create('trimestres_paos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_actividades')->constrained('actividades_paos', 'id');
+            $table->foreignId('id_actividad')->constrained('actividades_paos', 'id');
             $table->foreignId('id_estado')->constrained('estados_paos', 'id');
             $table->string('trimestre');
             $table->string('programado');
             $table->string('realizado');
             $table->string('porcentaje');
-            $table->string('observaciones');
+            $table->string('observacion');
             $table->date('fecha_inicio');
             $table->date('fecha_fin');
             $table->timestamps();

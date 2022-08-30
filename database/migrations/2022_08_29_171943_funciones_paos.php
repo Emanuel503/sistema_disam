@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('funciones_paos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_pao')->constrained('paos', 'id');
-            $table->string('funcion');
+            $table->string('funcion', '500');
             $table->timestamps();
         });
     }

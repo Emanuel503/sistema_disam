@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('objetivos_paos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_pao')->constrained('paos', 'id');
-            $table->string('objetivo');
+            $table->string('objetivo', '500');
             $table->timestamps();
         });
     }
