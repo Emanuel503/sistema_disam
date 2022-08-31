@@ -53,6 +53,11 @@
         .leyenda-jefe {
             margin-left: 370px;
         }
+        .datos{
+            position: absolute;
+            left: 600px;
+            font-size: 10px;
+        }
     </style>
 </head>
 
@@ -73,7 +78,7 @@
 
     <img src="{{env('APP_URL')}}/sistema_disam/public/img/logo.jpg"><br><br>
     <label>BITACORA RECORRIDOS Y CONSUMO DE COMBUSTIBLE</label><br>
-    <label> PLACA DE VEHICULO:</label>{{$placa}}<br>
+    <label>DEPENDENCIA:</label>Dirección de Salud Ambiental (DISAM)<label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PLACA DE VEHICULO:</label>{{$placa}}<br>
     <label>MES:</label>{{$mes}} <label>AÑO:</label>{{$year}}
 
     <table>
@@ -126,13 +131,17 @@
     </table>
     <span class="leyenda-vobo">VoBo</span>
     <p class="leyenda">Impreso en Oficina de Imprenta, Minsal</p><br><br>
-
+    <p class="datos">
+        TOTAL DE GALONES RECIBIDOS: &nbsp;&nbsp;&nbsp;{{$total_galones}}<br><br>
+        TOTAL DE KILOMETRAJE: 
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        {{$total_kilometraje}}km
+    <p>
     <label>Nombre:_____________________________</label>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <label>Firma:______________________________</label>
-    <label>Total de Galones recibidos: </label>{{$total_galones}}
-    <label>Total de kilometraje: </label>{{$total_kilometraje}}km<br>
+    <label>Firma:______________________________</label><br>
     <span class="leyenda-jefe">Jefe dependencia</span>
+    
 </body>
 
 </html>
