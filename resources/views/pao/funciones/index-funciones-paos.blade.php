@@ -56,7 +56,7 @@
                     <input type="hidden" name="id_pao" value="{{$pao->id}}">
                     <div class="mb-3">
                         <label for="funcion" class="col-form-label">Funcion:</label>
-                        <textarea class="form-control"name="funcion" id="funcion" required></textarea>
+                        <textarea class="form-control"name="funcion" id="funcion" required>{{old('funcion')}}</textarea>
                     </div>
             </div>
             <div class="modal-footer">

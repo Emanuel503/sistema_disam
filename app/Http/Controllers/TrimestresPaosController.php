@@ -41,8 +41,8 @@ class TrimestresPaosController extends Controller
             'realizado' => 'required',
             'porcentaje' => 'required',
             'observacion' => 'required|min:3',
-            'fecha_inicio' => 'required',
-            'fecha_fin' => 'required',
+            'fecha_inicio' => 'required|date',
+            'fecha_fin' => 'required|date',
         ]);
 
         $trimestres = new TrimestresPaos();
@@ -68,8 +68,8 @@ class TrimestresPaosController extends Controller
             'realizado' => 'required',
             'porcentaje' => 'required',
             'observacion' => 'required|min:3',
-            'fecha_inicio' => 'required',
-            'fecha_fin' => 'required',
+            'fecha_inicio' => 'required|date',
+            'fecha_fin' => 'required|date',
         ]);
 
         $trimestres = TrimestresPaos::find($id);

@@ -31,6 +31,11 @@
     </div>
 
     <div class="mb-3">
+        <label for="observacion" class="col-form-label">Obervaciones:</label>
+        <input class="form-control" type="text" name="observacion" id="observacion" required value="{{ $actividad->observacion }}">
+    </div> 
+
+    <div class="mb-3">
         <label for="fecha_inicio" class="col-form-label">Fecha de inicio:</label>
         <input class="form-control" type="date" name="fecha_inicio" id="fecha_inicio" required value="{{ $actividad->fecha_inicio }}">
     </div>
@@ -39,11 +44,6 @@
         <label for="fecha_fin" class="col-form-label">Fecha final:</label>
         <input class="form-control" type="date" name="fecha_fin" id="fecha_fin" required value="{{ $actividad->fecha_fin }}">
     </div>
-
-    <div class="mb-3">
-        <label for="observacion" class="col-form-label">Obervaciones:</label>
-        <input class="form-control" type="text" name="observacion" id="observacion" required value="{{ $actividad->observacion }}">
-    </div> 
 
     <div class="mb-3">
         <label for="id_dependencia" class="col-form-label">Dependencia:</label>

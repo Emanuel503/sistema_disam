@@ -26,7 +26,7 @@ class FuncionesPaoController extends Controller
     public function store(Request $request, $pao){
         $request->validate([
             'id_pao' => 'required',
-            'funcion' => 'required',
+            'funcion' => 'required|min:3',
         ]);
 
         $funciones = new FuncionesPao();
@@ -39,7 +39,7 @@ class FuncionesPaoController extends Controller
 
     public function update(Request $request, $id, $pao){
         $request->validate([
-            'funcion' => 'required',
+            'funcion' => 'required|min:3',
         ]);
 
         $funciones = FuncionesPao::find($id);

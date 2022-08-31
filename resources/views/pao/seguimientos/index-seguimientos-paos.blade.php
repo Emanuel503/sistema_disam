@@ -73,14 +73,14 @@
                     <input type="hidden" name="id_objetivo" value="{{$objetivo->id}}">
                     <div class="mb-3">
                         <label for="resultado" class="col-form-label">Resultado:</label>
-                        <textarea class="form-control"name="resultado" id="resultado" required></textarea>
+                        <textarea class="form-control"name="resultado" id="resultado" required>{{old('resultado')}}</textarea>
                     </div>
 
                     <div class="mb-3">
                         <label for="id_estado" class="col-form-label">Estado:</label>
                         <select id="id_estado" class="form-select" name="id_estado">
                             @foreach ($estados as $estado)
-                                <option value="{{$estado->id}}">{{$estado->estado}}</option>
+                                <option @selected($estado->id == old('id_estado')) value="{{$estado->id}}">{{$estado->estado}}</option>
                             @endforeach
                         </select>
                     </div>

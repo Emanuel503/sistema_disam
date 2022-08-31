@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<h3 class="mb-4">PAO - Modificar actividad</h3>
+<h3 class="mb-4">PAO - Modificar trimestre</h3>
 
 <a class="btn btn-outline-secondary" href="{{route('trimestres-pao.index', ['actividad' => $actividad ,'seguimiento' => $seguimiento, 'objetivo' => $objetivo, 'pao' => $pao])}}">Regresar</a>
 
@@ -27,12 +27,12 @@
 
     <div class="mb-3">
         <label for="porcentaje" class="col-form-label">Porcentaje:</label>
-        <input class="form-control" type="text" name="porcentaje" id="porcentaje" required value="{{ $trimestre->porcentaje }}">
+        <input class="form-control" type="text" name="porcentaje" id="porcentaje" required value="{{ $trimestre->porcentaje }}" min="0" max="100" step="any">
     </div>
 
     <div class="mb-3">
         <label for="observacion" class="col-form-label">Obervaciones:</label>
-        <input class="form-control" type="text" name="observacion" id="observacion" required value="{{ $trimestre->observacion }}">
+        <input class="form-control" type="text" name="observacion" id="observacion" required value="{{ $trimestre->observacion }}" maxlength="255">
     </div> 
 
     <div class="mb-3">

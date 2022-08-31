@@ -60,7 +60,7 @@
                 <td>{{$trimestre->fecha_fin}}</td>
                 <td>{{$trimestre->estado}}</td>
                 <td class="text-center">
-                    <a class="btn btn-info btn-sm" href="">Ver</a>
+                    <a class="btn btn-info btn-sm" href="{{route('tareas-pao.index', ['trimestre' => $trimestre->id, 'actividad' => $actividad->id ,'seguimiento' => $seguimiento->id , 'objetivo' => $objetivo->id, 'pao'=> $pao->id])}}">Ver</a>
                 </td>
                 <td class="col-2">
                     <form action="{{ route('trimestres-pao.destroy' , ['trimestre' => $trimestre->id, 'actividad' => $actividad->id ,'seguimiento' => $seguimiento->id , 'objetivo' => $objetivo->id, 'pao'=> $pao->id]) }}" method="POST">
@@ -105,12 +105,12 @@
 
                     <div class="mb-3">
                         <label for="porcentaje" class="col-form-label">Porcentaje:</label>
-                        <input class="form-control" type="text" name="porcentaje" id="porcentaje" required value="{{ old('porcentaje') }}">
+                        <input class="form-control" type="number" name="porcentaje" id="porcentaje" required value="{{ old('porcentaje') }}" min="0" max="100" step="any">
                     </div>
 
                     <div class="mb-3">
                         <label for="observacion" class="col-form-label">Obervaciones:</label>
-                        <input class="form-control" type="text" name="observacion" id="observacion" required value="{{ old('observacion') }}">
+                        <input class="form-control" type="text" name="observacion" id="observacion" required value="{{ old('observacion') }}" maxlength="255">
                     </div> 
 
                     <div class="mb-3">
@@ -127,7 +127,7 @@
                         <label for="id_estado" class="col-form-label">Estado:</label>
                         <select id="id_estado" class="form-select" name="id_estado">
                             @foreach ($estados as $estado)
-                                <option value="{{$estado->id}}">{{$estado->estado}}</option>
+                                <option @selected($estado->id == old('id_estado')) value="{{$estado->id}}">{{$estado->estado}}</option>
                             @endforeach
                         </select>
                     </div>

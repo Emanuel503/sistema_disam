@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('id_trimestre')->constrained('trimestres_paos', 'id');
             $table->foreignId('id_usuario')->constrained('users', 'id');
             $table->foreignId('id_estado')->constrained('estados_paos', 'id');
+            $table->string('tarea', '500');
             $table->string('observacion');
             $table->string('tiempo');
             $table->date('fecha');

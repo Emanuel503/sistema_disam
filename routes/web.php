@@ -26,6 +26,7 @@ use App\Http\Controllers\SeguimientosPaoController;
 use App\Http\Controllers\SolicitudesTransporteController;
 use App\Http\Controllers\TransporteController;
 use App\Http\Controllers\SolicitudCombustibleController;
+use App\Http\Controllers\TareasPaoController;
 use App\Http\Controllers\TrimestresPaosController;
 use App\Http\Controllers\UbicacionEquiposController;
 use Illuminate\Support\Facades\Auth;
@@ -102,6 +103,13 @@ Route::get('/pao/objetivos/seguimientos/actividad/trimestres/{trimestre}/edit/{a
 Route::post('/pao/objetivos/seguimientos/actividad/trimestres/{actividad}/{seguimiento}/{objetivo}/{pao}', [TrimestresPaosController::class, 'store'])->name('trimestres-pao.store')->middleware('auth');
 Route::patch('/pao/objetivos/seguimientos/actividad/trimestres/{trimestre}/{actividad}{seguimiento}/{objetivo}/{pao}', [TrimestresPaosController::class, 'update'])->name('trimestres-pao.update')->middleware('auth');
 Route::delete('/pao/objetivos/seguimientos/actividad/trimestres/{trimestre}/{actividad}/{seguimiento}/{objetivo}/{pao}', [TrimestresPaosController::class, 'destroy'])->name('trimestres-pao.destroy')->middleware('auth');
+
+//Asignacion de tarea a trimestre / actividad / seguimiento / objetivo /  pao
+Route::get('/pao/objetivos/seguimientos/actividad/trimestres/tareas/{trimestre}/{actividad}/{seguimiento}/{objetivo}/{pao}', [TareasPaoController::class, 'index'])->name('tareas-pao.index')->middleware('auth');
+Route::get('/pao/objetivos/seguimientos/actividad/trimestres/tareas/{tarea}/edit/{trimestre}/{actividad}/{seguimiento}/{objetivo}/{pao}', [TareasPaoController::class, 'edit'])->name('tareas-pao.edit')->middleware('auth');
+Route::post('/pao/objetivos/seguimientos/actividad/trimestres/tareas/{trimestre}/{actividad}/{seguimiento}/{objetivo}/{pao}', [TareasPaoController::class, 'store'])->name('tareas-pao.store')->middleware('auth');
+Route::patch('/pao/objetivos/seguimientos/actividad/trimestres/tareas/{tarea}/{trimestre}/{actividad}{seguimiento}/{objetivo}/{pao}', [TareasPaoController::class, 'update'])->name('tareas-pao.update')->middleware('auth');
+Route::delete('/pao/objetivos/seguimientos/actividad/trimestres/tareas/{tarea}/{trimestre}/{actividad}/{seguimiento}/{objetivo}/{pao}', [TareasPaoController::class, 'destroy'])->name('tareas-pao.destroy')->middleware('auth');
 
 //Asignacion de equipo a movimiento
 Route::get('/asignacion-movimiento-equipo/{asignacion_movimiento_equipo}', [AsignacionMovimientoEquipoController::class, 'edit'])->name('asignacion-movimiento-equipo.edit')->middleware('auth');

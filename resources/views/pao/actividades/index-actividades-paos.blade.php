@@ -108,6 +108,11 @@
                     </div>
 
                     <div class="mb-3">
+                        <label for="observacion" class="col-form-label">Obervaciones:</label>
+                        <input class="form-control" type="text" name="observacion" id="observacion" required value="{{ old('observacion') }}">
+                    </div> 
+
+                    <div class="mb-3">
                         <label for="fecha_inicio" class="col-form-label">Fecha de inicio:</label>
                         <input class="form-control" type="date" name="fecha_inicio" id="fecha_inicio" required value="{{ old('fecha_inicio') }}">
                     </div>
@@ -118,15 +123,10 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="observacion" class="col-form-label">Obervaciones:</label>
-                        <input class="form-control" type="text" name="observacion" id="observacion" required value="{{ old('observacion') }}">
-                    </div> 
-
-                    <div class="mb-3">
                         <label for="id_dependencia" class="col-form-label">Dependencia:</label>
                         <select id="id_dependencia" class="form-select" name="id_dependencia">
                             @foreach ($dependencias as $dependencia)
-                                <option value="{{$dependencia->id}}">{{$dependencia->nombre}}</option>
+                                <option @selected($dependencia->id == old('id_dependencia')) value="{{$dependencia->id}}">{{$dependencia->nombre}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -135,7 +135,7 @@
                         <label for="id_estado" class="col-form-label">Estado:</label>
                         <select id="id_estado" class="form-select" name="id_estado">
                             @foreach ($estados as $estado)
-                                <option value="{{$estado->id}}">{{$estado->estado}}</option>
+                                <option @selected($estado->id == old('id_estado')) value="{{$estado->id}}">{{$estado->estado}}</option>
                             @endforeach
                         </select>
                     </div>

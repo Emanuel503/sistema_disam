@@ -27,7 +27,7 @@ class ObjetivosPaoController extends Controller
     public function store(Request $request, $pao){
         $request->validate([
             'id_pao' => 'required',
-            'objetivo' => 'required',
+            'objetivo' => 'required|min:3',
         ]);
 
         $objetivos = new ObjetivosPao();
@@ -40,7 +40,7 @@ class ObjetivosPaoController extends Controller
 
     public function update(Request $request, $id, $pao){
         $request->validate([
-            'objetivo' => 'required',
+            'objetivo' => 'required|min:3',
         ]);
 
         $objetivos = ObjetivosPao::find($id);

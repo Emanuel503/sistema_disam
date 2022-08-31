@@ -67,7 +67,7 @@
                     <input type="hidden" name="id_pao" value="{{$pao->id}}">
                     <div class="mb-3">
                         <label for="objetivo" class="col-form-label">Objetivo:</label>
-                        <textarea class="form-control"name="objetivo" id="objetivo" required></textarea>
+                        <textarea class="form-control"name="objetivo" id="objetivo" required>{{old('objetivo')}}</textarea>
                     </div>
             </div>
             <div class="modal-footer">
