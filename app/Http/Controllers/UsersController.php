@@ -51,7 +51,7 @@ class UsersController extends Controller
             'ubicacion' => 'required|min:5|max:50',
             'telefono' => 'required|min:5|max:9|',
             'motorista' => 'required',
-            'codigo_marcacion' => 'required'
+            'codigo_marcacion' => 'required|unique:users,codigo_marcacion'
         ]);
 
         $usuario = new User();
@@ -87,7 +87,7 @@ class UsersController extends Controller
             'ubicacion' => 'required|min:5|max:50',
             'telefono' => 'required|min:5|max:9|',
             'motorista' => 'required',
-            'codigo_marcacion' => 'required'
+            'codigo_marcacion' => 'required|unique:users,codigo_marcacion'
         ]);
 
         $usuario = User::find($id);
