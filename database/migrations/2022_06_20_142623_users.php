@@ -15,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_rol')->constrained('roles','id');
-            $table->foreignId('id_dependencia')->constrained('dependencias','id');
-            $table->foreignId('id_estado')->constrained('estados_usuarios','id');
+            $table->foreignId('id_rol')->constrained('roles', 'id');
+            $table->foreignId('id_dependencia')->constrained('dependencias', 'id');
+            $table->foreignId('id_estado')->constrained('estados_usuarios', 'id');
+            $table->string('codigo_marcacion')->unique();
             $table->string('email')->unique();
             $table->string('usuario')->unique();
             $table->timestamp('email_verified_at')->nullable();

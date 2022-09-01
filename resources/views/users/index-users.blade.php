@@ -1,12 +1,12 @@
 @php
-    if (Auth::user()->rol->rol != "Administrador"){
-        header("Location: home");
-        die();
+if (Auth::user()->rol->rol != "Administrador"){
+header("Location: home");
+die();
 }
 @endphp
 
 @section('css')
-    <link href="{{ asset('css/DataTables.css') }}" rel="stylesheet">
+<link href="{{ asset('css/DataTables.css') }}" rel="stylesheet">
 @endsection
 
 @extends('layouts.app')
@@ -90,6 +90,11 @@
                     </div>
 
                     <div class="mb-3">
+                        <label for="codigo_marcacion" class="col-form-label">Código de marcación:</label>
+                        <input type="text" class="form-control" name="codigo_marcacion" id="codigo_marcacion" value="{{ old('codigo_marcacion') }}" required>
+                    </div>
+
+                    <div class="mb-3">
                         <label for="usuario" class="col-form-label">Nombre de usuario:</label>
                         <input type="text" class="form-control" name="usuario" id="usuario" value="{{ old('usuario') }}" required>
                     </div>
@@ -163,6 +168,6 @@
 @endsection
 
 @section('js')
-    @include('layouts.data-table-js')
-    @include('layouts.confirmar-eliminar')
+@include('layouts.data-table-js')
+@include('layouts.confirmar-eliminar')
 @endsection

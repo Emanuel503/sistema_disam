@@ -50,7 +50,8 @@ class UsersController extends Controller
             'cargo' => 'required|min:3|max:50',
             'ubicacion' => 'required|min:5|max:50',
             'telefono' => 'required|min:5|max:9|',
-            'motorista' => 'required'
+            'motorista' => 'required',
+            'codigo_marcacion' => 'required'
         ]);
 
         $usuario = new User();
@@ -66,6 +67,7 @@ class UsersController extends Controller
         $usuario->ubicacion = $request->ubicacion;
         $usuario->telefono = $request->telefono;
         $usuario->motorista = $request->motorista;
+        $usuario->codigo_marcacion = $request->codigo_marcacion;
         $usuario->save();
 
         return redirect()->route('users.index')->with('success', 'Usuario registrado correctamente');
@@ -84,7 +86,8 @@ class UsersController extends Controller
             'cargo' => 'required|min:3|max:50',
             'ubicacion' => 'required|min:5|max:50',
             'telefono' => 'required|min:5|max:9|',
-            'motorista' => 'required'
+            'motorista' => 'required',
+            'codigo_marcacion' => 'required'
         ]);
 
         $usuario = User::find($id);
@@ -99,6 +102,7 @@ class UsersController extends Controller
         $usuario->ubicacion = $request->ubicacion;
         $usuario->telefono = $request->telefono;
         $usuario->motorista = $request->motorista;
+        $usuario->codigo_marcacion = $request->codigo_marcacion;
 
         if ($request->password != null) {
             $request->validate([

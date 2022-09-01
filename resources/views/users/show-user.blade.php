@@ -16,6 +16,11 @@
     </div>
 
     <div class="mb-3">
+        <label for="codigo_marcacion" class="col-form-label">Código de marcacón:</label>
+        <input type="text" class="form-control" name="codigo_marcacion" id="codigo_marcacion" value="{{$usuario->codigo_marcacion}}" readonly>
+    </div>
+
+    <div class="mb-3">
         <label for="usuario" class="col-form-label">Nombre de usuario:</label>
         <input type="text" class="form-control" name="usuario" id="usuario" value="{{$usuario->usuario}}" readonly>
     </div>
