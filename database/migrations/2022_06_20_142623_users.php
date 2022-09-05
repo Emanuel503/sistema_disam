@@ -27,6 +27,10 @@ return new class extends Migration
             $table->string('cargo');
             $table->string('ubicacion');
             $table->string('telefono');
+            $table->date('fecha_ingreso');
+            $table->double('dias_enfermedad_informales');
+            $table->double('dias_enfermedad_formales');
+            $table->double('dias_personales');
             $table->string('motorista');
             $table->rememberToken();
             $table->timestamps();

@@ -20,7 +20,7 @@
 
 @if (sizeof($coordinadores) > 0)
 <div class="table-responsive">
-    <table id="coordinador" class="table table-striped table-hover table-bordered table-sm shadow">
+    <table id="tabla" class="table table-striped table-hover table-bordered table-sm shadow">
         <thead>
             <tr class="table-dark">
                 <th>#</th>
@@ -93,20 +93,6 @@
 @endsection
 
 @section('js')
-    <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('js/dataTables.bootstrap5.min.js') }}"></script>
-    <script>
-        $(document).ready(function() {
-            $('#coordinador tbody').on('click', 'tr', function() {
-                $(this).toggleClass('selected');
-            });
-
-            $('#coordinador').DataTable({
-                "language": {
-                    "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-                }
-            });
-        });
-    </script>
+    @include('layouts.data-table-js')
     @include('layouts.confirmar-eliminar')
 @endsection

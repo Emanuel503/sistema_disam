@@ -9,9 +9,9 @@
 <div class="bg-dark mt-3 p-3 bg-opacity-25 rounded col-sm-12 col-sm-10 col-xl-8 mx-auto" id="calendar"></div>
 
 <div class="d-grid gap-2 d-md-flex justify-content-md-center mt-3">
-    <a class="btn btn-primary" href="{{route('solicitudes-sala.index')}}">Solicitar Sala</a>
+    <a class="btn btn-success" href="{{route('solicitudes-sala.index')}}">Solicitar Sala</a>
     <a class="btn btn-primary" href="{{route('actividades.index')}}">Registrar Actividad</a>
-    <a class="btn btn-primary" href="{{route('registros-salida.index')}}">Registrar Salida</a>
+    <a class="btn btn-secondary" href="{{route('registros-salida.index')}}">Registrar Salida</a>
 </div>
 
 <div class="modal fade" id="actividad" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

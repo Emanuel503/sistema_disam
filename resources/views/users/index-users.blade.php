@@ -134,6 +134,26 @@
                         <input type="text" class="form-control" name="telefono" id="telefono" value="{{ old('telefono') }}" required>
                     </div>
 
+                    <div class="mb-3">
+                        <label for="fecha_ingreso" class="col-form-label">Fecha de ingreso al ministerio:</label>
+                        <input type="date" class="form-control" name="fecha_ingreso" id="fecha_ingreso" value="{{ old('fecha_ingreso') }}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="dias_enfermedad_informales" class="col-form-label">Dias totales de permisos de enfermedad informales:</label>
+                        <input type="number" min="0" class="form-control" name="dias_enfermedad_informales" id="dias_enfermedad_informales" value="{{ old('dias_enfermedad_informales') }}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="dias_enfermedad_formales" class="col-form-label">Dias totales de permisos de enfermedad formales:</label>
+                        <input type="number" min="0" class="form-control" name="dias_enfermedad_formales" id="dias_enfermedad_formales" value="{{ old('dias_enfermedad_formales') }}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="dias_personales" class="col-form-label">Dias totales de permisos personales:</label>
+                        <input type="number" min="0" class="form-control" name="dias_personales" id="dias_personales" value="{{ old('dias_personales') }}" required>
+                    </div>
+
                     <label class="col-form-label">Habilitar para motorista:</label>
                     <div class="mb-3">
                         <input class="form-check-input" type="radio" name="motorista" id="si" value="si" @checked(old('motorista')=='si' )>

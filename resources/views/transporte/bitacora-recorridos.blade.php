@@ -23,8 +23,8 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="fecha" class="col-form-label">Mes y año:</label>
-                    <input type="month" class="form-control" name="fecha" id="fecha" value="{{ old('fecha') }}" required>
+                    <label for="fecha" class="col-form-label">Año Y Mes:</label>
+                    <input type="month" class="form-control" name="fecha" id="fecha" value="{{ old('fecha') }}" placeholder="YYYY-MM" required>
                 </div>
         </div>
         <div class="modal-footer">

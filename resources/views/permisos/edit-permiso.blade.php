@@ -18,7 +18,7 @@
             <option @selected($permisos->id_usuario == $usuario->id ) value="{{$usuario->id}}">{{$usuario->nombres}} {{$usuario->apellidos}}</option>
             @endforeach
         </select>
-    </div>
+    </div> 
 
     <div class="mb-3">
         <label for="licencia" class="col-form-label">Licencia:</label>
@@ -28,7 +28,7 @@
             @endforeach
         </select>
     </div>
-
+    
     <div class="mb-3">
         <label for="motivo" class="col-form-label">Motivo:</label>
         <select id="motivo" class="form-select" name="motivo">

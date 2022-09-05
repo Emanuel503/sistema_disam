@@ -50,6 +50,10 @@ class UsersController extends Controller
             'cargo' => 'required|min:3|max:50',
             'ubicacion' => 'required|min:5|max:50',
             'telefono' => 'required|min:5|max:9|',
+            'fecha_ingreso' => 'required|date',
+            'dias_enfermedad_informales' => 'required|numeric|min:0',
+            'dias_enfermedad_formales' => 'required|numeric|min:0',
+            'dias_personales' => 'required|numeric|min:0',
             'motorista' => 'required'
         ]);
 
@@ -65,6 +69,10 @@ class UsersController extends Controller
         $usuario->cargo = $request->cargo;
         $usuario->ubicacion = $request->ubicacion;
         $usuario->telefono = $request->telefono;
+        $usuario->fecha_ingreso = $request->fecha_ingreso;
+        $usuario->dias_enfermedad_informales = $request->dias_enfermedad_informales;
+        $usuario->dias_enfermedad_formales = $request->dias_enfermedad_formales;
+        $usuario->dias_personales = $request->dias_personales;
         $usuario->motorista = $request->motorista;
         $usuario->save();
 
@@ -84,6 +92,10 @@ class UsersController extends Controller
             'cargo' => 'required|min:3|max:50',
             'ubicacion' => 'required|min:5|max:50',
             'telefono' => 'required|min:5|max:9|',
+            'fecha_ingreso' => 'required|date',
+            'dias_enfermedad_informales' => 'required|numeric|min:0',
+            'dias_enfermedad_formales' => 'required|numeric|min:0',
+            'dias_personales' => 'required|numeric|min:0',
             'motorista' => 'required'
         ]);
 
@@ -98,6 +110,10 @@ class UsersController extends Controller
         $usuario->cargo = $request->cargo;
         $usuario->ubicacion = $request->ubicacion;
         $usuario->telefono = $request->telefono;
+        $usuario->fecha_ingreso = $request->fecha_ingreso;
+        $usuario->dias_enfermedad_informales = $request->dias_enfermedad_informales;
+        $usuario->dias_enfermedad_formales = $request->dias_enfermedad_formales;
+        $usuario->dias_personales = $request->dias_personales;
         $usuario->motorista = $request->motorista;
 
         if ($request->password != null) {

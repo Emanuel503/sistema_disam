@@ -50,6 +50,40 @@
         <input type="text" class="form-control" name="telefono" id="telefono" value="{{$usuario->telefono}}" readonly>
     </div>
 
+    <div class="mb-3">
+        <label for="fecha_ingreso" class="col-form-label">Fecha de ingreso al ministerio:</label>
+        <input type="date" class="form-control" name="fecha_ingreso" id="fecha_ingreso" value="{{$usuario->fecha_ingreso}}" readonly>
+    </div>
+
+    @php
+        date_default_timezone_set('America/El_Salvador');    
+        $fecha_actual = date('Y-m-d', time());  
+
+        $fecha_ingreso = new DateTime($usuario->fecha_ingreso);
+        $fecha_actual = new DateTime($fecha_actual);
+        $tiempo_trabajando = $fecha_ingreso->diff($fecha_actual);
+    @endphp
+
+    <div class="mb-3">
+        <label for="tiempo_trabajando" class="col-form-label">Años trabajando:</label>
+        <input type="text" class="form-control" name="tiempo_trabajando" id="tiempo_trabajando" value="{{$tiempo_trabajando->format("%y")}}" readonly>
+    </div>
+
+    <div class="mb-3">
+        <label for="dias_enfermedad_informales" class="col-form-label">Dias totales de permisos de enfermedad informales:</label>
+        <input type="number" min="0" step="any" class="form-control" name="dias_enfermedad_informales" id="dias_enfermedad_informales" value="{{$usuario->dias_enfermedad_informales }}" readonly>
+    </div>
+
+    <div class="mb-3">
+        <label for="dias_enfermedad_formales" class="col-form-label">Dias totales de permisos de enfermedad formales:</label>
+        <input type="number" min="0" step="any" class="form-control" name="dias_enfermedad_formales" id="dias_enfermedad_formales" value="{{ $usuario->dias_enfermedad_formales }}" readonly>
+    </div>
+
+    <div class="mb-3">
+        <label for="dias_personales" class="col-form-label">Dias totales de permisos personales:</label>
+        <input type="number" min="0" step="any" class="form-control" name="dias_personales" id="dias_personales" value="{{ $usuario->dias_personales }}" readonly>
+    </div>
+
     <label class="col-form-label">Habilitar para motorista:</label>
     <div class="mb-3">
         <input disabled class="form-check-input" type="radio" name="motorista" id="si" value="si" @checked($usuario->motorista == "si")>
@@ -83,25 +117,5 @@
 @endsection
 
 @section('js')
-    <script src="{{ asset('js/alert-delete.js') }}"></script>
-    <script type="text/javascript">
-        $('.show_confirm').click(function(event) {
-            var form = $(this).closest("form");
-            var name = $(this).data("name");
-            event.preventDefault();
-            swal({
-                    title: `¿Seguro que desea borrar este registro?`,
-                    text: "Si elimina este registro no se podra recuperar.",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        form.submit();
-                    }
-                });
-        });
-    </script>
     @include('layouts.confirmar-eliminar')
 @endsection

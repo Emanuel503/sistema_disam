@@ -102,5 +102,6 @@
 @endsection
 
 @section('js')
-   @include('layouts.confirmar-eliminar')
+    @include('layouts.confirmar-eliminar')
+    @include('layouts.data-table-js')
 @endsection

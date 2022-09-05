@@ -9,6 +9,7 @@ use App\Models\MotivosPermisos;
 use App\Models\Permisos;
 use App\Models\TiposPermisos;
 use App\Models\User;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -200,6 +201,87 @@ class PermisosController extends Controller
         $permiso->tiempo_horas = $request->tiempo_horas;
         $permiso->tiempo_minutos = $request->tiempo_minutos;
 
+        //VALIDACIONES
+
+        $dias_totales = $permiso->tiempo_dia + ($permiso->tiempo_horas / 24) + ($permiso->tiempo_minutos / 1440);
+        $usuario = User::find($permiso->id_usuario);
+
+        //Si el permiso es tipo compensatorio (5) o oficial (6) no se valida
+
+        //Por enfermedad de partiente MAX 11 dias
+        if($permiso->id_motivo == 3){
+            if($dias_totales > 11){
+                return redirect()->route('permisos.index')->withErrors('El maximo de dias de permiso de tipo "Enfermedad gravísima de pariente" es de 11 dias')->withInput();
+            }
+        }
+
+        //Por duelo MAX 11 dias
+        if($permiso->id_motivo == 4){
+            if($dias_totales > 9){
+                return redirect()->route('permisos.index')->withErrors('El maximo de dias de permiso de tipo "Duelo" es de 9 dias')->withInput();
+            }
+        }
+
+        //Por permisos Personales MAX 5 dias por año
+        if($permiso->id_motivo == 1){
+            
+            if($dias_totales > 5){
+                return redirect()->route('permisos.index')->withErrors('El maximo de dias de permiso de tipo "Personales" es de 5 dias por año')->withInput();
+            }
+
+            if($usuario->dias_personales < $dias_totales){
+                return redirect()->route('permisos.index')->
+                withErrors('Ya no posee esa cantidad de dias para permisos de tipo "Personales". Tiene disponibles '. $usuario->dias_personales. ' dias')->withInput();
+            }
+
+            $usuario->dias_personales = $usuario->dias_personales - $dias_totales;
+            $usuario->save();
+        }
+
+        //Por Enfermedad
+        if($permiso->id_motivo == 2){
+
+
+            date_default_timezone_set('America/El_Salvador');    
+            $fecha_actual = date('Y-m-d', time());  
+    
+            $fecha_ingreso = new DateTime($usuario->fecha_ingreso);
+            $fecha_actual = new DateTime($fecha_actual);
+            $tiempo_trabajando = $fecha_ingreso->diff($fecha_actual);
+
+
+                //Si el usuario tiene menos de 6 años trabajando (Informales)
+            if($tiempo_trabajando->format("%y") < 6){
+
+                if($dias_totales > 5){
+                    return redirect()->route('permisos.index')->withErrors('El maximo de dias de permiso de tipo "Enfermedad - informales" es de 5 dias')->withInput();
+                }
+
+                if($usuario->dias_enfermedad_informales < $dias_totales){
+                    return redirect()->route('permisos.index')->
+                    withErrors('Ya no posee esa cantidad de dias para permisos de tipo "Enfermedad - informales". Tiene disponibles '. $usuario->dias_enfermedad_informales. ' dias')->withInput();
+                }
+
+                $usuario->dias_enfermedad_informales = $usuario->dias_enfermedad_informales - $dias_totales;
+                $usuario->save();
+
+            }else{
+                //Si el usuario tiene mas de 6 años trabajando (Formales)
+                
+                if($dias_totales > 5){
+                    return redirect()->route('permisos.index')->withErrors('El maximo de dias de permiso de tipo "Enfermedad - formales" es de 90 dias')->withInput();
+                }
+
+                if($usuario->dias_enfermedad_formales < $dias_totales){
+                    return redirect()->route('permisos.index')->
+                    withErrors('Ya no posee esa cantidad de dias para permisos de tipo "Enfermedad - formales". Tiene disponibles '. $usuario->dias_enfermedad_formales. ' dias')->withInput();
+                }
+
+                $usuario->dias_enfermedad_formales = $usuario->dias_enfermedad_formales - $dias_totales;
+                $usuario->save();
+            }
+        }
+
         $permiso->save();
 
         return redirect()->route('permisos.index')->with('success', 'Permiso guardado correctamente.');
@@ -243,7 +325,33 @@ class PermisosController extends Controller
 
     public function destroy($id)
     {
+        $permiso = Permisos::find($id);
+        $usuario = User::find($permiso->id_usuario);
+
+        $dias_totales = $permiso->tiempo_dia + ($permiso->tiempo_horas / 24) + ($permiso->tiempo_minutos / 1440);
+
+        if($permiso->id_motivo == 1){
+            $usuario->dias_personales = $usuario->dias_personales + $dias_totales;
+            $usuario->save();
+        }
+
+        if($permiso->id_motivo == 2){
+
+            $fecha_registro = date_format($permiso->created_at, 'Y-m-d');
+            $fecha_ingreso = new DateTime($usuario->fecha_ingreso);
+            $fecha_registro = new DateTime($fecha_registro);
+            $tiempo_trabajando = $fecha_ingreso->diff($fecha_registro);
+
+            if($tiempo_trabajando->format("%y") < 6){
+                $usuario->dias_enfermedad_informales = $usuario->dias_enfermedad_informales + $dias_totales;
+                $usuario->save();
+            }else{
+                $usuario->dias_enfermedad_formales = $usuario->dias_enfermedad_formales + $dias_totales;
+                $usuario->save();
+            }
+        }
+
         Permisos::destroy($id);
-        return redirect()->route('permisos.index')->with('success', 'Permiso eliminada correctamente');
+        return redirect()->route('permisos.index')->with('success', 'Permiso eliminado correctamente');
     }
 }
