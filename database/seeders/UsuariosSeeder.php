@@ -29,6 +29,7 @@ class UsuariosSeeder extends Seeder
             'ubicacion' => 'DISAM',
             'telefono' => '2234-2345',
             'motorista' => 'no',
+            'codigo_marcacion' => 'admin',
         ]);
 
         $user1 = User::create([
@@ -44,6 +45,7 @@ class UsuariosSeeder extends Seeder
             'ubicacion' => 'DISAM',
             'telefono' => '2234-2345',
             'motorista' => 'si',
+            'codigo_marcacion' => 'user',
         ]);
     }
 }

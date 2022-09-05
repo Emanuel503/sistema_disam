@@ -54,7 +54,9 @@ class UsersController extends Controller
             'dias_enfermedad_informales' => 'required|numeric|min:0',
             'dias_enfermedad_formales' => 'required|numeric|min:0',
             'dias_personales' => 'required|numeric|min:0',
-            'motorista' => 'required'
+            'motorista' => 'required',
+            'motorista' => 'required',
+            'codigo_marcacion' => 'required|unique:users,codigo_marcacion'
         ]);
 
         $usuario = new User();
@@ -74,6 +76,7 @@ class UsersController extends Controller
         $usuario->dias_enfermedad_formales = $request->dias_enfermedad_formales;
         $usuario->dias_personales = $request->dias_personales;
         $usuario->motorista = $request->motorista;
+        $usuario->codigo_marcacion = $request->codigo_marcacion;
         $usuario->save();
 
         return redirect()->route('users.index')->with('success', 'Usuario registrado correctamente');
@@ -96,7 +99,9 @@ class UsersController extends Controller
             'dias_enfermedad_informales' => 'required|numeric|min:0',
             'dias_enfermedad_formales' => 'required|numeric|min:0',
             'dias_personales' => 'required|numeric|min:0',
-            'motorista' => 'required'
+            'motorista' => 'required',
+            'motorista' => 'required',
+            'codigo_marcacion' => 'required|unique:users,codigo_marcacion'
         ]);
 
         $usuario = User::find($id);
@@ -115,6 +120,7 @@ class UsersController extends Controller
         $usuario->dias_enfermedad_formales = $request->dias_enfermedad_formales;
         $usuario->dias_personales = $request->dias_personales;
         $usuario->motorista = $request->motorista;
+        $usuario->codigo_marcacion = $request->codigo_marcacion;
 
         if ($request->password != null) {
             $request->validate([

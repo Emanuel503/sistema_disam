@@ -64,9 +64,26 @@
     foreach($reporte as $r){
     $dependencia = $r->nombre;
     }
+
     foreach($cargo as $c){
     $cargoAutoriza = $c->tipo_coordinacion;
     }
+
+    //Convertir fechas a formato dia-mes-año
+    foreach($reporte as $repo){
+    $fechaPermiso = $repo->fecha_permiso;
+    $fechaInicio = $repo->fecha_entrada;
+    $fechaFin = $repo->fecha_salida;
+    }
+    
+    $datePermiso = strtotime($fechaPermiso);
+    $newformatPermiso = date('m-d-Y',$datePermiso);
+
+    $dateInicio = strtotime($fechaInicio);
+    $newformatInicio = date('m-d-Y',$dateInicio);
+
+    $dateFin = strtotime($fechaFin);
+    $newformatFin = date('m-d-Y',$dateFin);
     @endphp
     <div class="contenedor">
         <img src="{{env('APP_URL')}}/sistema_disam/public/img/logo.jpg">
@@ -78,19 +95,18 @@
             </div>
         </div><br>
         <div class="body">
-            <p>Código de marcación&nbsp; ____________ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Correlativo&nbsp; ________</p>
+            <p>Código de marcación&nbsp;{{$permisos->usuario->codigo_marcacion}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Correlativo&nbsp; ________</p>
             <p>Area/Unidad: &nbsp; {{$dependencia}} </p>
             <p>Nombre: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$permisos->usuario->nombres}} {{$permisos->usuario->apellidos}}</p>
 
             <p>Tiene licencia para presentarse a sus labores:</p>
             <p>{{$permisos->licencia->tipo_permiso}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total tiempo: {{$permisos->tiempo_dia}} dia/s {{$permisos->tiempo_horas}} hora/s {{$permisos->tiempo_minutos}} minuto/s</p>
-            <p>Fecha y hora de entrada: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$permisos->fecha_entrada}} {{$permisos->hora_entrada}}</p>
+            <p>Fecha y hora de entrada: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$newformatInicio}} &nbsp;-&nbsp; {{$permisos->hora_entrada}}</p>
 
             <p>Tiene licencia para retirarse de sus labores:</p>
-            <p>Fecha y hora de salida: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$permisos->fecha_salida}} {{$permisos->hora_salida}}</p>
+            <p>Fecha y hora de salida: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$newformatFin}} &nbsp;-&nbsp; {{$permisos->hora_salida}}</p>
             <p>Motivo: &nbsp;&nbsp;&nbsp;&nbsp;{{$permisos->motiv->motivo}}</p>
-            <p>Lugar y fecha:&nbsp;&nbsp;&nbsp;&nbsp; El Salvador, {{$permisos->fecha_permiso}}</p>
-
+            <p>Lugar y fecha:&nbsp;&nbsp;&nbsp;&nbsp; El Salvador, {{$newformatPermiso}}</p>
             <br>
 
             <p>F:_________________________ </p>
@@ -114,19 +130,18 @@
             </div>
         </div><br>
         <div class="body">
-            <p>Código de marcación&nbsp; ____________ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Correlativo&nbsp; ________</p>
+            <p>Código de marcación&nbsp;{{$permisos->usuario->codigo_marcacion}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Correlativo&nbsp; ________</p>
             <p>Area/Unidad: &nbsp; {{$dependencia}} </p>
             <p>Nombre: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$permisos->usuario->nombres}} {{$permisos->usuario->apellidos}}</p>
 
             <p>Tiene licencia para presentarse a sus labores:</p>
             <p>{{$permisos->licencia->tipo_permiso}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total tiempo: {{$permisos->tiempo_dia}} dia/s {{$permisos->tiempo_horas}} hora/s {{$permisos->tiempo_minutos}} minuto/s</p>
-            <p>Fecha y hora de entrada: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$permisos->fecha_entrada}} {{$permisos->hora_entrada}}</p>
+            <p>Fecha y hora de entrada: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$newformatInicio}} &nbsp;-&nbsp; {{$permisos->hora_entrada}}</p>
 
             <p>Tiene licencia para retirarse de sus labores:</p>
-            <p>Fecha y hora de salida: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$permisos->fecha_salida}} {{$permisos->hora_salida}}</p>
+            <p>Fecha y hora de salida: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$newformatFin}} &nbsp;-&nbsp; {{$permisos->hora_salida}}</p>
             <p>Motivo: &nbsp;&nbsp;&nbsp;&nbsp;{{$permisos->motiv->motivo}}</p>
-            <p>Lugar y fecha:&nbsp;&nbsp;&nbsp;&nbsp; El Salvador, {{$permisos->fecha_permiso}}</p>
-
+            <p>Lugar y fecha:&nbsp;&nbsp;&nbsp;&nbsp; El Salvador, {{$newformatPermiso}}</p>
             <br>
 
             <p>F:_________________________ </p>
