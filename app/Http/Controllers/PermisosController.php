@@ -268,7 +268,7 @@ class PermisosController extends Controller
             }else{
                 //Si el usuario tiene mas de 6 años trabajando (Formales)
                 
-                if($dias_totales > 5){
+                if($dias_totales > 90){
                     return redirect()->route('permisos.index')->withErrors('El maximo de dias de permiso de tipo "Enfermedad - formales" es de 90 dias')->withInput();
                 }
 
