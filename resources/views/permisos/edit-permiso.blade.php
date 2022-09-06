@@ -32,9 +32,9 @@
     <div class="mb-3">
         <label for="motivo" class="col-form-label">Motivo:</label>
         <select id="motivo" class="form-select" name="motivo">
-            @foreach ($motivos as $motivo)
-            <option @selected($permisos->id_motivo == $motivo->id ) value="{{$motivo->id}}">{{$motivo->motivo}}</option>
-            @endforeach
+            
+            <option value="{{$permisos->id_motivo}}">{{$permisos->motiv->motivo}}</option>
+           
         </select>
     </div>
 
