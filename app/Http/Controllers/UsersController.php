@@ -101,7 +101,7 @@ class UsersController extends Controller
             'dias_personales' => 'required|numeric|min:0',
             'motorista' => 'required',
             'motorista' => 'required',
-            'codigo_marcacion' => 'required|unique:users,codigo_marcacion'
+            'codigo_marcacion' => 'required|unique:users,codigo_marcacion, ' . $id,
         ]);
 
         $usuario = User::find($id);

@@ -16,7 +16,7 @@
     </div>
 
     <div class="mb-3">
-        <label for="codigo_marcacion" class="col-form-label">Código de marcacón:</label>
+        <label for="codigo_marcacion" class="col-form-label">Código de marcación:</label>
         <input type="text" class="form-control" name="codigo_marcacion" id="codigo_marcacion" value="{{$usuario->codigo_marcacion}}" readonly>
     </div>
 
