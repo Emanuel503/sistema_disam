@@ -71,6 +71,13 @@
                                 </ul>
                             </li>
                             <li><a class="dropdown-item" href="{{route('pao.index')}}">PAO</a></li>
+                            <li><a class="dropdown-item" href="#">Oficios y Memos &raquo;</a>
+                                <ul class="submenu dropdown-menu dropdown-menu-dark">
+                                    <li><a class="dropdown-item" href="{{route('oficios.index')}}">Oficios</a></li>
+                                    <li><a class="dropdown-item" href="{{route('memos-internos.index')}}">Memorandum Interno</a></li>
+                                    <li><a class="dropdown-item" href="{{route('memos-externos.index')}}">Memorandum Externos</a></li>
+                                </ul>
+                            </li>
                         </ul>
                     </li>
 

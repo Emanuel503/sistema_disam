@@ -15,8 +15,11 @@ use App\Http\Controllers\EquiposController;
 use App\Http\Controllers\FuenteEquiposController;
 use App\Http\Controllers\FuncionesPaoController;
 use App\Http\Controllers\LugaresController;
+use App\Http\Controllers\MemosExternosController;
+use App\Http\Controllers\MemosInternosController;
 use App\Http\Controllers\MovimientoEquiposController;
 use App\Http\Controllers\ObjetivosPaoController;
+use App\Http\Controllers\OficiosController;
 use App\Http\Controllers\PaoController;
 use App\Http\Controllers\PermisosController;
 use App\Http\Controllers\VehiculosController;
@@ -68,6 +71,9 @@ Route::resource('/equipos', EquiposController::class)->middleware('auth');
 Route::resource('/asignaciones-equipos', AsignacionEquiposController::class)->middleware('auth');
 Route::resource('/movimiento-equipos', MovimientoEquiposController::class)->middleware('auth');
 Route::resource('/pao', PaoController::class)->middleware('auth');
+Route::resource('/memos-internos', MemosInternosController::class)->middleware('auth');
+Route::resource('/memos-externos', MemosExternosController::class)->middleware('auth');
+Route::resource('/oficios', OficiosController::class)->middleware('auth');
 
 //Asignacion de funciones a pao
 Route::get('/pao/funciones/{pao}', [FuncionesPaoController::class, 'index'])->name('funciones-pao.index')->middleware('auth');
