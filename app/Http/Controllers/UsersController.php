@@ -12,6 +12,10 @@ use Exception;
 
 class UsersController extends Controller
 {
+    public function reporte(){
+
+    }
+
     public function index()
     {
         $usuarios = User::all();

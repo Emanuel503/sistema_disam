@@ -78,6 +78,7 @@
                                     <li><a class="dropdown-item" href="{{route('memos-externos.index')}}">Memorandum Externos</a></li>
                                 </ul>
                             </li>
+                            <li><a class="dropdown-item" href="{{route('correspondencias.index')}}">Control de correspondencia</a></li>
                         </ul>
                     </li>
 
@@ -92,6 +93,12 @@
                             </li>
                             <li><a class="dropdown-item" href="{{route('permisos.reporte')}}">Permisos</a></li>
                             <li><a class="dropdown-item" href="{{route('registros-salida.reporte')}}">Registros de salidas</a></li>
+                            <li><a class="dropdown-item" href="">Control de correspondencia &raquo; </a>
+                                <ul class="submenu dropdown-menu dropdown-menu-dark">
+                                    <li><a class="dropdown-item" href="{{route('correspondencias.reporteFecha')}}">Correspondencia por fecha</a></li>
+                                    <li><a class="dropdown-item" href="{{route('correspondencias.reporteUsuario')}}">Correspondencia por usuario</a></li>
+                                </ul>
+                            </li>
                         </ul>
                     </li>
                 </ul>

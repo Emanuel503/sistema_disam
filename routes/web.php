@@ -9,6 +9,7 @@ use App\Http\Controllers\ActividadesPaosController;
 use App\Http\Controllers\AsignacionEquiposController;
 use App\Http\Controllers\AsignacionMovimientoEquipoController;
 use App\Http\Controllers\CoordinadoresController;
+use App\Http\Controllers\CorrespondenciasController;
 use App\Http\Controllers\DependenciasController;
 use App\Http\Controllers\DescripcionEquiposController;
 use App\Http\Controllers\EquiposController;
@@ -40,6 +41,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 // PDF
 Route::get('/permisos/reporte/', [PermisosController::class, 'reporte'])->name('permisos.reporte')->middleware('auth');
+Route::get('/users/reporte/', [UsersController::class, 'reporte'])->name('users.reporte')->middleware('auth');
 Route::post('/permisos/reporte/', [PermisosController::class, 'reportePdf'])->name('permisos.reportePdf')->middleware('auth');
 Route::get('/permisos/pdf/{id}', [PermisosController::class, 'pdf'])->name('permisos.pdf')->middleware('auth');
 Route::get('/transporte/comsumo-combustible/', [TransporteController::class, 'comsumoCombustible'])->name('transporte.comsumoCombustible')->middleware('auth');
@@ -49,6 +51,11 @@ Route::post('/transporte/bitacora-recorridos/', [TransporteController::class, 'b
 Route::get('/transporte/pdf/{id}', [TransporteController::class, 'pdf'])->name('transporte.pdf')->middleware('auth');
 Route::get('/registros-salida/reporte/', [RegistrosSalidasController::class, 'reporte'])->name('registros-salida.reporte')->middleware('auth');
 Route::post('/registros-salida/reporte/', [RegistrosSalidasController::class, 'reportePdf'])->name('registros-salida.reportePdf')->middleware('auth');
+Route::get('/correspondencias/fecha/', [CorrespondenciasController::class, 'reporteFecha'])->name('correspondencias.reporteFecha')->middleware('auth');
+Route::post('/correspondencias/fecha/', [CorrespondenciasController::class, 'reporteFechaPdf'])->name('correspondencias.reporteFechaPdf')->middleware('auth');
+Route::get('/correspondencias/usuario/', [CorrespondenciasController::class, 'reporteUsuario'])->name('correspondencias.reporteUsuario')->middleware('auth');
+Route::post('/correspondencias/usuario/', [CorrespondenciasController::class, 'reporteUsuarioPdf'])->name('correspondencias.reporteUsuarioPdf')->middleware('auth');
+Route::get('/correspondencias/correspondencia/{id}', [CorrespondenciasController::class, 'reporteCorrespondencia'])->name('correspondencias.reporteCorrespondencia')->middleware('auth');
 
 // Rutas
 Route::resource('/users', UsersController::class)->middleware('auth');
@@ -74,6 +81,7 @@ Route::resource('/pao', PaoController::class)->middleware('auth');
 Route::resource('/memos-internos', MemosInternosController::class)->middleware('auth');
 Route::resource('/memos-externos', MemosExternosController::class)->middleware('auth');
 Route::resource('/oficios', OficiosController::class)->middleware('auth');
+Route::resource('/correspondencias', CorrespondenciasController::class)->middleware('auth');
 
 //Asignacion de funciones a pao
 Route::get('/pao/funciones/{pao}', [FuncionesPaoController::class, 'index'])->name('funciones-pao.index')->middleware('auth');
