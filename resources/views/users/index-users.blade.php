@@ -6,7 +6,7 @@ die();
 @endphp
 
 @section('css')
-<link href="{{ asset('css/DataTables.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/DataTables.css') }}" rel="stylesheet">
 @endsection
 
 @extends('layouts.app')
@@ -15,6 +15,8 @@ die();
 <h3 class="mb-4">Usuarios</h3>
 
 <button type="button" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#modalRegistrar">Registrar usuario</button>
+
+<a target="_blank" class="btn btn-danger float-end" href="{{route('users.reporte')}}">PDF</a>
 
 @include('layouts.alerts')
 

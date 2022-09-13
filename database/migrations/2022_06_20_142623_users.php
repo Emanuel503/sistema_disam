@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('id_rol')->constrained('roles', 'id');
             $table->foreignId('id_dependencia')->constrained('dependencias', 'id');
             $table->foreignId('id_estado')->constrained('estados_usuarios', 'id');
-            $table->string('codigo_marcacion')->unique();
+            $table->string('codigo_marcacion')->unique()->nullable();;
             $table->string('email')->unique();
             $table->string('usuario')->unique();
             $table->timestamp('email_verified_at')->nullable();
@@ -28,7 +28,7 @@ return new class extends Migration
             $table->string('cargo');
             $table->string('ubicacion');
             $table->string('telefono');
-            $table->date('fecha_ingreso');
+            $table->date('fecha_ingreso')->nullable();
             $table->double('dias_enfermedad_informales');
             $table->double('dias_enfermedad_formales');
             $table->double('dias_personales');

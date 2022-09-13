@@ -3,63 +3,62 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Reporte de correspondencia</title>
     <style>
-        * {
-            margin-top: 7px;
-            margin-left: 7px;
-            margin-right: 14px;
+       * {
             font-size: 12px;
         }
+        img {
+            width: 120px;
+        }
         .observacion{
-            height: 115px;
-            
+            height: 165px;
+            margin-left: 0;
+        }
+        .extracto{
+            margin-left: 0;
+            height: 90px;
         }
         table{
-            width: 55%;
-        }
-        table, th, td {
-            border: 1px solid black;
+            width: 400px;
+            border: 2px solid black;
             border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
         }
         b{
             margin-left:0;
-            margin-right:3px;  
-        }
-        
-        img {
-            width: 120px;
         }
         .direccion{
             margin-left: 110px; 
         }
-        .cuadro{
-            border: 1px solid black;
-        }
         .espacio{
             margin-left: 150px;
         }
-        .text-center{
-            text-align: center;
-        }
         .cheque{
-            border: 1px solid black;
             background: black;
-            width: 5px;
-            height: 5px;
+            width: 8px;
+            height: 8px;
             margin: 1px;
         }
         .td-cheque{
-            width: 10px;
-            padding: 2px;
+            width: 10px; 
         }
         .td-observacion{
-            height: 20px;
+            height: 30px;
         }
         .urgente{
             font-size: 14px;
+            text-align: center;
+            height: 20px;
+        }
+        .footer{
+            font-size: 14px;
+            font-style: italic;
         }
     </style>
 </head>
@@ -74,7 +73,7 @@
             <td colspan="4">
                 <b>FECHA:</b> {{$correspondencias->fecha}}<label class="espacio">&nbsp;</label><b>HORA:</b> {{$correspondencias->hora}}<br><br>
                 <b>MARGINADO A:</b> {{$correspondencias->usuarios->nombres}} {{$correspondencias->usuarios->apellidos}}<br><br>
-                <b>PROCEDENCIA:</b> {{$correspondencias->fecha}}
+                <b>PROCEDENCIA:</b> {{$correspondencias->procedencia}}
             </td>
         </tr>
         <tr>
@@ -82,7 +81,7 @@
                 <b>{{$correspondencias->urgencia}}</b>
             </td>
         </tr>
-        <tr>
+        <tr >
             <td><b>PARA TRAMITE RESPECTIVO</b></td>
             <td class="td-cheque">@if($correspondencias->opcion1) <div class="cheque"></div> @endif</td>
             <td><b>ASISTIR SEGUN AGENDA</b></td>
@@ -130,16 +129,16 @@
             <td class="td-cheque">@if($correspondencias->opcion15) <div class="cheque"></div> @endif</td>
         </tr>
 
-        <tr class="observacion">
+        <tr>
             <td colspan="4">
                 <b>EXTRACTO: </b><br>
-                {{$correspondencias->extracto}}<br><br>
-
-                <b>OBSERVACIONES: </b><br><br>
+                <div class="extracto">
+                    {{$correspondencias->extracto}}<br><br>
+                </div>
+                <b>OBSERVACIONES: </b>
                 <div @if ($correspondencias->observacion != null) class="observacion" @endif>
                     {{$correspondencias->observacion}}
-                </div>
-               
+                </div> 
             </td>
         </tr>
 
@@ -149,8 +148,17 @@
             <tr><td class="td-observacion" colspan="4"></td></tr>
             <tr><td class="td-observacion" colspan="4"></td></tr>
             <tr><td class="td-observacion" colspan="4"></td></tr>
+            <tr><td class="td-observacion" colspan="4"></td></tr>
         @endif
 
     </table>
+
+
+    <h2 class="footer">
+        @foreach ($director as $direc)
+            {{strtoupper($direc->nombres)}}  {{strtoupper($direc->apellidos)}}
+        @endforeach
+        <br>DIRECTOR DE SALUD AMBIENTAL
+    </h2>
 </body>
 </html>

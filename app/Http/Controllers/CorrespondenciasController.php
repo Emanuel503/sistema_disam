@@ -2,35 +2,66 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Coordinadores;
 use App\Models\Correspondencias;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CorrespondenciasController extends Controller
 {
     public function reporteFecha(){
-
+        return view('correspondencias.reporteCorrespondenciaFecha');
     }
 
-    public function reporteFechaPdf(){
+    public function reporteFechaPdf(Request $request){
+        $request->validate([
+            'fecha' => 'required',
+        ]);
 
+        $pdf = App::make('dompdf.wrapper');
+        $correspondencias = Correspondencias::where('fecha', $request->fecha)->get();
+        $director = DB::select("SELECT u.nombres, u.apellidos FROM coordinadores c INNER JOIN users u ON c.id_tecnico = u.id WHERE id_coordinacion = 1");
+
+        if (sizeof($correspondencias) > 0) {
+            $pdf->loadView('correspondencias.reporteCorrespondenciaFechaPdf', ['correspondencias' => $correspondencias, 'director' => $director])->setPaper('latter', 'landscape');
+            return $pdf->stream();
+        } else {
+            return redirect()->route('correspondencias.reporteFecha')->withErrors('No hay registros disponibles.')->withInput();
+        }
     }
 
     public function reporteUsuario(){
-
+        $usuarios = User::orderBy('nombres')->get();
+        return view('correspondencias.reporteCorrespondenciaUsuario',['usuarios' => $usuarios]);
     }
 
-    public function reporteUsuarioPdf(){
+    public function reporteUsuarioPdf(Request $request){
+        $request->validate([
+            'id_usuario' => 'required',
+        ]);
 
+        $pdf = App::make('dompdf.wrapper');
+        $correspondencias = Correspondencias::where('id_usuario', $request->id_usuario)->get();
+        $director = DB::select("SELECT u.nombres, u.apellidos FROM coordinadores c INNER JOIN users u ON c.id_tecnico = u.id WHERE id_coordinacion = 1");
+        
+        if (sizeof($correspondencias) > 0) {
+            $pdf->loadView('correspondencias.reporteCorrespondenciaUsuarioPdf', ['correspondencias' => $correspondencias, 'director' => $director])->setPaper('latter', 'landscape');
+            return $pdf->stream();
+        } else {
+            return redirect()->route('correspondencias.reporteUsuario')->withErrors('No hay registros disponibles.')->withInput();
+        }
     }
 
     public function reporteCorrespondencia($id){
+        $director = DB::select("SELECT u.nombres, u.apellidos FROM coordinadores c INNER JOIN users u ON c.id_tecnico = u.id WHERE id_coordinacion = 1");
         
         $pdf = App::make('dompdf.wrapper');
         $correspondencias = Correspondencias::find($id);
-        $pdf->loadView('correspondencias.reporteCorrespondenciaPdf', ['correspondencias' => $correspondencias]);
+        $pdf->loadView('correspondencias.reporteCorrespondenciaPdf', ['correspondencias' => $correspondencias,'director' => $director])->setPaper('latter', 'landscape');
         return $pdf->stream();
     }
 
@@ -123,7 +154,11 @@ class CorrespondenciasController extends Controller
     }
 
     public function destroy($id){
-        Correspondencias::destroy($id);
-        return redirect()->route('correspondencias.index')->with('success','Correspondencia eliminada correctamente');
+        try{
+            Correspondencias::destroy($id);
+            return redirect()->route('correspondencias.index')->with('success','Correspondencia eliminada correctamente');
+        }catch(Exception $e){
+            return redirect()->route('correspondencias.index')->withErrors('No se puede eliminar la correspondencia, ya contiene registros');
+        }
     }
 }

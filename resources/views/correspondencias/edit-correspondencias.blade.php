@@ -32,93 +32,99 @@
     
         <div class="row mb-3 mt-2">
             <div class="col-6">
-                <input class="form-check-input" type="checkbox" name="opcion1" id="opcion1" @if($correspondencias->opcion1) checked @endif>
+                <input class="form-check-input" type="checkbox" name="opcion1" id="opcion1" value="1" @if ($correspondencias->opcion1) checked @endif>
                 <label class="form-check-label" for="opcion1">PARA EL TRAMITE RESPECTIVO</label>
             </div>
     
             <div class="col-6">
-                <input class="form-check-input" type="checkbox" name="opcion2" id="opcion2" @if($correspondencias->opcion2) checked @endif>
-                <label class="form-check-label" for="opcion2">PREPARAR RESPUESTA</label>
+                <input class="form-check-input" type="checkbox" name="opcion2" id="opcion2" value="1" @if ($correspondencias->opcion2) checked @endif>
+                <label class="form-check-label" for="opcion2">ASISTIR SEGUN AGENDA</label>
             </div>
         </div>
     
         <div class="row mb-3">
             <div class="col-6">
-                <input class="form-check-input" type="checkbox" name="opcion3" id="opcion3" @if($correspondencias->opcion3) checked @endif>
-                <label class="form-check-label" for="opcion3">PARA SU CONOCIMIENTO</label>
+                <input class="form-check-input" type="checkbox" name="opcion3" id="opcion3" value="1" @if ($correspondencias->opcion3) checked @endif>
+                <label class="form-check-label" for="opcion3">PREPARAR RESPUESTA</label>
             </div>
     
             <div class="col-6">
-                <input class="form-check-input" type="checkbox" name="opcion4" id="opcion4" @if($correspondencias->opcion4) checked @endif>
-                <label class="form-check-label" for="opcion4">DELEGAR E INFORMAR</label>
-            </div>
-        </div>
-    
-        <div class="row mb-3">
-            <div class="col-6">
-                <input class="form-check-input" type="checkbox" name="opcion5" id="opcion5" @if($correspondencias->opcion5) checked @endif>
-                <label class="form-check-label" for="opcion5">SU ATENCION Y SEGUIMIENTO</label>
-            </div>
-    
-            <div class="col-6">
-                <input class="form-check-input" type="checkbox" name="opcion6" id="opcion6" @if($correspondencias->opcion6) checked @endif>
-                <label class="form-check-label" for="opcion6">PARA SU OPINION TECNICA</label>
+                <input class="form-check-input" type="checkbox" name="opcion4" id="opcion4" value="1" @if ($correspondencias->opcion4) checked @endif>
+                <label class="form-check-label" for="opcion4">ATENDER MARGINADO</label>
             </div>
         </div>
     
         <div class="row mb-3">
             <div class="col-6">
-                <input class="form-check-input" type="checkbox" name="opcion7" id="opcion7" @if($correspondencias->opcion7) checked @endif>
-                <label class="form-check-label" for="opcion7">ASISTIR E INFORMAR</label>
+                <input class="form-check-input" type="checkbox" name="opcion5" id="opcion5" value="1" @if ($correspondencias->opcion5) checked @endif>
+                <label class="form-check-label" for="opcion5">PARA SU CONOCIMIENTO</label>
             </div>
     
             <div class="col-6">
-                <input class="form-check-input" type="checkbox" name="opcion8" id="opcion8" @if($correspondencias->opcion8) checked @endif>
-                <label class="form-check-label" for="opcion8">ASISTIR SEGUN AGENDA</label>
+                <input class="form-check-input" type="checkbox" name="opcion6" id="opcion6" value="1" @if ($correspondencias->opcion6) checked @endif>
+                <label class="form-check-label" for="opcion6">PARA SU CONSIDERACION EN<br>EL PROCESO</label>
             </div>
         </div>
     
         <div class="row mb-3">
             <div class="col-6">
-                <input class="form-check-input" type="checkbox" name="opcion9" id="opcion9" @if($correspondencias->opcion9) checked @endif>
-                <label class="form-check-label" for="opcion9">ATENDER MARGINADO</label>
+                <input class="form-check-input" type="checkbox" name="opcion7" id="opcion7" value="1" @if ($correspondencias->opcion7) checked @endif>
+                <label class="form-check-label" for="opcion7">DELEGAR E INFORMAR</label>
+            </div>
+    
+            <div class="col-6"> 
+                <input class="form-check-input" type="checkbox" name="opcion8" id="opcion8" value="1" @if ($correspondencias->opcion8) checked @endif>
+                <label class="form-check-label" for="opcion8">PARA LOS EFECTOS<br>PERTINENTES</label>
+            </div>
+        </div>
+    
+        <div class="row mb-3">
+            <div class="col-6">
+                <input class="form-check-input" type="checkbox" name="opcion9" id="opcion9" value="1" @if ($correspondencias->opcion9) checked @endif>
+                
+                <label class="form-check-label" for="opcion9">SU ATENCION Y SEGUIMIENTO</label>
             </div>
     
             <div class="col-6">
-                <input class="form-check-input" type="checkbox" name="opcion10" id="opcion10" @if($correspondencias->opcion10) checked @endif>
-                <label class="form-check-label" for="opcion10">PARA SU CONSIDERACION EN PROCESO</label>
+                <input class="form-check-input" type="checkbox" name="opcion10" id="opcion10" value="1" @if ($correspondencias->opcion10) checked @endif>
+                <label class="form-check-label" for="opcion10">PARA ANEXAR A EXPEDIENTE</label>
             </div>
         </div>
     
         <div class="row mb-3">
             <div class="col-6"> 
-                <input class="form-check-input" type="checkbox" name="opcion11" id="opcion11" @if($correspondencias->opcion11) checked @endif>
-                <label class="form-check-label" for="opcion11">PARA LOS EFECTOS PERTINENTES</label>
+                <input class="form-check-input" type="checkbox" name="opcion11" id="opcion11" value="1" @if ($correspondencias->opcion11) checked @endif>
+                <label class="form-check-label" for="opcion11">PARA SU OPINION TECNICA</label>
             </div>
     
             <div class="col-6">
-                <input class="form-check-input" type="checkbox" name="opcion12" id="opcion12" @if($correspondencias->opcion12) checked @endif>
-                <label class="form-check-label" for="opcion12">PARA ANEXARLO A EXPEDIENTE</label>
+                <input class="form-check-input" type="checkbox" name="opcion12" id="opcion12" value="1" @if ($correspondencias->opcion12) checked @endif>
+                <label class="form-check-label" for="opcion12">ATENDER PETICION</label>
             </div>
         </div>
     
         <div class="row mb-3">
             <div class="col-6">
-                <input class="form-check-input" type="checkbox" name="opcion13" id="opcion13" @if($correspondencias->opcion13) checked @endif>
-                <label class="form-check-label" for="opcion13">ATENDER PETICION</label>
+                <input class="form-check-input" type="checkbox" name="opcion13" id="opcion13" value="1" @if ($correspondencias->opcion13) checked @endif>
+                <label class="form-check-label" for="opcion13">COORDINAR CON QUIEN<br> CORRESPONDA E INFORMAR</label>
             </div>
     
             <div class="col-6">
-                <input class="form-check-input" type="checkbox" name="opcion14" id="opcion14" @if($correspondencias->opcion14) checked @endif>
-                <label class="form-check-label" for="opcion14">INVESTIGAR, ANALIZAR Y PREPARAR RESPUESTA</label>
+                <input class="form-check-input" type="checkbox" name="opcion14" id="opcion14" value="1" @if ($correspondencias->opcion14) checked @endif>
+                <label class="form-check-label" for="opcion14">INVESTIGAR, ANALIZAR Y<br>PREPARAR RESPUESTA</label>
             </div>
         </div>
     
         <div class="row mb-3">
             <div class="col-6">
-                <input class="form-check-input" type="checkbox" name="opcion15" id="opcion15" @if($correspondencias->opcion15) checked @endif>
-                <label class="form-check-label" for="opcion15">COORDINAR CON QUIEN<br> CORRESPONDA E INFORMAR</label>
+                <input class="form-check-input" type="checkbox" name="opcion15" id="opcion15" value="1" @if ($correspondencias->opcion15) checked @endif>
+                <label class="form-check-label" for="opcion15">ASISTIR E INFORMAR</label>
             </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="extracto" class="col-form-label">Extracto:</label>
+            <textarea name="extracto" id="extracto" class="form-control" required>{{$correspondencias->extracto}}</textarea>
         </div>
     
         <div class="mb-3">
@@ -126,15 +132,12 @@
             <textarea name="observacion" id="observacion" class="form-control">{{$correspondencias->observacion}}</textarea>
         </div>
     
-        <div class="mb-3">
-            <label for="extracto" class="col-form-label">Extracto:</label>
-            <textarea name="extracto" id="extracto" class="form-control" required>{{$correspondencias->extracto}}</textarea>
-        </div>
-    
-        <div class="mb-3">
-            <label for="resuelto" class="col-form-label">Resuelto:</label>
-            <input type="date" class="form-control" name="resuelto" id="resuelto" value="{{$correspondencias->resuelto}}">
-        </div>
+        @if (Auth::user()->id == $correspondencias->id_usuario)
+            <div class="mb-3">
+                <label for="resuelto" class="col-form-label">Resuelto:</label>
+                <input type="date" class="form-control" name="resuelto" id="resuelto" value="{{$correspondencias->resuelto}}">
+            </div>
+        @endif
 
         <button type="submit" class="btn btn-success mt-4">Modificar</button>
         <a href="{{route('correspondencias.index')}}" class="btn btn-secondary mt-4">Cancelar</a>

@@ -9,16 +9,20 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Exception;
+use Illuminate\Support\Facades\App;
 
 class UsersController extends Controller
 {
     public function reporte(){
-
+        $pdf = App::make('dompdf.wrapper');
+        $usuarios = User::orderBy('nombres')->get();
+        $pdf->loadView('users.reporte', ['usuarios' => $usuarios]);
+        return $pdf->stream();
     }
 
     public function index()
     {
-        $usuarios = User::all();
+        $usuarios = User::orderBy('nombres')->get();
         $roles = Roles::orderBy('rol')->get();
         $estadosUsuarios = EstadosUsuarios::all();
         $dependencias = Dependencias::orderBy('nombre')->get();

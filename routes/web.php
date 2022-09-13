@@ -10,6 +10,7 @@ use App\Http\Controllers\AsignacionEquiposController;
 use App\Http\Controllers\AsignacionMovimientoEquipoController;
 use App\Http\Controllers\CoordinadoresController;
 use App\Http\Controllers\CorrespondenciasController;
+use App\Http\Controllers\CorrespondenciasSeguimientosController;
 use App\Http\Controllers\DependenciasController;
 use App\Http\Controllers\DescripcionEquiposController;
 use App\Http\Controllers\EquiposController;
@@ -82,6 +83,13 @@ Route::resource('/memos-internos', MemosInternosController::class)->middleware('
 Route::resource('/memos-externos', MemosExternosController::class)->middleware('auth');
 Route::resource('/oficios', OficiosController::class)->middleware('auth');
 Route::resource('/correspondencias', CorrespondenciasController::class)->middleware('auth');
+
+Route::get('/correspondencias-seguimientos/{correspondencia}', [CorrespondenciasSeguimientosController::class, 'index'])->name('correspondencias-seguimientos.index')->middleware('auth');
+Route::get('/correspondencias-seguimientos/{correspondencia}/edit/{seguimiento}', [CorrespondenciasSeguimientosController::class, 'edit'])->name('correspondencias-seguimientos.edit')->middleware('auth');
+Route::post('/correspondencias-seguimientos/{correspondencia}', [CorrespondenciasSeguimientosController::class, 'store'])->name('correspondencias-seguimientos.store')->middleware('auth');
+Route::patch('/correspondencias-seguimientos/{correspondencia}/{seguimiento}', [CorrespondenciasSeguimientosController::class, 'update'])->name('correspondencias-seguimientos.update')->middleware('auth');
+Route::delete('/correspondencias-seguimientos/{correspondencia}/{seguimiento}', [CorrespondenciasSeguimientosController::class, 'destroy'])->name('correspondencias-seguimientos.destroy')->middleware('auth');
+
 
 //Asignacion de funciones a pao
 Route::get('/pao/funciones/{pao}', [FuncionesPaoController::class, 'index'])->name('funciones-pao.index')->middleware('auth');

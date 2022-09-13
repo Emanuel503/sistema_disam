@@ -23,6 +23,7 @@
                 <th>Extracto</th>
                 <th>Tecnico</th>
                 <th>Resuelto</th>
+                <th>Seguimiento</th>
                 <th>Opciones</th>
             </tr>
         </thead>
@@ -36,6 +37,7 @@
                 <td>{{$correspondencia->extracto}}</td>
                 <td>{{$correspondencia->usuarios->nombres}} {{$correspondencia->usuarios->apellidos}}</td>
                 <td> @if($correspondencia->resuelto == null) Sin resolver @endif {{$correspondencia->resuelto}} </td>
+                <td class="text-center"><a href="{{route('correspondencias-seguimientos.index', ['correspondencia' => $correspondencia->id])}}" class="btn btn-sm btn-outline-primary">Ver</a></td>
                 <td>
                     <a class="btn btn-info btn-sm mb-1" href="{{ route('correspondencias.show' , ['correspondencia' => $correspondencia->id])}}">Ver</a>
                     @if (Auth::user()->id == $correspondencia->id_usuario_adiciono || Auth::user()->id_rol == 1)
