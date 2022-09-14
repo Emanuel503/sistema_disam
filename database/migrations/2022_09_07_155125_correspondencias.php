@@ -15,10 +15,13 @@ return new class extends Migration
     {
         Schema::create('correspondencias', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_usuario')->constrained('users', 'id')->nullable();
+            $table->foreignId('id_usuario')->nullable()->constrained('users', 'id');
+            $table->foreignId('id_usuario_dos')->nullable()->constrained('users', 'id');
+            $table->foreignId('id_usuario_tres')->nullable()->constrained('users', 'id');
+            $table->foreignId('id_usuario_cuatro')->nullable()->constrained('users', 'id');
             $table->foreignId('id_usuario_adiciono')->constrained('users', 'id');
             $table->date('fecha');
-            $table->time('hora');
+            $table->string('hora');
             $table->string('procedencia');
             $table->string('observacion')->nullable();
             $table->string('extracto');
@@ -39,6 +42,7 @@ return new class extends Migration
             $table->char('opcion13')->nullable();
             $table->char('opcion14')->nullable();
             $table->char('opcion15')->nullable();
+            $table->string('memo')->nullable();
             $table->timestamps();
         });
     }

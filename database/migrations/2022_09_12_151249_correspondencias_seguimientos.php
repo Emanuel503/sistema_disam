@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('id_correspondencia')->constrained('correspondencias', 'id');
             $table->foreignId('id_usuario_adiciono')->constrained('users', 'id');
+            $table->foreignId('id_estado')->nullable()->constrained('estados_correspondencia_seguimientos', 'id');
             $table->string('seguimiento');
             $table->timestamps();
         });

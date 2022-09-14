@@ -7,15 +7,46 @@
 
     @include('layouts.alerts')
 
-    <form action="{{ route('correspondencias.update', ['correspondencia' => $correspondencias->id]) }}" method="POST">
+    <form action="{{ route('correspondencias.update', ['correspondencia' => $correspondencias->id]) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PATCH')
         
         <div class="mb-3">
             <label for="id_usuario" class="col-form-label">Marginado a:</label>
             <select id="id_usuario" class="form-select" name="id_usuario">
+                <option @selected($correspondencias->id_usuario == null) value="ninguno">Ninguno</option>
                 @foreach ($usuarios as $usuario )
                     <option @selected($usuario->id == $correspondencias->id_usuario) value="{{$usuario->id}}">{{$usuario->nombres}} {{$usuario->apellidos}}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="id_usuario_dos" class="col-form-label">Marginado a:</label>
+            <select id="id_usuario_dos" class="form-select" name="id_usuario_dos">
+                <option @selected($correspondencias->id_usuario_dos == null) value="ninguno">Ninguno</option>
+                @foreach ($usuarios as $usuario )
+                    <option @selected($usuario->id == $correspondencias->id_usuario_dos) value="{{$usuario->id}}">{{$usuario->nombres}} {{$usuario->apellidos}}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="id_usuario_tres" class="col-form-label">Marginado a:</label>
+            <select id="id_usuario_tres" class="form-select" name="id_usuario_tres">
+                <option @selected($correspondencias->id_usuario_tres == null) value="ninguno">Ninguno</option>
+                @foreach ($usuarios as $usuario )
+                    <option @selected($usuario->id == $correspondencias->id_usuario_tres) value="{{$usuario->id}}">{{$usuario->nombres}} {{$usuario->apellidos}}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="id_usuario_cuatro" class="col-form-label">Marginado a:</label>
+            <select id="id_usuario_cuatro" class="form-select" name="id_usuario_cuatro">
+                <option @selected($correspondencias->id_usuario_cuatro == null) value="ninguno">Ninguno</option>
+                @foreach ($usuarios as $usuario )
+                    <option @selected($usuario->id == $correspondencias->id_usuario_cuatro) value="{{$usuario->id}}">{{$usuario->nombres}} {{$usuario->apellidos}}</option>
                 @endforeach
             </select>
         </div>
@@ -131,8 +162,13 @@
             <label for="observacion" class="col-form-label">Observaciones:</label>
             <textarea name="observacion" id="observacion" class="form-control">{{$correspondencias->observacion}}</textarea>
         </div>
+
+        <div class="mb-3">
+            <label for="memo" class="col-form-label">Memorandum:</label>
+            <input class="form-control" type="file" name="memo" id="memo" accept="application/pdf"  value="{{old('memo')}}">
+        </div>
     
-        @if (Auth::user()->id == $correspondencias->id_usuario)
+        @if (Auth::user()->id == $correspondencias->id_usuario || Auth::user()->id == 1)
             <div class="mb-3">
                 <label for="resuelto" class="col-form-label">Resuelto:</label>
                 <input type="date" class="form-control" name="resuelto" id="resuelto" value="{{$correspondencias->resuelto}}">

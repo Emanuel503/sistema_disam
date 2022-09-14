@@ -10,6 +10,13 @@
     <form action="{{ route('correspondencias-seguimientos.update', ['correspondencia' => $correspondencia->id, 'seguimiento' => $seguimientos]) }}" method="POST">
         @csrf
         @method('PATCH')
+
+        <div class="mb-3">
+            <label for="id_estado" class="col-form-label">Estado:</label>
+            <select class="form-select" name="id_estado" id="id_estado">
+                <option value="{{$seguimientos->id_estado}}">{{$seguimientos->estados->estado}}</option>
+            </select>
+        </div>
     
         <div class="mb-3">
             <label for="seguimiento" class="col-form-label">Seguimiento:</label>

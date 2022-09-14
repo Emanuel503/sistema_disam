@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Reporte de correspondencia</title>
     <style>
-       * {
+        * {
             font-size: 12px;
         }
         img {
@@ -20,7 +20,7 @@
         }
         .extracto{
             margin-left: 0;
-            height: 90px;
+            height: 85px;
         }
         table{
             width: 400px;
@@ -34,7 +34,7 @@
             margin-left:0;
         }
         .direccion{
-            margin-left: 110px; 
+            margin-left: 85px; 
         }
         .espacio{
             margin-left: 150px;
@@ -60,6 +60,10 @@
             font-size: 14px;
             font-style: italic;
         }
+        .encabezado{
+            max-height: 90px;
+            min-height: 90px;
+        }
     </style>
 </head>
 
@@ -67,21 +71,27 @@
     <img src="{{env('APP_URL')}}/sistema_disam/public/img/logo.jpg">
     <label>MINISTERIO DE SALUD</label><br>
     <label class="direccion">DIRECCION DE SALUD AMBIENTAL</label>
-    
     <table>
         <tr>
             <td colspan="4">
-                <b>FECHA:</b> {{$correspondencias->fecha}}<label class="espacio">&nbsp;</label><b>HORA:</b> {{$correspondencias->hora}}<br><br>
-                <b>MARGINADO A:</b> {{$correspondencias->usuarios->nombres}} {{$correspondencias->usuarios->apellidos}}<br><br>
-                <b>PROCEDENCIA:</b> {{$correspondencias->procedencia}}
+                <div class="encabezado">
+                    <b>FECHA:</b> {{$correspondencias->fecha}}<label class="espacio">&nbsp;</label><b>HORA:</b> {{$correspondencias->hora}}<br><br>
+                    <b>MARGINADO A:</b> 
+                    @if($correspondencias->id_usuario != null){{$correspondencias->usuario1->nombres}} {{$correspondencias->usuario1->apellidos}}@endif
+                    @if($correspondencias->id_usuario_dos != null), {{$correspondencias->usuario2->nombres}} {{$correspondencias->usuario2->apellidos}}@endif
+                    @if($correspondencias->id_usuario_tres != null), {{$correspondencias->usuario3->nombres}} {{$correspondencias->usuario3->apellidos}}@endif
+                    @if($correspondencias->id_usuario_cuatro != null), {{$correspondencias->usuario4->nombres}} {{$correspondencias->usuario4->apellidos}}@endif
+                    <br><br>
+                    <b>PROCEDENCIA:</b> {{$correspondencias->procedencia}}
+                </div>
             </td>
         </tr>
         <tr>
-            <td class="text-center urgente" colspan="4">
+            <td class="urgente" colspan="4">
                 <b>{{$correspondencias->urgencia}}</b>
             </td>
         </tr>
-        <tr >
+        <tr>
             <td><b>PARA TRAMITE RESPECTIVO</b></td>
             <td class="td-cheque">@if($correspondencias->opcion1) <div class="cheque"></div> @endif</td>
             <td><b>ASISTIR SEGUN AGENDA</b></td>
@@ -131,7 +141,7 @@
 
         <tr>
             <td colspan="4">
-                <b>EXTRACTO: </b><br>
+                <b>EXTRACTO - {{$correspondencias->id}}: </b><br>
                 <div class="extracto">
                     {{$correspondencias->extracto}}<br><br>
                 </div>
@@ -148,12 +158,10 @@
             <tr><td class="td-observacion" colspan="4"></td></tr>
             <tr><td class="td-observacion" colspan="4"></td></tr>
             <tr><td class="td-observacion" colspan="4"></td></tr>
-            <tr><td class="td-observacion" colspan="4"></td></tr>
         @endif
-
+        
     </table>
-
-
+    
     <h2 class="footer">
         @foreach ($director as $direc)
             {{strtoupper($direc->nombres)}}  {{strtoupper($direc->apellidos)}}

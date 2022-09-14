@@ -16,7 +16,7 @@
     <table id="tabla" class="table table-striped table-hover table-bordered table-sm shadow">
         <thead>
             <tr class="table-dark">
-                <th>#</th>
+                <th>ID</th>
                 <th>Fecha</th>
                 <th>Hora</th>
                 <th>Procedencia</th>
@@ -30,12 +30,18 @@
         <tbody>
             @foreach ($correspondencias as $correspondencia)
             <tr>
-                <td>{{$loop->iteration}}</td>
+                <td>{{$correspondencia->id}}</td>
                 <td>{{$correspondencia->fecha}}</td>
                 <td>{{$correspondencia->hora}}</td>
                 <td>{{$correspondencia->procedencia}}</td>
                 <td>{{$correspondencia->extracto}}</td>
-                <td>{{$correspondencia->usuarios->nombres}} {{$correspondencia->usuarios->apellidos}}</td>
+                <td>
+                    @if ($correspondencia->id_usuario != NULL)
+                        {{$correspondencia->usuario1->nombres}} {{$correspondencia->usuario1->apellidos}}
+                    @else
+                        Sin tecnico
+                    @endif
+                </td>
                 <td> @if($correspondencia->resuelto == null) Sin resolver @endif {{$correspondencia->resuelto}} </td>
                 <td class="text-center"><a href="{{route('correspondencias-seguimientos.index', ['correspondencia' => $correspondencia->id])}}" class="btn btn-sm btn-outline-primary">Ver</a></td>
                 <td>
@@ -69,13 +75,44 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('correspondencias.store') }}" method="POST">
+                <form action="{{ route('correspondencias.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3">
                         <label for="id_usuario" class="col-form-label">Marginado a:</label>
                         <select id="id_usuario" class="form-select" name="id_usuario">
+                            <option value="ninguno">Ninguno</option>
                             @foreach ($usuarios as $usuario )
-                            <option @selected(Auth::user()->id == $usuario->id) value="{{$usuario->id}}">{{$usuario->nombres}} {{$usuario->apellidos}}</option>
+                                <option value="{{$usuario->id}}">{{$usuario->nombres}} {{$usuario->apellidos}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="id_usuario_dos" class="col-form-label">Marginado a:</label>
+                        <select id="id_usuario_dos" class="form-select" name="id_usuario_dos">
+                            <option value="ninguno">Ninguno</option>
+                            @foreach ($usuarios as $usuario )
+                                <option value="{{$usuario->id}}">{{$usuario->nombres}} {{$usuario->apellidos}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="id_usuario_tres" class="col-form-label">Marginado a:</label>
+                        <select id="id_usuario_tres" class="form-select" name="id_usuario_tres">
+                            <option value="ninguno">Ninguno</option>
+                            @foreach ($usuarios as $usuario )
+                                <option value="{{$usuario->id}}">{{$usuario->nombres}} {{$usuario->apellidos}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="id_usuario_cuatro" class="col-form-label">Marginado a:</label>
+                        <select id="id_usuario_cuatro" class="form-select" name="id_usuario_cuatro">
+                            <option value="ninguno">Ninguno</option>
+                            @foreach ($usuarios as $usuario )
+                                <option value="{{$usuario->id}}">{{$usuario->nombres}} {{$usuario->apellidos}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -87,7 +124,7 @@
         
                     <div class="mb-4">
                         <label for="urgencia" class="col-form-label">Urgencia:</label>
-                        <input type="text" class="form-control" name="urgencia" id="urgencia" value="URGENTE" required>
+                        <input type="text" class="form-control" name="urgencia" id="urgencia" value="URGENTE">
                     </div>
 
                     <div class="row mb-3 mt-2">
@@ -189,7 +226,12 @@
 
                     <div class="mb-3">
                         <label for="extracto" class="col-form-label">Extracto:</label>
-                        <textarea name="extracto" id="extracto" class="form-control">{{old('extracto')}}</textarea>
+                        <textarea name="extracto" id="extracto" class="form-control" required>{{old('extracto')}}</textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="memo" class="col-form-label">Memorandum:</label>
+                        <input class="form-control" type="file" name="memo" id="memo" accept="application/pdf" value="{{old('memo')}}">
                     </div>
             </div>
             <div class="modal-footer">

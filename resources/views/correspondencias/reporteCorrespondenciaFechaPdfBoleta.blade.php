@@ -20,7 +20,7 @@
         }
         .extracto{
             margin-left: 0;
-            height: 90px;
+            height: 85px;
         }
         table{
             width: 400px;
@@ -34,7 +34,7 @@
             margin-left:0;
         }
         .direccion{
-            margin-left: 110px; 
+            margin-left: 85px; 
         }
         .espacio{
             margin-left: 150px;
@@ -59,6 +59,10 @@
         .footer{
             font-size: 14px;
             font-style: italic;
+        }
+        .encabezado{
+            max-height: 90px;
+            min-height: 90px;
         }
         .container .box {
             display:table;
@@ -90,9 +94,16 @@
                 <table>
                     <tr>
                         <td colspan="4">
-                            <b>FECHA:</b> {{$correspondencia->fecha}}<label class="espacio">&nbsp;</label><b>HORA:</b> {{$correspondencia->hora}}<br><br>
-                            <b>MARGINADO A:</b> {{$correspondencia->usuarios->nombres}} {{$correspondencia->usuarios->apellidos}}<br><br>
-                            <b>PROCEDENCIA:</b> {{$correspondencia->procedencia}}
+                            <div class="encabezado">
+                                <b>FECHA:</b> {{$correspondencia->fecha}}<label class="espacio">&nbsp;</label><b>HORA:</b> {{$correspondencia->hora}}<br><br>
+                                <b>MARGINADO A:</b> 
+                                @if($correspondencia->id_usuario != null){{$correspondencia->usuario1->nombres}} {{$correspondencia->usuario1->apellidos}}@endif
+                                @if($correspondencia->id_usuario_dos != null), {{$correspondencia->usuario2->nombres}} {{$correspondencia->usuario2->apellidos}}@endif
+                                @if($correspondencia->id_usuario_tres != null), {{$correspondencia->usuario3->nombres}} {{$correspondencia->usuario3->apellidos}}@endif
+                                @if($correspondencia->id_usuario_cuatro != null), {{$correspondencia->usuario4->nombres}} {{$correspondencia->usuario4->apellidos}}@endif
+                                <br><br>
+                                <b>PROCEDENCIA:</b> {{$correspondencia->procedencia}}
+                                </div>
                         </td>
                     </tr>
                     <tr>
@@ -150,7 +161,7 @@
         
                     <tr>
                         <td colspan="4">
-                            <b>EXTRACTO: </b><br>
+                            <b>EXTRACTO - {{$correspondencia->id}}: </b><br>
                             <div class="extracto">
                                 {{$correspondencia->extracto}}<br><br>
                             </div>

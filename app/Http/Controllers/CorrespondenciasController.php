@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Coordinadores;
 use App\Models\Correspondencias;
 use App\Models\User;
 use Exception;
@@ -27,7 +26,15 @@ class CorrespondenciasController extends Controller
         $director = DB::select("SELECT u.nombres, u.apellidos FROM coordinadores c INNER JOIN users u ON c.id_tecnico = u.id WHERE id_coordinacion = 1");
 
         if (sizeof($correspondencias) > 0) {
-            $pdf->loadView('correspondencias.reporteCorrespondenciaFechaPdf', ['correspondencias' => $correspondencias, 'director' => $director])->setPaper('latter', 'landscape');
+
+           if($request->opcion == "boleta"){
+                $pdf->loadView('correspondencias.reporteCorrespondenciaFechaPdfBoleta', ['correspondencias' => $correspondencias, 'director' => $director])->setPaper('latter', 'landscape');
+           }
+
+           if($request->opcion == "cuadro"){
+                $pdf->loadView('correspondencias.reporteCorrespondenciaFechaPdfCuadro', ['correspondencias' => $correspondencias, 'director' => $director])->setPaper('latter', 'landscape');
+            }
+            
             return $pdf->stream();
         } else {
             return redirect()->route('correspondencias.reporteFecha')->withErrors('No hay registros disponibles.')->withInput();
@@ -61,7 +68,7 @@ class CorrespondenciasController extends Controller
         
         $pdf = App::make('dompdf.wrapper');
         $correspondencias = Correspondencias::find($id);
-        $pdf->loadView('correspondencias.reporteCorrespondenciaPdf', ['correspondencias' => $correspondencias,'director' => $director])->setPaper('latter', 'landscape');
+        $pdf->loadView('correspondencias.reporteCorrespondenciaPdf', ['correspondencias' => $correspondencias, 'director' => $director])->setPaper('latter', 'landscape');
         return $pdf->stream();
     }
 
@@ -91,7 +98,31 @@ class CorrespondenciasController extends Controller
         date_default_timezone_set('America/El_Salvador');
 
         $correspondencias = new Correspondencias();
-        $correspondencias->id_usuario = $request->id_usuario;
+        
+        if($request->id_usuario == "ninguno"){
+            $correspondencias->id_usuario = NULL;
+        }else{
+            $correspondencias->id_usuario = $request->id_usuario;
+        }
+
+        if($request->id_usuario_dos == "ninguno"){
+            $correspondencias->id_usuario_dos = NULL;
+        }else{
+            $correspondencias->id_usuario_dos = $request->id_usuario_dos;
+        }
+
+        if($request->id_usuario_tres == "ninguno"){
+            $correspondencias->id_usuario_tres = NULL;
+        }else{
+            $correspondencias->id_usuario_tres = $request->id_usuario_tres;
+        }
+
+        if($request->id_usuario_cuatro == "ninguno"){
+            $correspondencias->id_usuario_cuatro = NULL;
+        }else{
+            $correspondencias->id_usuario_cuatro = $request->id_usuario_cuatro;
+        }
+
         $correspondencias->id_usuario_adiciono = Auth::user()->id;
         $correspondencias->fecha = date('Y-m-d');
         $correspondencias->hora = date('h:i:s A');
@@ -115,6 +146,20 @@ class CorrespondenciasController extends Controller
         $correspondencias->opcion13 = $request->opcion13;
         $correspondencias->opcion14 = $request->opcion14;
         $correspondencias->opcion15 = $request->opcion15;
+
+        //Documento PDF memo
+        $file = $request->file('memo');
+
+        if(isset($file)){
+
+            if($file->extension() != "pdf"){
+                return redirect()->route('correspondencias.index')->withErrors('Formato de archivo no valido.')->withInput();
+            }
+
+            $filename = date('YmdHi') . '-' . $file->getClientOriginalName();
+            $file->move(public_path('documentos'), $filename);
+            $correspondencias->memo = $filename;
+        }
         $correspondencias->save();
 
         return redirect()->route('correspondencias.index')->with('success','Correspondencia guardada correctamente');
@@ -127,7 +172,31 @@ class CorrespondenciasController extends Controller
         ]);
 
         $correspondencias = Correspondencias::find($id);
-        $correspondencias->id_usuario = $request->id_usuario;
+        
+        if($request->id_usuario == "ninguno"){
+            $correspondencias->id_usuario = NULL;
+        }else{
+            $correspondencias->id_usuario = $request->id_usuario;
+        }
+
+        if($request->id_usuario_dos == "ninguno"){
+            $correspondencias->id_usuario_dos = NULL;
+        }else{
+            $correspondencias->id_usuario_dos = $request->id_usuario_dos;
+        }
+
+        if($request->id_usuario_tres == "ninguno"){
+            $correspondencias->id_usuario_tres = NULL;
+        }else{
+            $correspondencias->id_usuario_tres = $request->id_usuario_tres;
+        }
+
+        if($request->id_usuario_cuatro == "ninguno"){
+            $correspondencias->id_usuario_cuatro = NULL;
+        }else{
+            $correspondencias->id_usuario_cuatro = $request->id_usuario_cuatro;
+        }
+        
         $correspondencias->procedencia = $request->procedencia;
         $correspondencias->observacion = $request->observacion;
         $correspondencias->extracto = $request->extracto;
@@ -148,6 +217,25 @@ class CorrespondenciasController extends Controller
         $correspondencias->opcion13 = $request->opcion13;
         $correspondencias->opcion14 = $request->opcion14;
         $correspondencias->opcion15 = $request->opcion15;
+
+        //Documento PDF memo
+        $file = $request->file('memo');
+
+        if(isset($file)){
+
+            if($file->extension() != "pdf"){
+                return redirect()->route('correspondencias.index')->withErrors('Formato de archivo no valido.')->withInput();
+            }
+
+            if($correspondencias->memo != null){
+                unlink(public_path('documentos') ."\\". $correspondencias->memo);
+            }
+
+            $filename = date('YmdHi') . '-' . $file->getClientOriginalName();
+            $file->move(public_path('documentos'), $filename);
+            $correspondencias->memo = $filename;
+        }
+
         $correspondencias->save();
 
         return redirect()->route('correspondencias.index')->with('success','Correspondencia modificada correctamente');
@@ -155,7 +243,11 @@ class CorrespondenciasController extends Controller
 
     public function destroy($id){
         try{
+            $correspondencias = Correspondencias::find($id);
             Correspondencias::destroy($id);
+            if($correspondencias->memo != null){
+                unlink(public_path('documentos') ."\\". $correspondencias->memo);
+            }
             return redirect()->route('correspondencias.index')->with('success','Correspondencia eliminada correctamente');
         }catch(Exception $e){
             return redirect()->route('correspondencias.index')->withErrors('No se puede eliminar la correspondencia, ya contiene registros');

@@ -23,6 +23,7 @@
                 <th>#</th>
                 <th>Fecha</th>
                 <th>Seguimiento</th>
+                <th>Estado</th>
                 <th>Opciones</th>
             </tr>
         </thead>
@@ -32,6 +33,7 @@
                 <td>{{$loop->iteration}}</td>
                 <td>{{$seguimiento->created_at}}</td>
                 <td>{{$seguimiento->seguimiento}}</td>
+                <td>{{$seguimiento->estados->estado}}</td>
                 <td>
                     <a class="btn btn-info btn-sm mb-1" href="{{ route('correspondencias.show' , ['correspondencia' => $correspondencia->id])}}">Ver</a>
                     @if (Auth::user()->id == $seguimiento->id_usuario_adiciono)
@@ -62,6 +64,15 @@
             <div class="modal-body">
                 <form action="{{ route('correspondencias-seguimientos.store', ['correspondencia' => $correspondencia->id]) }}" method="POST">
                     @csrf
+
+                    <div class="mb-3">
+                        <label for="id_estado" class="col-form-label">Estado:</label>
+                        <select class="form-select" name="id_estado" id="id_estado">
+                            @foreach ($estados as $estado )
+                                <option value="{{$estado->id}}">{{$estado->estado}}</option>
+                            @endforeach
+                        </select>
+                    </div>
 
                     <div class="mb-3">
                         <label for="seguimiento" class="col-form-label">Seguimiento:</label>

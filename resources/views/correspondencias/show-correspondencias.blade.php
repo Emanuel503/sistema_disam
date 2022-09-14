@@ -19,7 +19,38 @@
 
     <div class="mb-3">
         <label for="id_usuario" class="col-form-label">Marginado a:</label>
-        <input type="text" class="form-control" name="id_usuario" id="id_usuario" value="{{ $correspondencias->usuarios->nombres}} {{ $correspondencias->usuarios->apellidos}}" readonly>
+        @if ($correspondencias->id_usuario == NULL)
+            <input type="text" class="form-control" name="id_usuario" id="id_usuario" value="Sin tecnico" readonly>
+        @else
+            <input type="text" class="form-control" name="id_usuario" id="id_usuario" value="{{ $correspondencias->usuario1->nombres}} {{ $correspondencias->usuario1->apellidos}}" readonly>
+        @endif 
+    </div>
+
+    <div class="mb-3">
+        <label for="id_usuario_dos" class="col-form-label">Marginado a:</label>
+        @if ($correspondencias->id_usuario_dos == NULL)
+            <input type="text" class="form-control" name="id_usuario_dos" id="id_usuario_dos" value="Sin tecnico" readonly>
+        @else
+            <input type="text" class="form-control" name="id_usuario_dos" id="id_usuario_dos" value="{{ $correspondencias->usuario2->nombres}} {{ $correspondencias->usuario2->apellidos}}" readonly>
+        @endif 
+    </div>
+
+    <div class="mb-3">
+        <label for="id_usuario_tres" class="col-form-label">Marginado a:</label>
+        @if ($correspondencias->id_usuario_tres == NULL)
+            <input type="text" class="form-control" name="id_usuario_tres" id="id_usuario_tres" value="Sin tecnico" readonly>
+        @else
+            <input type="text" class="form-control" name="id_usuario_tres" id="id_usuario_tres" value="{{ $correspondencias->usuario3->nombres}} {{ $correspondencias->usuario3->apellidos}}" readonly>
+        @endif 
+    </div>
+
+    <div class="mb-3">
+        <label for="id_usuario_cuatro" class="col-form-label">Marginado a:</label>
+        @if ($correspondencias->id_usuario_cuatro == NULL)
+            <input type="text" class="form-control" name="id_usuario_cuatro" id="id_usuario_cuatro" value="Sin tecnico" readonly>
+        @else
+            <input type="text" class="form-control" name="id_usuario_cuatro" id="id_usuario_cuatro" value="{{ $correspondencias->usuario4->nombres}} {{ $correspondencias->usuario4->apellidos}}" readonly>
+        @endif 
     </div>
 
     <div class="mb-3">
@@ -149,6 +180,14 @@
         <input type="text" class="form-control" name="fecha_modificacion" id="fecha_modificacion" value="{{$correspondencias->updated_at}}" readonly>
     </div>
 
+    <div class="mb-3 d-grid gap-2 col-6 mx-auto">
+        @if ($correspondencias->memo == null)
+            <span class="badge bg-secondary mt-3 mb-5">La correspondencia no tiene documento</span>
+        @else
+            <a target="_blank" class="btn btn-outline-secondary px-4 mt-3 mb-5" href="{{ url('documentos/'.$correspondencias->memo) }}">Ver PDF</a>
+        @endif
+    
+    </div>
 
     @if (Auth::user()->id == $correspondencias->id_usuario_adiciono || Auth::user()->id_rol == 1)
         <form action="{{ route('correspondencias.destroy' , ['correspondencia' => $correspondencias->id])}}" method="POST">

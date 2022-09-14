@@ -32,5 +32,6 @@ class DatabaseSeeder extends Seeder
         $this->call(EstadosEquiposSeeder::class);
         $this->call(MotivosMovimientosEquiposSeedeer::class);
         $this->call(EstadosPaosSeeder::class);
+        $this->call(EstadosCorrespondenciaSeguimientosSeeder::class);
     }
 }

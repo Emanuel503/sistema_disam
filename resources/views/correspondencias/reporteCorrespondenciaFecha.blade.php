@@ -8,12 +8,29 @@
 <div class="modal-dialog modal-lg">
     <div class="modal-content bg-secondary bg-opacity-25 shadow">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Generar reporte</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Generar reporte en boleta</h5>
         </div>
         <div class="modal-body">
             <form action="{{route('correspondencias.reporteFecha')}}" method="POST">
                 @csrf
-                
+                <input type="hidden" name="opcion" value="boleta">
+                <div class="mb-3">
+                    <label for="fecha" class="col-form-label">Fecha:</label>
+                    <input type="date" class="form-control" name="fecha" id="fecha" value="{{ old('fecha') }}" required>
+                </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-danger">PDF</button>
+            </form>
+        </div>
+        <hr>
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Generar reporte en tabla</h5>
+        </div>
+        <div class="modal-body">
+            <form action="{{route('correspondencias.reporteFecha')}}" method="POST">
+                @csrf
+                <input type="hidden" name="opcion" value="cuadro">
                 <div class="mb-3">
                     <label for="fecha" class="col-form-label">Fecha:</label>
                     <input type="date" class="form-control" name="fecha" id="fecha" value="{{ old('fecha') }}" required>

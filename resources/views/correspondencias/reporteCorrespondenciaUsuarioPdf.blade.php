@@ -20,7 +20,7 @@
         }
         .extracto{
             margin-left: 0;
-            height: 90px;
+            height: 85px;
         }
         table{
             width: 400px;
@@ -34,7 +34,7 @@
             margin-left:0;
         }
         .direccion{
-            margin-left: 110px; 
+            margin-left: 85px; 
         }
         .espacio{
             margin-left: 150px;
@@ -60,6 +60,10 @@
             font-size: 14px;
             font-style: italic;
         }
+        .encabezado{
+            max-height: 90px;
+            min-height: 90px;
+        }
         .container .box {
             display:table;
         }
@@ -68,7 +72,6 @@
         }
         .container .box .box-cell {
             display:table-cell;
-            
         }
         .box-cell{
             padding-left: 30px;
@@ -76,20 +79,14 @@
     </style>
 </head>
 <body>
-   
-    @php
-        $contador=0;
-    @endphp
-            
+    @php $contador=0; @endphp   
     @foreach ($correspondencias as $correspondencia)
         @if ($contador == 0)
             <div class="container">
             <div class="box">
             <div class="box-row">
         @endif
-        @php
-            $contador++;
-        @endphp
+        @php $contador++; @endphp
             <div class="box-cell">
                 <img src="{{env('APP_URL')}}/sistema_disam/public/img/logo.jpg">
                 <label>MINISTERIO DE SALUD</label><br>
@@ -97,13 +94,20 @@
                 <table>
                     <tr>
                         <td colspan="4">
-                            <b>FECHA:</b> {{$correspondencia->fecha}}<label class="espacio">&nbsp;</label><b>HORA:</b> {{$correspondencia->hora}}<br><br>
-                            <b>MARGINADO A:</b> {{$correspondencia->usuarios->nombres}} {{$correspondencia->usuarios->apellidos}}<br><br>
-                            <b>PROCEDENCIA:</b> {{$correspondencia->procedencia}}
+                            <div class="encabezado">
+                                <b>FECHA:</b> {{$correspondencia->fecha}}<label class="espacio">&nbsp;</label><b>HORA:</b> {{$correspondencia->hora}}<br><br>
+                                <b>MARGINADO A:</b> 
+                                @if($correspondencia->id_usuario != null){{$correspondencia->usuario1->nombres}} {{$correspondencia->usuario1->apellidos}}@endif
+                                @if($correspondencia->id_usuario_dos != null), {{$correspondencia->usuario2->nombres}} {{$correspondencia->usuario2->apellidos}}@endif
+                                @if($correspondencia->id_usuario_tres != null), {{$correspondencia->usuario3->nombres}} {{$correspondencia->usuario3->apellidos}}@endif
+                                @if($correspondencia->id_usuario_cuatro != null), {{$correspondencia->usuario4->nombres}} {{$correspondencia->usuario4->apellidos}}@endif
+                                <br><br>
+                                <b>PROCEDENCIA:</b> {{$correspondencia->procedencia}}
+                                </div>
                         </td>
                     </tr>
                     <tr>
-                        <td class="text-center urgente" colspan="4">
+                        <td class="urgente" colspan="4">
                             <b>{{$correspondencia->urgencia}}</b>
                         </td>
                     </tr>
@@ -157,7 +161,7 @@
         
                     <tr>
                         <td colspan="4">
-                            <b>EXTRACTO: </b><br>
+                            <b>EXTRACTO - {{$correspondencia->id}}: </b><br>
                             <div class="extracto">
                                 {{$correspondencia->extracto}}<br><br>
                             </div>
@@ -190,9 +194,7 @@
             </div>
             </div>
             </div>
-            @php
-                $contador=0;
-            @endphp
+            @php $contador=0; @endphp
         @endif
     @endforeach
 </body>
