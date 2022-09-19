@@ -165,7 +165,7 @@ die();
                     <div class="mb-3">
                         <input class="form-check-input" type="radio" name="motorista" id="si" value="si" @checked(old('motorista')=='si' )>
                         <label class="form-check-label" for="si">Si</label>
-
+                        <span class="mx-3"></span>
                         <input class="form-check-input" type="radio" name="motorista" id="no" value="no" @checked(old('motorista')==null) @checked(old('motorista')=='no' )>
                         <label class="form-check-label" for="no">No</label>
                     </div>

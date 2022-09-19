@@ -79,6 +79,7 @@
                                 </ul>
                             </li>
                             <li><a class="dropdown-item" href="{{route('correspondencias.index')}}">Control de correspondencia</a></li>
+                            <li><a class="dropdown-item" href="{{route('control-establecimientos.index')}}">Control de establecimientos</a></li>
                         </ul>
                     </li>
 

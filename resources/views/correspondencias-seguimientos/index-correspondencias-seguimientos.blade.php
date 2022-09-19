@@ -9,7 +9,7 @@
 
 <a href="{{route('correspondencias.index')}}" class="btn btn-outline-secondary mb-4">Regresar</a>
 
-@if (Auth::user()->id == $correspondencia->id_usuario)
+@if (Auth::user()->id == $correspondencia->id_usuario || Auth::user()->id == $correspondencia->id_usuario_dos || Auth::user()->id == $correspondencia->id_usuario_tres || Auth::user()->id == $correspondencia->id_usuario_cuatro)
     <button type="button" class="btn btn-primary mb-4 float-end" data-bs-toggle="modal" data-bs-target="#modalRegistrar">Registrar nueva seguimiento</button>
 @endif
 

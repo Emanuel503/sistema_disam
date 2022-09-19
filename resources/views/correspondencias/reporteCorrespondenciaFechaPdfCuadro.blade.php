@@ -32,6 +32,10 @@
         }
         .firma{
             width: 200px;
+            text-align: center;
+        }
+        .firma-fecha{
+            vertical-align: bottom;
         }
     </style>
 </head>
@@ -50,6 +54,7 @@
                 <th>EXTRACTO</th>
                 <th>MARGINADO A</th>
                 <th>OBSERVACIONES</th>
+                <th>ESTADO</th>
                 <th class="firma">FECHA Y FIRMA DE RECEPCION</th>
             </tr>
         </thead>
@@ -61,9 +66,31 @@
                 <td>{{$correspondencia->fecha}}</td>
                 <td>{{$correspondencia->procedencia}}</td>
                 <td>{{$correspondencia->extracto}}</td>
-                <td>{{$correspondencia->usuario1->nombres}} {{$correspondencia->usuario1->apellidos}}</td>
+                <td>
+                    @if ($correspondencia->id_usuario != NULL && $correspondencia->id_usuario_dos != NULL && $correspondencia->id_usuario_tres != NULL && $correspondencia->id_usuario_cuatro != NULL)
+                        {{$correspondencia->usuario1->nombres}} {{$correspondencia->usuario1->apellidos}}<br>
+                        {{$correspondencia->usuario2->nombres}} {{$correspondencia->usuario2->apellidos}}<br>
+                        {{$correspondencia->usuario3->nombres}} {{$correspondencia->usuario3->apellidos}}<br>
+                        {{$correspondencia->usuario4->nombres}} {{$correspondencia->usuario4->apellidos}}<br>
+                    @else
+                        Sin tecnico
+                    @endif
+                </td>
                 <td>{{$correspondencia->observaciones}}</td>
-                <td class="firma"></td>
+                <td>
+                    @if ($seguimientos->where('id_correspondencia', $correspondencia->id)->isEmpty())
+                        No recibido
+                    @else
+                        {{$seguimientos->where('id_correspondencia', $correspondencia->id)->last()->estados->estado}}   
+                    @endif
+                </td>
+                <td class="firma firma-fecha">
+                    @if ($seguimientos->where('id_correspondencia', $correspondencia->id)->isEmpty())
+                    
+                    @else
+                        {{$seguimientos->where('id_correspondencia', $correspondencia->id)->last()->created_at->format('Y-m-d')}}   
+                    @endif
+                </td>
             </tr>
         @endforeach
 

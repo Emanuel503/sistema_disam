@@ -36,8 +36,11 @@
                 <td>{{$correspondencia->procedencia}}</td>
                 <td>{{$correspondencia->extracto}}</td>
                 <td>
-                    @if ($correspondencia->id_usuario != NULL)
-                        {{$correspondencia->usuario1->nombres}} {{$correspondencia->usuario1->apellidos}}
+                    @if ($correspondencia->id_usuario != NULL && $correspondencia->id_usuario_dos != NULL && $correspondencia->id_usuario_tres != NULL && $correspondencia->id_usuario_cuatro != NULL)
+                        {{$correspondencia->usuario1->nombres}} {{$correspondencia->usuario1->apellidos}}<br>
+                        {{$correspondencia->usuario2->nombres}} {{$correspondencia->usuario2->apellidos}}<br>
+                        {{$correspondencia->usuario3->nombres}} {{$correspondencia->usuario3->apellidos}}<br>
+                        {{$correspondencia->usuario4->nombres}} {{$correspondencia->usuario4->apellidos}}<br>
                     @else
                         Sin tecnico
                     @endif

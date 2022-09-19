@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Correspondencias;
+use App\Models\CorrespondenciasSeguimientos;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -32,7 +33,8 @@ class CorrespondenciasController extends Controller
            }
 
            if($request->opcion == "cuadro"){
-                $pdf->loadView('correspondencias.reporteCorrespondenciaFechaPdfCuadro', ['correspondencias' => $correspondencias, 'director' => $director])->setPaper('latter', 'landscape');
+                $seguimientos = CorrespondenciasSeguimientos::all();
+                $pdf->loadView('correspondencias.reporteCorrespondenciaFechaPdfCuadro', ['correspondencias' => $correspondencias, 'director' => $director, 'seguimientos' => $seguimientos])->setPaper('latter', 'landscape');
             }
             
             return $pdf->stream();

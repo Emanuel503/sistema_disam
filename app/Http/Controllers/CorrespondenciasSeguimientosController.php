@@ -7,13 +7,27 @@ use App\Models\CorrespondenciasSeguimientos;
 use App\Models\EstadosCorrespondenciaSeguimientos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CorrespondenciasSeguimientosController extends Controller
 {
     public function index($correspondencia){
         $seguimientos = CorrespondenciasSeguimientos::where('id_correspondencia', $correspondencia)->get();
         $correspondencia = Correspondencias::find($correspondencia);
-        $estados = EstadosCorrespondenciaSeguimientos::all();
+        $recibido=0;
+
+        foreach($seguimientos as $seguimiento){
+            if($seguimiento->id_estado == 1){
+                $recibido = 1;
+            }
+        }
+
+        if($recibido == 1){
+            $estados = DB::select("SELECT * FROM estados_correspondencia_seguimientos WHERE id != 1");
+        }else{
+            $estados = DB::select("SELECT * FROM estados_correspondencia_seguimientos WHERE id = 1");
+        }
+
         return view('correspondencias-seguimientos.index-correspondencias-seguimientos', ['seguimientos' => $seguimientos, 'correspondencia' => $correspondencia, 'estados' => $estados]);
     }
 

@@ -8,6 +8,7 @@ use App\Http\Controllers\ActividadesController;
 use App\Http\Controllers\ActividadesPaosController;
 use App\Http\Controllers\AsignacionEquiposController;
 use App\Http\Controllers\AsignacionMovimientoEquipoController;
+use App\Http\Controllers\ControlEstablecimientosController;
 use App\Http\Controllers\CoordinadoresController;
 use App\Http\Controllers\CorrespondenciasController;
 use App\Http\Controllers\CorrespondenciasSeguimientosController;
@@ -83,6 +84,7 @@ Route::resource('/memos-internos', MemosInternosController::class)->middleware('
 Route::resource('/memos-externos', MemosExternosController::class)->middleware('auth');
 Route::resource('/oficios', OficiosController::class)->middleware('auth');
 Route::resource('/correspondencias', CorrespondenciasController::class)->middleware('auth');
+Route::resource('/control-establecimientos', ControlEstablecimientosController::class)->middleware('auth');
 
 Route::get('/correspondencias-seguimientos/{correspondencia}', [CorrespondenciasSeguimientosController::class, 'index'])->name('correspondencias-seguimientos.index')->middleware('auth');
 Route::get('/correspondencias-seguimientos/{correspondencia}/edit/{seguimiento}', [CorrespondenciasSeguimientosController::class, 'edit'])->name('correspondencias-seguimientos.edit')->middleware('auth');
