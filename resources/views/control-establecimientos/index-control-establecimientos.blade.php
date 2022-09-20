@@ -64,7 +64,6 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        
                         @csrf
                         <div class="mb-3">
                             <label for="id_tipo" class="col-form-label">Tipo establecimiento:</label>
@@ -289,7 +288,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="tipo_riesgo_quimico" class="col-form-label">Tipo de riesgo quimico:(falta)</label>
+                                <label for="tipo_riesgo_quimico" class="col-form-label">Tipo de riesgo quimico:</label>
                                 <select class="form-select" name="tipo_riesgo_quimico" id="tipo_riesgo_quimico">
                                     <option>Corrosivo</option>
                                 </select>

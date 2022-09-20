@@ -13,4 +13,14 @@ class ControlEstablecimientos extends Model
     {
         return $this->belongsTo(TiposEstablecimientos::class, 'id_tipo');
     }
+
+    public function departamentos()
+    {
+        return $this->belongsTo(Departamentos::class, 'id_departamento');
+    }
+
+    public function municipios()
+    {
+        return $this->belongsTo(Municipios::class, 'id_municipio');
+    }
 }
