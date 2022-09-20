@@ -138,10 +138,10 @@
         <div id="piscina">
             <label class="col-form-label">Piscina con agua superficial:</label>
             <div class="mb-3">
-                <input class="form-check-input" type="radio" name="piscina_agua_superfial" id="piscina_superfial_si" value="Si" @checked($establecimientos->piscina_agua_superfial =='Si') disabled>
+                <input class="form-check-input" type="radio" name="piscina_agua_superficial" id="piscina_superfial_si" value="Si" @checked($establecimientos->piscina_agua_superficial =='Si') disabled>
                 <label class="form-check-label" for="piscina_superfial_si">Si</label>
                 <span class="mx-3"></span>
-                <input class="form-check-input" type="radio" name="piscina_agua_superfial" id="piscina_superfial_no" value="No" @checked($establecimientos->piscina_agua_superfial =='No') disabled>
+                <input class="form-check-input" type="radio" name="piscina_agua_superficial" id="piscina_superfial_no" value="No" @checked($establecimientos->piscina_agua_superficial =='No') disabled>
                 <label class="form-check-label" for="piscina_superfial_no">No</label>
             </div>
 
@@ -191,8 +191,8 @@
     @if ($establecimientos->id_tipo == 4)
         <div id="rancho">
             <div class="mb-3">
-                <label for="tipo_rancho" class="col-form-label">Tipo de rancho:</label>
-                <input type="text" class="form-control" name="tipo_rancho" id="tipo_rancho" value="{{$establecimientos->tipo_rancho}}">
+                <label for="tipo_rastro" class="col-form-label">Tipo de rastro:</label>
+                <input type="text" class="form-control" name="tipo_rastro" id="tipo_rastro" value="{{$establecimientos->tipo_rastro}}" readonly>
             </div>
 
             <label class="col-form-label">Cuenta con permiso del MINSAL:</label>
@@ -215,9 +215,7 @@
 
             <div class="mb-3">
                 <label for="tipo_riesgo_quimico" class="col-form-label">Tipo de riesgo quimico:</label>
-                <select class="form-select" name="tipo_riesgo_quimico" id="tipo_riesgo_quimico">
-                    <option>Corrosivo</option>
-                </select>
+                <input type="text" class="form-control" name="tipo_riesgo_quimico" id="tipo_riesgo_quimico" value="{{$establecimientos->tipo_riesgo_quimico}}" readonly>
             </div>
         </div>
     @endif
@@ -226,7 +224,7 @@
         <div id="alimentos">
             <div class="mb-3">
                 <label for="tipo_establecimiento_alimento" class="col-form-label">Tipo de establecimiento:</label>
-                <input type="text" class="form-control" name="tipo_establecimiento_alimento" id="tipo_establecimiento_alimento" value="{{$establecimientos->tipo_establecimiento_alimento}}" readonly>
+                <input type="text" class="form-control" name="tipo_establecimiento_alimento" id="tipo_establecimiento_alimento" value="{{$establecimientos->tipos_alimentos->nombre}}" readonly>
             </div>
         </div>
     @endif

@@ -46,6 +46,7 @@
                                     <li><a class="dropdown-item" href="{{route('fuente-equipo.index')}}">Fuentes</a></li>
                                 </ul>
                             </li>
+                            <li><a class="dropdown-item" href="{{route('tipos-establecimientos-alimentos.index')}}">Tipos de <br>establecimientos</a></li>
                         </ul>
                     </li>
                     @endif
@@ -78,8 +79,8 @@
                                     <li><a class="dropdown-item" href="{{route('memos-externos.index')}}">Memorandum Externos</a></li>
                                 </ul>
                             </li>
-                            <li><a class="dropdown-item" href="{{route('correspondencias.index')}}">Control de correspondencia</a></li>
-                            <li><a class="dropdown-item" href="{{route('control-establecimientos.index')}}">Control de establecimientos</a></li>
+                            <li><a class="dropdown-item" href="{{route('correspondencias.index')}}">Control de <br>correspondencia</a></li>
+                            <li><a class="dropdown-item" href="{{route('control-establecimientos.index')}}">Control de <br>establecimientos</a></li>
                         </ul>
                     </li>
 
@@ -94,7 +95,7 @@
                             </li>
                             <li><a class="dropdown-item" href="{{route('permisos.reporte')}}">Permisos</a></li>
                             <li><a class="dropdown-item" href="{{route('registros-salida.reporte')}}">Registros de salidas</a></li>
-                            <li><a class="dropdown-item" href="">Control de correspondencia &raquo; </a>
+                            <li><a class="dropdown-item" href="">Control de <br>correspondencia &raquo; </a>
                                 <ul class="submenu dropdown-menu dropdown-menu-dark">
                                     <li><a class="dropdown-item" href="{{route('correspondencias.reporteFecha')}}">Correspondencia por fecha</a></li>
                                     <li><a class="dropdown-item" href="{{route('correspondencias.reporteUsuario')}}">Correspondencia por usuario</a></li>

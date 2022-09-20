@@ -189,7 +189,7 @@
     
     </div>
 
-    @if (Auth::user()->id == $correspondencias->id_usuario_adiciono || Auth::user()->id_rol == 1)
+    @if (Auth::user()->id == $correspondencias->id_usuario_adiciono || Auth::user()->id_rol == 1 || Auth::user()->id == $correspondencias->id_usuario || Auth::user()->id == $correspondencias->id_usuario_dos || Auth::user()->id == $correspondencias->id_usuario_tres || Auth::user()->id == $correspondencias->id_usuario_cuatro )
         <form action="{{ route('correspondencias.destroy' , ['correspondencia' => $correspondencias->id])}}" method="POST">
             @csrf
             @method('DELETE')

@@ -40,7 +40,7 @@ return new class extends Migration
             $table->string('plan_seguridad')->nullable(); //Si - No
 
             //Campos para tipo de establecimiento: Piscina
-            $table->string('piscina_agua_superfial')->nullable(); //Si - No
+            $table->string('piscina_agua_superficial')->nullable(); //Si - No
             $table->string('piscina_con_circulacion')->nullable(); //Si - No
 
             //Campos para tipo de establecimiento: Establecimiento DB
@@ -49,16 +49,17 @@ return new class extends Migration
             $table->string('plan_recolectura')->nullable(); //Si - No
             $table->string('empresa_plan')->nullable(); //Si - No
 
-            //Campos para tipo de establecimiento: Rancho
-            $table->string('tipo_rancho')->nullable(); // Catalogo 
-            $table->string('permiso_minsal')->nullable();
+            //Campos para tipo de establecimiento: Rastro
+            $table->string('tipo_rastro')->nullable(); // Avicola - Porcino - Bovinos  
+            $table->string('permiso_minsal')->nullable(); // Si - No
 
             //Campos para tipo de establecimiento: Sutancias quimicas peligrosas
             $table->string('sustancia_quimica')->nullable();
-            $table->string('tipo_riesgo_quimico')->nullable(); // Catalogo 
+            $table->string('tipo_riesgo_quimico')->nullable(); // Inflamable - Corrosiva - Explosiva - Toxica - Radioactiva - Carcinogena - Cartogenica
 
-            //Campos para tipo de establecimiento: Sutancias quimicas peligrosas
-            $table->string('tipo_establecimiento_alimento')->nullable(); // Catalogo
+            //Campos para tipo de establecimiento: Alimentos
+            $table->foreignId('id_tipo_esta_alimento')->nullable()->constrained('tipos_establecimientos_alimentos', 'id');
+
             $table->timestamps();
         });
     }

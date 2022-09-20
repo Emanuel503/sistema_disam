@@ -31,11 +31,14 @@
             font-size: 14px;
         }
         .firma{
-            width: 200px;
+            width: 150px;
             text-align: center;
         }
         .firma-fecha{
             vertical-align: bottom;
+        }
+        .marginado{
+            width: 150px;
         }
     </style>
 </head>
@@ -52,10 +55,10 @@
                 <th>FECHA DE INGRESO</th>
                 <th>PROCEDENCIA</th>
                 <th>EXTRACTO</th>
-                <th>MARGINADO A</th>
+                <th class="marginado">MARGINADO A</th>
                 <th>OBSERVACIONES</th>
                 <th>ESTADO</th>
-                <th class="firma">FECHA Y FIRMA DE RECEPCION</th>
+                <th class="firma">FECHA Y FIRMA<br> DE RECEPCION</th>
             </tr>
         </thead>
         <tbody>
@@ -66,14 +69,21 @@
                 <td>{{$correspondencia->fecha}}</td>
                 <td>{{$correspondencia->procedencia}}</td>
                 <td>{{$correspondencia->extracto}}</td>
-                <td>
-                    @if ($correspondencia->id_usuario != NULL && $correspondencia->id_usuario_dos != NULL && $correspondencia->id_usuario_tres != NULL && $correspondencia->id_usuario_cuatro != NULL)
-                        {{$correspondencia->usuario1->nombres}} {{$correspondencia->usuario1->apellidos}}<br>
-                        {{$correspondencia->usuario2->nombres}} {{$correspondencia->usuario2->apellidos}}<br>
-                        {{$correspondencia->usuario3->nombres}} {{$correspondencia->usuario3->apellidos}}<br>
-                        {{$correspondencia->usuario4->nombres}} {{$correspondencia->usuario4->apellidos}}<br>
-                    @else
-                        Sin tecnico
+                <td class="marginado">
+                    @if ($correspondencia->id_usuario != NULL)
+                        {{$correspondencia->usuario1->nombres}} {{$correspondencia->usuario1->apellidos}}.<br>
+                    @endif
+
+                    @if ($correspondencia->id_usuario_dos != NULL)
+                        {{$correspondencia->usuario2->nombres}} {{$correspondencia->usuario2->apellidos}}.<br>
+                    @endif
+
+                    @if ($correspondencia->id_usuario_tres != NULL)
+                        {{$correspondencia->usuario3->nombres}} {{$correspondencia->usuario3->apellidos}}.<br>
+                    @endif
+
+                    @if ($correspondencia->id_usuario_cuatro != NULL)
+                        {{$correspondencia->usuario4->nombres}} {{$correspondencia->usuario4->apellidos}}.<br>
                     @endif
                 </td>
                 <td>{{$correspondencia->observaciones}}</td>

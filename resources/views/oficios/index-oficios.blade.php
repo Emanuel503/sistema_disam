@@ -16,7 +16,7 @@
     <table id="tabla" class="table table-striped table-hover table-bordered table-sm shadow">
         <thead>
             <tr class="table-dark">
-                <th>#</th>
+                <th>ID</th>
                 <th>Numero de oficio</th>
                 <th>Fecha</th>
                 <th>Destino</th>
@@ -28,7 +28,7 @@
         <tbody>
             @foreach ($oficios as $oficio)
             <tr>
-                <td>{{$loop->iteration}}</td>
+                <td>{{$oficio->id}}</td>
                 <td>{{$oficio->numero_oficio}}</td>
                 <td>{{$oficio->fecha_oficio}}</td>
                 <td>{{$oficio->destino}}</td>

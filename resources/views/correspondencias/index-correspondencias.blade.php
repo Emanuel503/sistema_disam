@@ -49,7 +49,7 @@
                 <td class="text-center"><a href="{{route('correspondencias-seguimientos.index', ['correspondencia' => $correspondencia->id])}}" class="btn btn-sm btn-outline-primary">Ver</a></td>
                 <td>
                     <a class="btn btn-info btn-sm mb-1" href="{{ route('correspondencias.show' , ['correspondencia' => $correspondencia->id])}}">Ver</a>
-                    @if (Auth::user()->id == $correspondencia->id_usuario_adiciono || Auth::user()->id_rol == 1)
+                    @if (Auth::user()->id == $correspondencia->id_usuario_adiciono || Auth::user()->id_rol == 1 || Auth::user()->id ==  $correspondencia->id_usuario || Auth::user()->id ==  $correspondencia->id_usuario_dos || Auth::user()->id ==  $correspondencia->id_usuario_tres || Auth::user()->id ==  $correspondencia->id_usuario_cuatro )
                         <form action="{{ route('correspondencias.destroy' , ['correspondencia' => $correspondencia->id])}}" method="POST">
                             @csrf
                             @method('DELETE')

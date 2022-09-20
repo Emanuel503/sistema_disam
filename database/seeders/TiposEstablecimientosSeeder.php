@@ -28,7 +28,7 @@ class TiposEstablecimientosSeeder extends Seeder
         ]);
 
         $tipo=TiposEstablecimientos::create([
-            'establecimiento' => 'Rancho',
+            'establecimiento' => 'Rastro',
         ]);
 
         $tipo=TiposEstablecimientos::create([

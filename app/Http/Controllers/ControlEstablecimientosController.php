@@ -6,6 +6,7 @@ use App\Models\ControlEstablecimientos;
 use App\Models\Departamentos;
 use App\Models\Municipios;
 use App\Models\TiposEstablecimientos;
+use App\Models\TiposEstablecimientosAlimentos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,10 +15,11 @@ class ControlEstablecimientosController extends Controller
     public function index(){
         $establecimientos = ControlEstablecimientos::all();
         $tipos = TiposEstablecimientos::all();
+        $tipos_alimentos = TiposEstablecimientosAlimentos::all();
         $departamentos = Departamentos::orderBy('departamento')->get();
         $municipios = Municipios::orderBy('municipio')->get();
 
-        return view('control-establecimientos.index-control-establecimientos', ['establecimientos' => $establecimientos, 'tipos' => $tipos, 'departamentos' => $departamentos, 'municipios' => $municipios]);
+        return view('control-establecimientos.index-control-establecimientos', ['establecimientos' => $establecimientos, 'tipos' => $tipos, 'departamentos' => $departamentos, 'municipios' => $municipios, 'tipos_alimentos' => $tipos_alimentos]);
     }
 
     public function show($id){
@@ -27,9 +29,10 @@ class ControlEstablecimientosController extends Controller
 
     public function edit($id){
         $establecimientos = ControlEstablecimientos::find($id);
+        $tipos_alimentos = TiposEstablecimientosAlimentos::all();
         $departamentos = Departamentos::orderBy('departamento')->get();
         $municipios = Municipios::orderBy('municipio')->get();
-        return view('control-establecimientos.edit-control-establecimientos',['establecimientos' => $establecimientos, 'departamentos' => $departamentos, 'municipios' => $municipios]);
+        return view('control-establecimientos.edit-control-establecimientos',['establecimientos' => $establecimientos, 'departamentos' => $departamentos, 'municipios' => $municipios, 'tipos_alimentos' => $tipos_alimentos]);
     }
 
     public function store(Request $request){
@@ -78,7 +81,7 @@ class ControlEstablecimientosController extends Controller
        
         //Campos para tipo de establecimiento: Piscina
         if($establecimiento->id_tipo == 2){
-            $establecimiento->piscina_agua_superfial = $request->piscina_agua_superfial;
+            $establecimiento->piscina_agua_superficial = $request->piscina_agua_superficial;
             $establecimiento->piscina_con_circulacion = $request->piscina_con_circulacion;
         }
 
@@ -90,9 +93,9 @@ class ControlEstablecimientosController extends Controller
             $establecimiento->empresa_plan = $request->empresa_plan;
         }
         
-        //Campos para tipo de establecimiento: Rancho
+        //Campos para tipo de establecimiento: Rastro
         if($establecimiento->id_tipo == 4){
-            $establecimiento->tipo_rancho = $request->tipo_rancho;
+            $establecimiento->tipo_rastro = $request->tipo_rastro;
             $establecimiento->permiso_minsal = $request->permiso_minsal;
         }
 
@@ -104,7 +107,7 @@ class ControlEstablecimientosController extends Controller
 
         //Campos para tipo de establecimiento: Sutancias quimicas peligrosas
         if($establecimiento->id_tipo == 6){
-            $establecimiento->tipo_establecimiento_alimento = $request->tipo_establecimiento_alimento;
+            $establecimiento->id_tipo_esta_alimento = $request->id_tipo_esta_alimento;
         }
 
         $establecimiento->save();
@@ -162,7 +165,7 @@ class ControlEstablecimientosController extends Controller
        
         //Campos para tipo de establecimiento: Piscina
         if($establecimiento->id_tipo == 2){
-            $establecimiento->piscina_agua_superfial = $request->piscina_agua_superfial;
+            $establecimiento->piscina_agua_superficial = $request->piscina_agua_superficial;
             $establecimiento->piscina_con_circulacion = $request->piscina_con_circulacion;
         }
 
@@ -174,9 +177,9 @@ class ControlEstablecimientosController extends Controller
             $establecimiento->empresa_plan = $request->empresa_plan;
         }
         
-        //Campos para tipo de establecimiento: Rancho
+        //Campos para tipo de establecimiento: Rastro
         if($establecimiento->id_tipo == 4){
-            $establecimiento->tipo_rancho = $request->tipo_rancho;
+            $establecimiento->tipo_rastro = $request->tipo_rastro;
             $establecimiento->permiso_minsal = $request->permiso_minsal;
         }
 
@@ -188,7 +191,7 @@ class ControlEstablecimientosController extends Controller
 
         //Campos para tipo de establecimiento: Sutancias quimicas peligrosas
         if($establecimiento->id_tipo == 6){
-            $establecimiento->tipo_establecimiento_alimento = $request->tipo_establecimiento_alimento;
+            $establecimiento->id_tipo_esta_alimento = $request->id_tipo_esta_alimento;
         }
 
         $establecimiento->save();

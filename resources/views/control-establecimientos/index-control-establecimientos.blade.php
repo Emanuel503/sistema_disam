@@ -218,10 +218,10 @@
                         <div id="piscina">
                             <label class="col-form-label">Piscina con agua superficial:</label>
                             <div class="mb-3">
-                                <input class="form-check-input" type="radio" name="piscina_agua_superfial" id="piscina_superfial_si" value="Si" @checked(old('piscina_agua_superfial')== null) @checked(old('piscina_agua_superfial')=='Si' )>
+                                <input class="form-check-input" type="radio" name="piscina_agua_superficial" id="piscina_superfial_si" value="Si" @checked(old('piscina_agua_superficial')== null) @checked(old('piscina_agua_superficial')=='Si' )>
                                 <label class="form-check-label" for="piscina_superfial_si">Si</label>
                                 <span class="mx-3"></span>
-                                <input class="form-check-input" type="radio" name="piscina_agua_superfial" id="piscina_superfial_no" value="No" @checked(old('piscina_agua_superfial')=='No' )>
+                                <input class="form-check-input" type="radio" name="piscina_agua_superficial" id="piscina_superfial_no" value="No" @checked(old('piscina_agua_superficial')=='No' )>
                                 <label class="form-check-label" for="piscina_superfial_no">No</label>
                             </div>
 
@@ -265,10 +265,14 @@
                             </div>
                         </div>
 
-                        <div id="rancho">
+                        <div id="rastro">
                             <div class="mb-3">
-                                <label for="tipo_rancho" class="col-form-label">Tipo de rancho:</label>
-                                <input type="text" class="form-control" name="tipo_rancho" id="tipo_rancho" value="{{old('tipo_rancho')}}">
+                                <label for="tipo_rastro" class="col-form-label">Tipo de rastro:</label>
+                                <select class="form-select" name="tipo_rastro" id="tipo_rastro">
+                                    <option @selected(old('tipo_rastro') == "Avicola") value="Avicola">Avicola</option>
+                                    <option @selected(old('tipo_rastro') == "Porcinos") value="Porcinos">Porcinos</option>
+                                    <option @selected(old('tipo_rastro') == "Bovinos") value="Bovinos">Bovinos</option>
+                                </select>
                             </div>
 
                             <label class="col-form-label">Cuenta con permiso del MINSAL:</label>
@@ -290,15 +294,25 @@
                             <div class="mb-3">
                                 <label for="tipo_riesgo_quimico" class="col-form-label">Tipo de riesgo quimico:</label>
                                 <select class="form-select" name="tipo_riesgo_quimico" id="tipo_riesgo_quimico">
-                                    <option>Corrosivo</option>
+                                    <option @selected(old('tipo_riesgo_quimico') == "Inflamable") value="Inflamable">Inflamable</option>
+                                    <option @selected(old('tipo_riesgo_quimico') == "Explosiva") value="Explosiva">Explosiva</option>
+                                    <option @selected(old('tipo_riesgo_quimico') == "Corrosiva") value="Corrosiva">Corrosiva</option>
+                                    <option @selected(old('tipo_riesgo_quimico') == "Tóxica") value="Tóxica">Tóxica</option>
+                                    <option @selected(old('tipo_riesgo_quimico') == "Radioactiva") value="Radioactiva">Radioactiva</option>
+                                    <option @selected(old('tipo_riesgo_quimico') == "Carcinógena") value="Carcinógena">Carcinógena</option>
+                                    <option @selected(old('tipo_riesgo_quimico') == "Mutagénica") value="Mutagénica">Mutagénica</option>
                                 </select>
                             </div>
                         </div>
 
                         <div id="alimentos">
                             <div class="mb-3">
-                                <label for="tipo_establecimiento_alimento" class="col-form-label">Tipo de establecimiento:</label>
-                                <input type="text" class="form-control" name="tipo_establecimiento_alimento" id="tipo_establecimiento_alimento" value="{{old('tipo_establecimiento_alimento')}}">
+                                <label for="id_tipo_esta_alimento" class="col-form-label">Tipo de establecimiento:</label>
+                                <select class="form-select" name="id_tipo_esta_alimento" id="id_tipo_esta_alimento">
+                                    @foreach ($tipos_alimentos as $tipos_alimento )
+                                        <option @selected(old('id_tipo_esta_alimento') == $tipos_alimento->id) value="{{$tipos_alimento->id}}">{{$tipos_alimento->nombre}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -364,10 +378,10 @@
             }
 
             if(establecimiento[establecimiento.selectedIndex].value == 4){
-                document.getElementById('modal2Titulo').innerHTML = "Rancho";
-                document.getElementById('rancho').style.display = "block";
+                document.getElementById('modal2Titulo').innerHTML = "Rastro";
+                document.getElementById('rastro').style.display = "block";
             }else{
-                document.getElementById('rancho').style.display = "none";
+                document.getElementById('rastro').style.display = "none";
             }
 
             if(establecimiento[establecimiento.selectedIndex].value == 5){

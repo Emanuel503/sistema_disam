@@ -12,36 +12,34 @@
 @extends('layouts.app')
 
 @section('content')
-<h3 class="mb-4">Salas</h3>
+<h3 class="mb-4">Tipos de establecimientos - Alimentos</h3>
 
-<button type="button" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#modalRegistrar">Registrar nueva sala</button>
+<button type="button" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#modalRegistrar">Registrar nuevo tipo</button>
 
 @include('layouts.alerts')
 
-@if (sizeof($salas) > 0)
+@if (sizeof($establecimientos) > 0)
 <div class="table-responsive">
     <table id="tabla" class="table table-striped table-hover table-bordered table-sm shadow">
         <thead>
             <tr class="table-dark">
                 <th>#</th>
-                <th>Nombre de la sala</th>
+                <th>Tipo de establecimiento</th>
                 <th>Opciones</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($salas as $sala)
+            @foreach ($establecimientos as $establecimiento)
             <tr>
                 <td>{{$loop->iteration}}</td>
-                <td>{{$sala->sala}}</td>
+                <td>{{$establecimiento->nombre}}</td>
                 <td>
-                    <form action="{{ route('salas.destroy' , ['sala' => $sala->id])}}" method="POST">
+                    <form action="{{ route('tipos-establecimientos-alimentos.destroy' , ['tipos_establecimientos_alimento' => $establecimiento->id])}}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <div>
-                            <a class="btn btn-info btn-sm mb-1" href="{{ route('salas.show' , ['sala' => $sala->id])}}">Ver</a>
-                            <a class="btn btn-success btn-sm mb-1" href="{{ route('salas.edit' , ['sala' => $sala->id])}}">Modificar</a>
-                            <button type="submit" class="btn btn-sm btn-danger show_confirm" data-toggle="tooltip" title='Delete'>Eliminar</button>
-                        </div>
+                        <a class="btn btn-info btn-sm mb-1" href="{{ route('tipos-establecimientos-alimentos.show' , ['tipos_establecimientos_alimento' => $establecimiento->id])}}">Ver</a>
+                        <a class="btn btn-success btn-sm mb-1" href="{{ route('tipos-establecimientos-alimentos.edit' , ['tipos_establecimientos_alimento' => $establecimiento->id])}}">Modificar</a>
+                        <button type="submit" class="btn btn-sm btn-danger show_confirm" data-toggle="tooltip" title='Delete'>Eliminar</button>
                     </form>
                 </td>
             </tr>
@@ -50,7 +48,7 @@
     </table>
 </div>
 @else
-    <br><span class="badge bg-secondary">No hay salas registradas</span>
+    <br><span class="badge bg-secondary">No hay tipos de establecimientos registrados</span>
 @endif
 
 <div class="modal fade" id="modalRegistrar" tabindex="-1" aria-labelledby="modalRegistrar" aria-hidden="true">
@@ -61,11 +59,11 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('salas.store') }}" method="POST">
+                <form action="{{ route('tipos-establecimientos-alimentos.store') }}" method="POST">
                     @csrf
                     <div class="mb-3">
-                        <label for="sala" class="col-form-label">Nombre sala:</label>
-                        <input type="text" class="form-control" name="sala" id="sala" value="{{ old('sala') }}" required>
+                        <label for="nombre" class="col-form-label">Nombre del tipo de establecimiento:</label>
+                        <input type="text" class="form-control" name="nombre" id="nombre" value="{{ old('nombre') }}" required>
                     </div>
             </div>
             <div class="modal-footer">

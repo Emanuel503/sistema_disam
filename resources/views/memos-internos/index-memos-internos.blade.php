@@ -16,7 +16,7 @@
     <table id="tabla" class="table table-striped table-hover table-bordered table-sm shadow">
         <thead>
             <tr class="table-dark">
-                <th>#</th>
+                <th>ID</th>
                 <th>Numero de memo</th>
                 <th>Fecha</th>
                 <th>Destino</th>
@@ -28,7 +28,7 @@
         <tbody>
             @foreach ($memos as $memo)
             <tr>
-                <td>{{$loop->iteration}}</td>
+                <td>{{$memo->id}}</td>
                 <td>{{$memo->numero_memo}}</td>
                 <td>{{$memo->fecha_memo}}</td>
                 <td>{{$memo->destino}}</td>

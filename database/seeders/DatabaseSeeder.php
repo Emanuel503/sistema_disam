@@ -34,5 +34,6 @@ class DatabaseSeeder extends Seeder
         $this->call(EstadosPaosSeeder::class);
         $this->call(EstadosCorrespondenciaSeguimientosSeeder::class);
         $this->call(TiposEstablecimientosSeeder::class);
+        $this->call(TiposEstablecimientosAlimentosSeeder::class);
     }
 }

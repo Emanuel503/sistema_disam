@@ -14,6 +14,11 @@ class ControlEstablecimientos extends Model
         return $this->belongsTo(TiposEstablecimientos::class, 'id_tipo');
     }
 
+    public function tipos_alimentos()
+    {
+        return $this->belongsTo(TiposEstablecimientosAlimentos::class, 'id_tipo_esta_alimento');
+    }
+
     public function departamentos()
     {
         return $this->belongsTo(Departamentos::class, 'id_departamento');

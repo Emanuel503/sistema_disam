@@ -33,6 +33,7 @@ use App\Http\Controllers\SolicitudesTransporteController;
 use App\Http\Controllers\TransporteController;
 use App\Http\Controllers\SolicitudCombustibleController;
 use App\Http\Controllers\TareasPaoController;
+use App\Http\Controllers\TiposEstablecimientosAlimentosController;
 use App\Http\Controllers\TrimestresPaosController;
 use App\Http\Controllers\UbicacionEquiposController;
 use Illuminate\Support\Facades\Auth;
@@ -85,6 +86,7 @@ Route::resource('/memos-externos', MemosExternosController::class)->middleware('
 Route::resource('/oficios', OficiosController::class)->middleware('auth');
 Route::resource('/correspondencias', CorrespondenciasController::class)->middleware('auth');
 Route::resource('/control-establecimientos', ControlEstablecimientosController::class)->middleware('auth');
+Route::resource('/tipos-establecimientos-alimentos', TiposEstablecimientosAlimentosController::class)->middleware('auth');
 
 Route::get('/correspondencias-seguimientos/{correspondencia}', [CorrespondenciasSeguimientosController::class, 'index'])->name('correspondencias-seguimientos.index')->middleware('auth');
 Route::get('/correspondencias-seguimientos/{correspondencia}/edit/{seguimiento}', [CorrespondenciasSeguimientosController::class, 'edit'])->name('correspondencias-seguimientos.edit')->middleware('auth');
