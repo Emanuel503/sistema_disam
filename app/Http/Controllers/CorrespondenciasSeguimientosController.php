@@ -17,7 +17,7 @@ class CorrespondenciasSeguimientosController extends Controller
         $recibido=0;
 
         foreach($seguimientos as $seguimiento){
-            if($seguimiento->id_estado == 1){
+            if($seguimiento->id_estado == 1 && $seguimiento->id_usuario_adiciono ==  Auth::user()->id){
                 $recibido = 1;
             }
         }

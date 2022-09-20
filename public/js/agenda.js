@@ -19,9 +19,6 @@ document.addEventListener('DOMContentLoaded', function () {
             
         eventClick: function (info) {
 
-            var eventos = info.event.extendedProps;
-            console.log(eventos);
-
             if(info.event.title == "Registro de salida"){
                 $("#salida").modal("show");
                 document.formularioSalida.id.value = info.event.id;

@@ -34,7 +34,7 @@ class UsuariosSeeder extends Seeder
 
         $user1 = User::create([
             'id_rol' => 2,
-            'id_dependencia' => 3,
+            'id_dependencia' => 13,
             'id_estado' => 1,
             'email' => 'user@gmail.com',
             'usuario' => 'usuario',

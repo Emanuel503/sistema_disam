@@ -25,7 +25,7 @@
             <div class="collapse navbar-collapse" id="main_nav">
                 <ul class="navbar-nav">
                     <li class="nav-item active"> <a class="nav-link" href="{{url('/home')}}">Agenda</a> </li>
-                    @if ( Auth::user()->rol->id == "1")
+                    @if ( Auth::user()->rol->id == "1"  && Auth::user()->id_dependencia != "13" )
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Catálogos</a>
                         <ul class="dropdown-menu dropdown-menu-dark">
@@ -53,6 +53,7 @@
                     <li class="nav-item dropdown dropdown-dark">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Ingreso de datos</a>
                         <ul class="dropdown-menu dropdown-menu-dark">
+                            @if ( Auth::user()->id_dependencia != "13")
                             <li><a class="dropdown-item" href="{{route('actividades.index')}}">Actividades</a></li>
                             <li><a class="dropdown-item" href="#"> Transporte &raquo; </a>
                                 <ul class="submenu dropdown-menu dropdown-menu-dark">
@@ -80,10 +81,11 @@
                                 </ul>
                             </li>
                             <li><a class="dropdown-item" href="{{route('correspondencias.index')}}">Control de <br>correspondencia</a></li>
+                            @endif
                             <li><a class="dropdown-item" href="{{route('control-establecimientos.index')}}">Control de <br>establecimientos</a></li>
                         </ul>
                     </li>
-
+                    @if ( Auth::user()->id_dependencia != "13")
                     <li class="nav-item dropdown dropdown-dark">
                         <a class="nav-link dropdown-toggle" href="" data-bs-toggle="dropdown">Reportes</a>
                         <ul class="dropdown-menu dropdown-menu-dark">
@@ -103,6 +105,7 @@
                             </li>
                         </ul>
                     </li>
+                    @endif
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item dropdown">

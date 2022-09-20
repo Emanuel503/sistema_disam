@@ -8,6 +8,7 @@
 <h3 class="mb-4 text-center">Calendario de actividades de Dirección de Salud Ambiental</h3>
 <div class="bg-dark mt-3 p-3 bg-opacity-25 rounded col-sm-12 col-sm-10 col-xl-8 mx-auto" id="calendar"></div>
 
+@if ( Auth::user()->id_dependencia != "13")
 <div class="d-grid gap-2 d-md-flex justify-content-md-center mt-3">
     <a class="btn btn-success" href="{{route('solicitudes-sala.index')}}">Solicitar Sala</a>
     <a class="btn btn-primary" href="{{route('actividades.index')}}">Registrar Actividad</a>
@@ -139,6 +140,7 @@
         </div>
     </div>
 </div>
+@endif
 @endsection
 
 @section('js')
