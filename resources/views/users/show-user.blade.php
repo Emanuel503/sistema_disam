@@ -3,7 +3,11 @@
 @section('content')
     <h3 class="my-4">Detalles del usuario</h3>
 
-    <a class="btn btn-outline-secondary mb-4" href="{{ route('users.index')}}">Regresar</a>
+    @if (Auth::user()->id_rol == 1)
+        <a class="btn btn-outline-secondary mb-4" href="{{ route('users.index')}}">Regresar</a>
+    @else
+        <a class="btn btn-outline-secondary mb-4" href="{{ route('home')}}">Regresar</a>
+    @endif
 
     <div class="mb-3">
         <label for="id_rol" class="col-form-label">Rol de usuario:</label>
@@ -113,12 +117,14 @@
         <input type="text" class="form-control" name="fecha_modificacion" id="fecha_modificacion" value="{{$usuario->updated_at}}" readonly>
     </div>
 
-    <form action="{{ route('users.destroy' , ['user' => $usuario->id]) }}" method="POST">
-        @method('DELETE')
-        @csrf
-        <a class="btn btn-success" href="{{ route('users.edit' , ['user' => $usuario->id])}}">Modificar</a>
-        <button type="submit" class="btn btn-danger show_confirm" data-toggle="tooltip" title='Delete'>Eliminar</button>
-    </form>
+    @if (Auth::user()->id_rol == 1)
+        <form action="{{ route('users.destroy' , ['user' => $usuario->id]) }}" method="POST">
+            @method('DELETE')
+            @csrf
+            <a class="btn btn-success" href="{{ route('users.edit' , ['user' => $usuario->id])}}">Modificar</a>
+            <button type="submit" class="btn btn-danger show_confirm" data-toggle="tooltip" title='Delete'>Eliminar</button>
+        </form>
+    @endif
 @endsection
 
 @section('js')
