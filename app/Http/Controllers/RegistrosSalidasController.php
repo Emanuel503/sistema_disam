@@ -29,7 +29,7 @@ class RegistrosSalidasController extends Controller
 
     public function reporte()
     {
-        $usuarios = User::all();
+        $usuarios = User::orderBy('nombres')->get();
         return view('registros-salidas.reporte', ['usuarios' => $usuarios]);
     }
 
@@ -44,7 +44,7 @@ class RegistrosSalidasController extends Controller
         $salidas = RegistrosSalidas::all();
         $lugares = Lugares::orderBy('nombre')->get();
         $estados = EstadosSalidas::all();
-        $usuarios = User::all();
+        $usuarios = User::orderBy('nombres')->get();
         return view('registros-salidas.index-registros-salidas', ['salidas'=> $salidas, 'lugares' => $lugares, 'estados' => $estados, 'usuarios' => $usuarios]);
     }
 
@@ -59,7 +59,7 @@ class RegistrosSalidasController extends Controller
         $salidas = RegistrosSalidas::find($id);
         $lugares = Lugares::orderBy('nombre')->get();
         $estados = EstadosSalidas::all();
-        $usuarios = User::all();
+        $usuarios = User::orderBy('nombres')->get();
         return view('registros-salidas.edit-registros-salidas', ['salidas'=> $salidas, 'lugares' => $lugares, 'estados' => $estados, 'usuarios' => $usuarios]);
     }
 
