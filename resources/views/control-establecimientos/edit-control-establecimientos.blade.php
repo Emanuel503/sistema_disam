@@ -8,7 +8,6 @@
     @include('layouts.alerts')
 
     <form action="{{route('control-establecimientos.update', ['control_establecimiento' =>$establecimientos->id] )}}" method="POST">
-        
         @csrf
         @method('PATCH')
 

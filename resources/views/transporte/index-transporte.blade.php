@@ -39,15 +39,13 @@
                         <td>{{$transporte->distancia_recorrida}} km</td>
                         <td>{{$transporte->combustible}} gal.</td>
                         <td>
-                            <div>
-                                <a class="btn btn-info btn-sm mb-1" href="{{ route('transporte.show' , ['transporte' => $transporte->id])}}">Ver</a>
-                                <form action="{{ route('transporte.destroy' , ['transporte' => $transporte->id]) }}" method="POST">
-                                    @method('DELETE')
-                                    @csrf
-                                    <a class="btn btn-success btn-sm mb-1" href="{{ route('transporte.edit' , ['transporte' => $transporte->id])}}">Modificar</a>
-                                    <button type="submit" class="btn btn-sm btn-danger show_confirm" data-toggle="tooltip" title='Delete'>Eliminar</button>
-                                </form>
-                            </div>
+                            <a class="btn btn-info btn-sm mb-1" href="{{ route('transporte.show' , ['transporte' => $transporte->id])}}">Ver</a>
+                            <form action="{{ route('transporte.destroy' , ['transporte' => $transporte->id]) }}" method="POST">
+                                @method('DELETE')
+                                @csrf
+                                <a class="btn btn-success btn-sm mb-1" href="{{ route('transporte.edit' , ['transporte' => $transporte->id])}}">Modificar</a>
+                                <button type="submit" class="btn btn-sm btn-danger show_confirm" data-toggle="tooltip" title='Delete'>Eliminar</button>
+                            </form>
                         </td>
                     </tr>
                     @endforeach
@@ -62,7 +60,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitulo">Registra nuevo transporte</h5>
+                    <h5 class="modal-title" id="modalTitulo">Registrar nuevo transporte</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">

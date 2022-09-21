@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card py-3 shadow">
@@ -22,7 +21,7 @@
                                 <input id="password" type="password" class="form-control" name="password" required autocomplete="current-password">
 
                                 @error('email')
-                                <span class="text-danger"><strong>Correo o contraseña incorrecta</strong></span>
+                                    <span class="text-danger"><strong>Correo o contraseña incorrecta</strong></span>
                                 @enderror
                             </div>
                         </div>
@@ -46,5 +45,4 @@
             </div>
         </div>
     </div>
-</div>
 @endsection

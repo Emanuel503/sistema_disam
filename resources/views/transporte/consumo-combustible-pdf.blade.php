@@ -50,8 +50,7 @@
                 $promedio_combustible = 0;
             }else{
                 $promedio_combustible = number_format($total_km_recorrido / $total_combustible,2);
-            }
-            
+            } 
         }
     @endphp
 

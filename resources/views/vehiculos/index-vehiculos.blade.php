@@ -43,11 +43,9 @@
                             <form action="{{ route('vehiculos.destroy' , ['vehiculo' => $vehiculo->id]) }}" method="POST">
                                 @method('DELETE')
                                 @csrf
-                                <div>
-                                    <a class="btn btn-info btn-sm mb-1" href="{{ route('vehiculos.show' , ['vehiculo' => $vehiculo->id])}}">Ver</a>
-                                    <a class="btn btn-success btn-sm mb-1" href="{{ route('vehiculos.edit' , ['vehiculo' => $vehiculo->id])}}">Modificar</a>
-                                    <button type="submit" class="btn btn-sm btn-danger show_confirm" data-toggle="tooltip" title='Delete'>Eliminar</button>
-                                </div>
+                                <a class="btn btn-info btn-sm mb-1" href="{{ route('vehiculos.show' , ['vehiculo' => $vehiculo->id])}}">Ver</a>
+                                <a class="btn btn-success btn-sm mb-1" href="{{ route('vehiculos.edit' , ['vehiculo' => $vehiculo->id])}}">Modificar</a>
+                                <button type="submit" class="btn btn-sm btn-danger show_confirm" data-toggle="tooltip" title='Delete'>Eliminar</button>
                             </form>
                         </td>
                     </tr>
@@ -63,7 +61,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitulo">Registra nuevo vehiculo</h5>
+                    <h5 class="modal-title" id="modalTitulo">Registrar nuevo vehiculo</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
