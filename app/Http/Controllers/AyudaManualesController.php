@@ -65,16 +65,16 @@ class AyudaManualesController extends Controller
         $manuales->titulo = $request->titulo;
         $manuales->descripcion = $request->descripcion;
 
+        $file = $request->file('manual');
+
         //Video
         if(isset($file)){
             
-            $file = $request->file('manual');
-
-            if($file->extension() != "mp4"){
+            if($file->extension() != "pdf"){
                 return redirect()->route('manuales.index')->withErrors('Formato de archivo no valido.')->withInput();
             }
 
-            $filename = date('YmdHi') . '-video-' . $file->getClientOriginalName();
+            $filename = date('YmdHi') . '-manual-' . $file->getClientOriginalName();
             $file->move(public_path('ayuda'), $filename);
             unlink(public_path('ayuda') ."\\". $manuales->manual);
             $manuales->manual = $filename;

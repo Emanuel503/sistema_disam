@@ -65,10 +65,10 @@ class AyudaVideosController extends Controller
         $videos->titulo = $request->titulo;
         $videos->descripcion = $request->descripcion;
 
+        $file = $request->file('video');
+        
         //Video
         if(isset($file)){
-            
-            $file = $request->file('video');
 
             if($file->extension() != "mp4"){
                 return redirect()->route('videos.index')->withErrors('Formato de archivo no valido.')->withInput();
