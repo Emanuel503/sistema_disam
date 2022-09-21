@@ -106,6 +106,13 @@
                         </ul>
                     </li>
                     @endif
+                    <li class="nav-item dropdown dropdown-dark">
+                        <a class="nav-link dropdown-toggle" href="" data-bs-toggle="dropdown">Ayuda</a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item" href="{{route('manuales.index')}}">Manuales</a></li>
+                            <li><a class="dropdown-item" href="{{route('videos.index')}}">Videos</a></li>
+                        </ul>
+                    </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item dropdown">

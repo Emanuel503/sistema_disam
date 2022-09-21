@@ -51,5 +51,8 @@ class DependenciasSeeder extends Seeder
         $dependencia=Dependencias::create([
             'nombre' => 'Direccion',
         ]);
+        $dependencia=Dependencias::create([
+            'nombre' => 'División Regional',
+        ]);
     }
 }

@@ -8,6 +8,8 @@ use App\Http\Controllers\ActividadesController;
 use App\Http\Controllers\ActividadesPaosController;
 use App\Http\Controllers\AsignacionEquiposController;
 use App\Http\Controllers\AsignacionMovimientoEquipoController;
+use App\Http\Controllers\AyudaManualesController;
+use App\Http\Controllers\AyudaVideosController;
 use App\Http\Controllers\ControlEstablecimientosController;
 use App\Http\Controllers\CoordinadoresController;
 use App\Http\Controllers\CorrespondenciasController;
@@ -87,6 +89,8 @@ Route::resource('/oficios', OficiosController::class)->middleware('auth');
 Route::resource('/correspondencias', CorrespondenciasController::class)->middleware('auth');
 Route::resource('/control-establecimientos', ControlEstablecimientosController::class)->middleware('auth');
 Route::resource('/tipos-establecimientos-alimentos', TiposEstablecimientosAlimentosController::class)->middleware('auth');
+Route::resource('/ayuda/videos', AyudaVideosController::class)->middleware('auth');
+Route::resource('/ayuda/manuales', AyudaManualesController::class)->middleware('auth');
 
 Route::get('/correspondencias-seguimientos/{correspondencia}', [CorrespondenciasSeguimientosController::class, 'index'])->name('correspondencias-seguimientos.index')->middleware('auth');
 Route::get('/correspondencias-seguimientos/{correspondencia}/edit/{seguimiento}', [CorrespondenciasSeguimientosController::class, 'edit'])->name('correspondencias-seguimientos.edit')->middleware('auth');

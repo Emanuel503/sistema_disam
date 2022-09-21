@@ -8,7 +8,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <h3 class="my-4">Modificar de la sala</h3>
+    <h3 class="my-4">Modificar la sala</h3>
 
     <a class="btn btn-outline-secondary mb-4" href="{{ route('salas.index')}}">Regresar</a>
 
